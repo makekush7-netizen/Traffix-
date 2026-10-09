@@ -43,3 +43,10 @@ Kush assigns the scope in `docs/prakhyat-final-build.md` to Prakhyat, including
 existing phone bridge remain with Kush. Original sim assets remain with Nandani;
 coordinate generation/review of new packs. This scoped assignment supersedes earlier
 web ownership only for the new operator/shared paths, not other Urvashi files.
+
+## Native driver app, requested by Kush on 10 October 2026
+
+`mobile-app/`, its native build script and mobile build report belong to Kush.
+The colourful driver client integrates with the existing v1 phone bridge first;
+Prakhyat supplies the versioned host API for the next adapter. Preserve frozen
+contracts and existing phone/operator demonstrations.

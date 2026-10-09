@@ -1,0 +1,16 @@
+{
+  "generator": "OpenAI image generation",
+  "created": "2026-10-10",
+  "files": [
+    {
+      "file": "assets/traffic-island.png",
+      "prompt": "Create an original transparent-background low-poly 3D illustration for the Traffix mobile traffic app, not a screenshot. Friendly modern colorful product illustration, wide 3:2 composition. A small raised road island with a clearly marked crossing, purple compact electric car, yellow/green Indian auto-rickshaw, orange motorcycle, tiny trees, a conventional red/amber/green traffic signal and a violet route pin. Palette royal purple #6C4DFF, warm coral #FF885B, turquoise #35C6AD, buttery yellow #FFD56A. Clean soft lighting, clear silhouettes, no text, no logos, no human faces, no white rectangle around illustration. Keep all objects within the canvas with generous transparent margins. The image will sit on pale lavender in a mobile hero card.",
+      "transparent": true
+    },
+    {
+      "file": "assets/traffix-icon.png",
+      "prompt": "Create a finished app icon for Traffix, square 1:1 1024x1024. Full bleed vivid royal-purple #6C4DFF background, no rounded exterior corners (Android masks it). Center a bold simple white road-shaped letter T with two lane-marking cutouts, and a small warm coral #FF885B directional arrow accent. Flat vector-like geometry, readable at 48px, no text, no shadows, no border, no gradients. Keep logo within central 60% safe area. Original design, not a known logo.",
+      "transparent": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Traffix",
+    "slug": "traffix-driver",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/traffix-icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "in.traffix.driver",
+      "predictiveBackGestureEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/traffix-icon.png",
+        "backgroundColor": "#6C4DFF"
+      },
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Scan a vehicle invitation from your simulation operator.",
+          "recordAudioAndroid": false
+        }
+      ],
+      "./plugins/withLocalNetwork.js",
+      "expo-router"
+    ],
+    "scheme": "traffix"
+  }
+}
