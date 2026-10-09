@@ -1,6 +1,7 @@
 .venv/
 __pycache__/
 .pytest_cache/
+sim/net/output/
 *.pyc
 node_modules/
 dist/
