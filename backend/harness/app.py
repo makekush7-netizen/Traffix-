@@ -28,12 +28,12 @@ class Control(BaseModel):
     rate: Literal[1,2,4,8] | None=None
 
 
-def create_app():
-    engine=HarnessEngine()
+def create_app(engine_factory=HarnessEngine,bridge_factory=MobileBridge,demo=False):
+    engine=engine_factory()
     @asynccontextmanager
     async def lifespan(app):
         await asyncio.to_thread(engine.start)
-        app.state.mobile=MobileBridge(engine)
+        app.state.mobile=bridge_factory(engine)
         async def monitor():
             while True:
                 app.state.mobile.status()
@@ -43,8 +43,10 @@ def create_app():
             yield
         finally:
             monitor_task.cancel()
-            with contextlib.suppress(asyncio.CancelledError): await monitor_task
-            await asyncio.to_thread(engine.stop)
+            try:
+                with contextlib.suppress(asyncio.CancelledError): await monitor_task
+            finally:
+                await asyncio.to_thread(engine.stop)
     app=FastAPI(title='Traffix · LIG Square simulation lab',lifespan=lifespan)
     hosts=['localhost','127.0.0.1','::1','testserver']
     with contextlib.suppress(OSError): hosts.extend(socket.gethostbyname_ex(socket.gethostname())[2])
@@ -54,12 +56,15 @@ def create_app():
     app.mount('/static',StaticFiles(directory=STATIC),name='static')
     app.mount('/mobile',StaticFiles(directory=WEB),name='mobile')
     attach_mobile(app,engine)
+    if demo:
+        from .demo_bridge import attach_demo
+        attach_demo(app,engine)
     @app.get('/driver')
     def driver(): return FileResponse(WEB/'driver.html')
     @app.get('/dashboard')
     def dashboard(): return FileResponse(WEB/'dashboard.html')
     @app.get('/')
-    def index(): return FileResponse(STATIC/'index.html')
+    def index(): return FileResponse(WEB/'dashboard.html' if demo else STATIC/'index.html')
     @app.get('/api/world')
     def world():
         data={k:v for k,v in WORLD.items() if k not in ('routes','center','roads')}
@@ -98,3 +103,9 @@ def create_app():
 
 
 app=create_app()
+
+
+def create_demo_app():
+    from .demo_engine import DemoEngine
+    from .demo_bridge import DemoBridge
+    return create_app(engine_factory=DemoEngine,bridge_factory=DemoBridge,demo=True)

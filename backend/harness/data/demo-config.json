@@ -1,0 +1,17 @@
+{
+  "name": "Evening monsoon at LIG Square",
+  "scenario_id": "scenario.lig.monsoon.demo.v1",
+  "seed": 42,
+  "step_s": 0.25,
+  "rain_speed_mps": 1.2,
+  "rain_end_s": 120,
+  "horizon_s": 600,
+  "decision_margin_m": 20,
+  "guidance_lifetime_s": 90,
+  "cohort": ["motorcycle", "auto", "delivery", "car", "bus", "erickshaw", "car", "motorcycle", "auto", "car", "motorcycle", "delivery"],
+  "route_a": ["191621641#10", "191621641#11", "903272987#0", "903272987#1", "903272987#2", "903272987#3", "903272987#4", "903272987#6", "903272987#7", "903272987#8", "903272987#9", "-386908110#2", "-386908110#1"],
+  "route_b": ["191621641#10", "-192299765#5", "-192299552", "192299681#2", "903272987#0", "903272987#1", "903272987#2", "903272987#3", "903272987#4", "903272987#6", "903272987#7", "903272987#8", "903272987#9", "-386908110#2", "-386908110#1"],
+  "source_type": "assumed",
+  "source_note": "Small staged cohort and speed-restriction surrogate for a repeatable phone-routing demonstration, not measured evening demand or calibrated rain. Routes derived from the checked-in OSM/SUMO network. No time-saving estimate is asserted.",
+  "date_added": "2026-10-09"
+}

@@ -138,8 +138,7 @@ class MobileBridge:
         self.gateway.issue(session.session_id,frame)
         return frame
 
-    def apply(self, session, message):
-        state=self.sync(); now=state['sim_time_s']; kind=message['type']; payload=message['payload']
+    def check_input(self, session, message):
         if message['run_id']!=self.sessions.run_id or message['sender_id']!=session.session_id:
             raise ValueError('wrong_session_or_run')
         if message['seq']<=session.last_seq:
@@ -148,6 +147,12 @@ class MobileBridge:
         seen=self.seen_messages.setdefault(session.session_id,deque(maxlen=512))
         if message['msg_id'] in seen: return 'duplicate','message_already_seen'
         seen.append(message['msg_id'])
+        return None
+
+    def apply(self, session, message):
+        state=self.sync(); now=state['sim_time_s']; kind=message['type']; payload=message['payload']
+        duplicate=self.check_input(session,message)
+        if duplicate: return duplicate
         if kind=='heartbeat':
             session.last_seen=time.monotonic()
             return 'received','heartbeat'
@@ -180,6 +185,9 @@ class MobileBridge:
                                    category=payload['category'],source='driver_report',status='unverified'))
             return 'received','report_received_unverified'
         raise ValueError('action_not_available')
+
+    async def dispatch(self, session, message):
+        return self.apply(session,message)
 
     async def serve(self, ws):
         session=None; producer=None; store=None
@@ -224,7 +232,7 @@ class MobileBridge:
                 while budget and now-budget[0]>1: budget.popleft()
                 if len(budget)>=20: raise ValueError('rate_limit')
                 budget.append(now)
-                try: status,reason=self.apply(session,message)
+                try: status,reason=await self.dispatch(session,message)
                 except ValueError as exc:
                     reason=str(exc); status='duplicate' if reason=='duplicate' else 'rejected'
                 await ws.send_json(self.event('ack',dict(in_reply_to=message['msg_id'],status=status,reason=reason)))
