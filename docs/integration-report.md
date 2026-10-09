@@ -1,8 +1,110 @@
-# Traffix integration report — Step 1: fetch and inventory
+# Traffix v1.0 integration report
+
+Updated 2026-10-09; coordinator Kush; branch `feat/kush-demo-polish`.
+The final mentor-demo request supersedes the earlier inventory-only stop.
+
+## Built
+
+One offline LIG Square flow: real OpenStreetMap geometry; a deliberately small,
+assumed evening-monsoon scenario; 12 differentiated simulated vehicles; QR-bound
+phone roles; sharing off by default; phone-only road observations; a two-phone,
+45% slowdown / 30 simulated-second rule; a pre-validated alternate route; and a
+route change only after the addressed driver accepts and the TraCI worker confirms.
+The scene is allowed to show simulation truth. Observation colours and detection
+are fed only by admitted phone samples. Unknown roads remain grey.
+
+The DEMO guidance toggle starts off. Bypass capacity comes from a **simulated
+installed lane-area sensor**, explicitly disclosed in Advanced. It is not a field
+measurement or an additional phone observation. Route B starts beyond the shared
+approach; this demo does not establish that it is faster. No estimated saving is
+shown. Signal timings are unchanged. Trained models are not enabled.
+
+The simplified dashboard has four event-driven stages, Start/Pause, 1x/2x/4x,
+QR invitations, one guidance toggle, offline status, camera controls and reduced
+effects. The phone browser app has Join, Driving and Guidance states. Route B
+appears only after the applied acknowledgement. The result panel requires complete,
+fault-free saved cohorts with matching seed, scenario, network and demand hashes.
+A recorded baseline and downloadable walkthrough replay provide labelled backups.
+
+New `sim/assumptions.json` and `sim/README-assumptions.md` were explicitly requested
+in the preceding coordinator task. Existing Nandani simulation files, Prakhyat's ML
+implementation, frozen contracts and the old harness implementation were preserved.
+Coordinator adapters supply the bounded demo. No new dependency was installed.
+
+## Verified locally
+
+- Full regression suite: **164 passed, 2 warnings, 59.55 seconds**. Warnings concern
+  the existing Starlette/httpx deprecation and joblib CPU discovery.
+- Real SUMO integration tests cover phone frame validation, driver binding,
+  observed evidence, default-off guidance, explicit acceptance, worker confirmation,
+  wrong vehicle, late/expired actions, toggle-off, stale truth rejection, unknown
+  colouring and comparison integrity. Existing tests were not weakened.
+- Three consecutive seed-42 fixed-policy runs: **12 scheduled / 12 arrived,
+  0 collisions, 0 teleports, 0 unfinished** in every run. End time 409.75 simulated
+  seconds; mean cohort journey 239.770833 seconds. Summary: `demo-validation.json`.
+- `scripts/demo_check.ps1`: SUMO 1.28 / TraCI, LAN URLs, actual server/configuration,
+  and a separate complete headless smoke run all PASS.
+- Browser UI testing used two separate phone sessions. Sharing started off; both
+  opted in; a sustained real uplink slowdown produced the rider offer; tapping
+  Take Route B returned `Route B applied`; only that addressed vehicle rerouted.
+- Browser guided run `lig.demo.e7d7e605ae84`: complete saved export, 12 arrived,
+  zero collisions/teleports; matched mean journey 234.625 seconds versus recorded
+  239.770833 seconds. These are one synthetic pair, not a general savings claim.
+- Responsive dashboard checks at 390, 1366 and 1920 pixels showed no horizontal overflow.
+  Rendering samples: 55.8 fps at the 1366-pixel live view, 56.3 fps at 1920 pixels,
+  and 57.1 fps with reduced effects after completion. These brief samples on this
+  laptop are not a benchmark or guaranteed device minimum.
+- The full walkthrough download contains the actual four-stage browser story.
+  The bundled baseline replay visibly displays RECORDED and disables live actions.
+- Incoming Prakhyat branch `ca98c4b`: **19 selected policy/integrity/review-fix tests
+  passed in 14.13 seconds** in this Python 3.11 environment. This is not a complete
+  clean-environment reproduction of his training/evaluation reports.
+
+The tracked fixed baseline is `backend/harness/data/demo-baseline.json`, labelled
+RECORDED BASELINE. Raw local runs and phone-guidance audit JSONL live under ignored
+`runs/`. Reproduce them with the commands in `demo-runbook.md`; do not confuse a
+tracked summary with newly reproduced raw evidence.
+
+## Still unverified / limitations
+
+Two physical phones over the actual hotspot remain a human acceptance gate.
+Browser sessions establish software behaviour, not phone radio reliability or
+sunlight usability. Native APK packaging is a separate deliverable. This is a
+conservative staged scenario, not calibrated Indian traffic, free-lane behaviour,
+real monsoon observation or a city traffic engine. The original larger demand's
+known failures remain documented in `lig-validation.md`.
+
+Prakhyat supplied pushed model artifacts and provenance, but his full 197-run
+experiment and artifact inference in their intended Python/sklearn environment
+were not reproduced here. His reported evaluation does not establish consistent
+held-out advantage or a valid matched three-policy headline. Keep those models out
+of live control. The historical inventory below retains the detailed evidence gaps.
+
+## Safe claims
+
+- Real LIG geometry, simulated vehicles and assumed traffic conditions.
+- Real authenticated phone uplinks can reveal otherwise unobserved roads.
+- A simple rule proposes an alternate route; driver consent and server validation
+  are required before that simulated vehicle changes route.
+- A small repeatable scenario completed three runs without recorded simulation faults.
+- Saved complete matched cohorts can be compared for this synthetic demonstration.
+
+## Do not claim
+
+- Measured real-world savings, emissions reduction, calibrated demand or validated
+  Indian driving behaviour; a general traffic improvement from one demo pair.
+- Route B is faster, an unavailable ETA, or that it avoids the shared approach.
+- AI/trained-model decisions, proven predictive benefit, autonomous signal control,
+  real GPS sensing, actual roadside sensors, RL readiness or a native production app.
+- Two real phones passed until the physical hotspot gate has actually been performed.
+
+---
+
+# Historical Step 1 inventory (superseded by the v1.0 update above)
 
 Inventory date: 2026-10-09. Coordinator: Kush.
 
-**Checkpoint: STOP after Step 1.** No incoming code was run, no model was
+**Historical checkpoint at e408bc3: STOP after Step 1.** No incoming code was run, no model was
 deserialized, no environment/dependency was installed, and no new test or
 simulation was executed. Steps 2–7 remain pending. No application integration,
 automatic control, assumptions changes, UI polish or merge to main occurred.

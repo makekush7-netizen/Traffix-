@@ -20,3 +20,16 @@ needed for simulation repair, exports and ML integration in `backend/harness/`,
 and `tests/test_harness.py`. The imported ML/evaluation tests belong to Prakhyat;
 the pre-existing phone/backend tests keep their coordinator owner. This scoped
 delegation preserves `sim/`, `web/`, shared contracts and the phone backend.
+
+
+## Kush's final mentor-demo scope, 2026-10-09
+
+The project name is Traffix. The coordinator's current approved scope includes
+`web/src/mobile/`, new `backend/harness/demo_*` adapters, compatible app/mobile
+bridge fixes, tests, scripts and runbooks on `feat/kush-demo-polish`. DEMO guidance
+is explicitly authorized: off by default, observed phone rule only, driver Accept
+required, worker-confirmed action at a valid decision point, all actions logged.
+Do not enable trained models without evidence they beat the simple rule on held-out
+runs. Frozen contracts and existing other owners' implementations stay preserved.
+The preceding task explicitly authorized creating `sim/assumptions.json` and its
+README; that exception does not authorize rewriting Nandani's simulation files.

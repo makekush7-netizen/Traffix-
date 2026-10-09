@@ -106,3 +106,12 @@ Changed files are the new `web/src/mobile/` screens and assets,
 backward-compatible `backend/session.py`, `tests/test_mobile_bridge.py`, the
 existing harness integration test, `scripts/run_mobile.ps1`, ownership notes,
 this runbook and the README. Shared contracts and ML implementations are untouched.
+
+
+## v1.0 update (2026-10-09)
+
+The current mentor flow and launch script now use `create_demo_app` and the bounded
+seed-42 scenario. Explicit driver-approved DEMO rerouting is implemented; earlier
+limitations above describe the previous mobile milestone. For current clicks,
+recording fallback and real-device acceptance gate, use `demo-runbook.md`; for
+verified checks and remaining limitations, use `integration-report.md`.

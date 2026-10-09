@@ -1,0 +1,49 @@
+{
+  "label": "LOCAL SYNTHETIC REPEATABILITY CHECK",
+  "date": "2026-10-09",
+  "sumo_version": "1.28.0",
+  "runs": [
+    {
+      "repeat": 1,
+      "run_id": "lig.demo.5f90a9963909",
+      "seed": 42,
+      "scheduled": 12,
+      "arrived": 12,
+      "collisions": 0,
+      "teleports": 0,
+      "unfinished": 0,
+      "complete": true,
+      "sim_time_s": 409.75,
+      "mean_journey_s": 239.77083333333334,
+      "scenario_sha256": "acbb900b5679769c3e06c40eb59f91432e8036930643c2ca2ec21f6aa2560bc2"
+    },
+    {
+      "repeat": 2,
+      "run_id": "lig.demo.4a9e41db1bc1",
+      "seed": 42,
+      "scheduled": 12,
+      "arrived": 12,
+      "collisions": 0,
+      "teleports": 0,
+      "unfinished": 0,
+      "complete": true,
+      "sim_time_s": 409.75,
+      "mean_journey_s": 239.77083333333334,
+      "scenario_sha256": "acbb900b5679769c3e06c40eb59f91432e8036930643c2ca2ec21f6aa2560bc2"
+    },
+    {
+      "repeat": 3,
+      "run_id": "lig.demo.4850e81b9eeb",
+      "seed": 42,
+      "scheduled": 12,
+      "arrived": 12,
+      "collisions": 0,
+      "teleports": 0,
+      "unfinished": 0,
+      "complete": true,
+      "sim_time_s": 409.75,
+      "mean_journey_s": 239.77083333333334,
+      "scenario_sha256": "acbb900b5679769c3e06c40eb59f91432e8036930643c2ca2ec21f6aa2560bc2"
+    }
+  ]
+}

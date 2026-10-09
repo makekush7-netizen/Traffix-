@@ -1,18 +1,19 @@
-# Trafixx
+# Traffix
 
 Prediction-driven traffic incident response for sensor-poor Indian corridors.
 Built for the Agnitia 36-hour hackathon, TERRA track, problem statement
 "Intelligent Traffic Congestion Response System".
 
-**Status:** hackathon prototype. The LIG Square lab now uses real OpenStreetMap
-geometry with simulated traffic, a mobile driver app, and an authenticated phone
-bridge. Native APK packaging, calibrated traffic, and live automatic routing or
-signal control are not complete. No real-world performance claim yet.
+**Status:** Traffix v1.0 mentor prototype. Real OpenStreetMap LIG Square geometry,
+12 staged simulated vehicles, QR-bound phone browser apps, validated phone-only
+observations and an explicitly enabled rule-based route offer. A driver must
+accept before the server applies Route B. No live trained-model or signal control,
+calibrated traffic, general savings claim or native APK.
 
-**Current mobile demo:** run `./scripts/run_mobile.ps1` on Windows, then open
-`http://localhost:8002/dashboard` on the laptop. Invite phones on the same Wi-Fi
-through QR codes. Read [the mobile runbook](docs/mobile-app.md) for setup,
-verification and limitations. The 3D simulation is at `/`; driver screens at `/driver`.
+Run `./scripts/run_mobile.ps1`, then `./scripts/demo_check.ps1`. Open
+`http://localhost:8002/dashboard` on the laptop; invite two phones on the same
+hotspot. Follow [the exact mentor flow](docs/demo-runbook.md): Blind spot → Phones
+see → Traffix decides → Driver follows. See [verification and safe claims](docs/integration-report.md).
 
 ## Intended full system
 1. Simulates a mixed-traffic market corridor in SUMO.
