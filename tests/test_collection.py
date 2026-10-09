@@ -9,6 +9,7 @@ def test_collection_computes_metrics_instead_of_trusting_manifest_headline(tmp_p
     run=tmp_path/'run.fixed';run.mkdir()
     metadata=result('fixed',999)
     metadata['teleported']=0
+    metadata['collisions']=0
     metadata['scheduled_cohort_size']=1
     (run/'manifest.json').write_text(json.dumps(metadata))
     pd.DataFrame([dict(vehicle_id='a',scheduled_depart_s=0,actual_depart_s=10,arrival_s=100,status='arrived',waiting_s=5,co2_mg=1000000)]).to_csv(run/'trips.csv',index=False)

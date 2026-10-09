@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from eval.cohort import summarize_cohort
 from eval.io import read_trips_csv, import_tripinfo
+from eval.integrity import merge_integrity
 
 
 def number(value, unit=''):
@@ -20,7 +21,7 @@ def write_run_report(trips, metadata, output_dir, *, observations=None, excluded
     trips=list(trips)
     if excluded_vehicle_ids is None:
         excluded_vehicle_ids=metadata.get('excluded_metric_vehicle_ids',())
-    result={**metadata,**summarize_cohort(trips,teleported=metadata.get('teleported',0),excluded_vehicle_ids=excluded_vehicle_ids)}
+    result=merge_integrity(metadata,summarize_cohort(trips,teleported=metadata.get('teleported',0),excluded_vehicle_ids=excluded_vehicle_ids))
     size=metadata.get('scheduled_cohort_size')
     if size is not None and size!=len(trips):
         raise ValueError('trip records do not match declared scheduled cohort size')

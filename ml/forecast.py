@@ -78,7 +78,9 @@ class ForecastService:
             return unavailable("unknown_or_stale")
         enough_probes = "fixed" in current.sources or current.fresh_probes >= self.min_probes
         age_ok = current.sample_age_sim_s is not None and current.sample_age_sim_s <= self.max_age_s
-        recent = [o for o in history if o.sim_time_s >= current.sim_time_s-self.min_history_s]
+        boundary=current.sim_time_s-self.min_history_s
+        bracket=next((index for index in range(len(history)-1,-1,-1) if history[index].sim_time_s<=boundary),None)
+        recent=history[bracket:] if bracket is not None else history
         continuous = len(recent) >= 2 and recent[-1].sim_time_s-recent[0].sim_time_s >= self.min_history_s and all(b.sim_time_s-a.sim_time_s <= self.max_age_s for a,b in zip(recent,recent[1:]))
         usable = enough_probes and age_ok and continuous and features["fresh_fraction_60"] >= 0.8
         if method == "boosting":
