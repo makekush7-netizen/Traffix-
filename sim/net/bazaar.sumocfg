@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <input>
+        <net-file           value="bazaar.net.xml"/>
+        <route-files        value="../demand/rain_ramp.seed-042.rou.xml,../demand/roles.rou.xml"/>
+        <additional-files   value="detectors.add.xml"/>
+    </input>
+
+    <time>
+        <begin       value="0"/>
+        <end         value="2400"/>
+        <step-length value="1"/>
+    </time>
+
+    <processing>
+        <time-to-teleport    value="-1"/>
+        <lateral-resolution  value="0.8"/>
+        <collision.action    value="warn"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.probability value="0"/>
+    </routing>
+
+    <output>
+        <tripinfo-output        value="output/trips.xml"/>
+        <summary-output         value="output/summary.xml"/>
+        <summary-output.period  value="30"/>
+        <emission-output        value="output/emissions.xml"/>
+    </output>
+
+    <report>
+        <verbose      value="false"/>
+        <no-step-log  value="false"/>
+    </report>
+
+</configuration>

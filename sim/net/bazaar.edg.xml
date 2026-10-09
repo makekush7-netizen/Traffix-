@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Nandipur Bazaar corridor edges
+     edge.market  = in + main1 + main2  (main bazaar route through J2)
+     edge.bypass  = in + byp1  + byp2   (lower bypass through J3)
+     edge.entry   = in   (upstream approach — diversion decision edge)
+     edge.exit    = out  (downstream egress)
+
+     Lane counts: entry/exit 3; main/bypass 2.
+     Speed: 13.89 m/s (50 km/h) on all links; rain ramp reduces via TraCI.
+     Left-hand: SUMO handles geometry; no special attribute needed.
+     allow/disallow: vehicles restricted per vClass on bypass (no motorcycles forced market).
+-->
+<edges>
+    <!-- Upstream approach — diversion decision edge -->
+    <edge id="in"    from="O"  to="J1" numLanes="3" speed="13.89" priority="-1"/>
+
+    <!-- Main route: market road (passes through J2) -->
+    <edge id="main1" from="J1" to="J2" numLanes="2" speed="13.89" priority="-1"/>
+    <edge id="main2" from="J2" to="J4" numLanes="2" speed="13.89" priority="-1"/>
+
+    <!-- Bypass route: lower road (passes through J3) -->
+    <edge id="byp1"  from="J1" to="J3" numLanes="2" speed="13.89" priority="-1"/>
+    <edge id="byp2"  from="J3" to="J4" numLanes="2" speed="13.89" priority="-1"/>
+
+    <!-- Downstream egress -->
+    <edge id="out"   from="J4" to="D"  numLanes="3" speed="13.89" priority="-1"/>
+</edges>

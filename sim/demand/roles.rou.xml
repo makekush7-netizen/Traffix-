@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Role vehicle definitions for Nandipur Bazaar — separate file loaded
+  AFTER the demand file so explicit vehicles don't conflict with flow sort order.
+
+  Load order in bazaar.sumocfg:
+    route-files = rain_ramp.seed-042.rou.xml,roles.rou.xml
+
+  veh.role.delivery departs at t=240 so it is on edge 'in' approaching J1
+  when the scenario worker applies the stop at t~=262 (once it enters main1).
+  The TraCI worker polls for the vehicle ID after t=240 and applies the stop
+  on its first step where it is on edge main1.
+-->
+<routes>
+
+    <!-- Role: two-wheeler commuter (Urvashi / phone-1) -->
+    <vehicle id="veh.role.rider"
+             type="veh.role.rider"
+             route="main_route"
+             depart="10"
+             departLane="best"
+             departSpeed="max"/>
+
+    <!-- Role: auto-rickshaw (Nandani / phone-2) -->
+    <vehicle id="veh.role.auto"
+             type="veh.role.auto"
+             route="main_route"
+             depart="20"
+             departLane="best"
+             departSpeed="max"/>
+
+    <!-- Role: delivery van (Prakhyat / phone-3)
+         Departs at t=240 — just before rain starts at t=300.
+         'in' edge is 297.8 m; at 13.89 m/s takes ~21 s.
+         Enters main1 around t=261. Incident worker applies stop on main1
+         once vehicle edge = 'main1'. -->
+    <vehicle id="veh.role.delivery"
+             type="veh.role.delivery"
+             route="main_route"
+             depart="240"
+             departLane="best"
+             departSpeed="max"/>
+
+</routes>

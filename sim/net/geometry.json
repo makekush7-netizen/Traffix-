@@ -1,0 +1,31 @@
+{
+  "convBoundary": "-300,-300,800,120",
+  "netOffset": "0,0",
+  "nodes": {
+    "O":  {"x": -300, "y":    0, "label": "Western Entry",         "role": "origin"},
+    "J1": {"x":    0, "y":    0, "label": "Upstream Junction",     "role": "traffic_light", "tls": "J1", "note": "Diversion decision point"},
+    "J2": {"x":  250, "y":  120, "label": "Market Midpoint",       "role": "priority",      "note": "Uninstrumented market road junction"},
+    "J3": {"x":  250, "y": -300, "label": "Bypass Midpoint",       "role": "priority"},
+    "J4": {"x":  500, "y":    0, "label": "Downstream Junction",   "role": "traffic_light", "tls": "J4"},
+    "D":  {"x":  800, "y":    0, "label": "Eastern Exit",          "role": "destination"}
+  },
+  "edges": {
+    "in":    {"from": "O",  "to": "J1", "label": "Entry approach",    "sensor_gap": false,  "lanes": 3},
+    "main1": {"from": "J1", "to": "J2", "label": "Market road upper", "sensor_gap": true,   "lanes": 2, "note": "No observational detector — truth-only coverage"},
+    "main2": {"from": "J2", "to": "J4", "label": "Market road lower", "sensor_gap": true,   "lanes": 2},
+    "byp1":  {"from": "J1", "to": "J3", "label": "Bypass upper",      "sensor_gap": false,  "lanes": 2},
+    "byp2":  {"from": "J3", "to": "J4", "label": "Bypass lower",      "sensor_gap": false,  "lanes": 2},
+    "out":   {"from": "J4", "to": "D",  "label": "Exit corridor",     "sensor_gap": false,  "lanes": 3}
+  },
+  "routes": {
+    "main_route":   {"label": "Market route",  "color": "#E07B39", "edges": ["in","main1","main2","out"]},
+    "bypass_route": {"label": "Bypass route",  "color": "#5B8CDA", "edges": ["in","byp1","byp2","out"]}
+  },
+  "detector_positions": {
+    "det.entry_count":        {"edge": "in",    "pos_m": 100, "truth_only": false},
+    "det.upstream_queue":     {"edge": "in",    "pos_m": 250, "truth_only": false},
+    "det.market_mid_TRUTH":   {"edge": "main1", "pos_m": 100, "truth_only": true},
+    "det.bypass_mid":         {"edge": "byp1",  "pos_m": 100, "truth_only": false},
+    "det.exit_count":         {"edge": "out",   "pos_m":  50, "truth_only": false}
+  }
+}

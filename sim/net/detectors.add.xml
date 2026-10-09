@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Nandipur Bazaar — detector additional file
+     Loads with bazaar.sumocfg via <additional-files>.
+
+     IMPORTANT: det.market_mid_TRUTH is flagged truth_only in id-registry.json.
+     The observation gateway (backend/probes.py) MUST NOT read or forward
+     det.market_mid_TRUTH output. It may only be consumed by the scoring
+     pipeline (eval/) and the simulation-truth rendering path.
+-->
+<additional>
+
+    <!-- =====================================================
+         ENTRY APPROACH — not truth-only
+         ===================================================== -->
+    <!-- E1 inductive loop: counts inbound flow -->
+    <inductionLoop id="det.entry_count"
+                   lane="in_1"
+                   pos="100"
+                   freq="30"
+                   file="output/detectors.xml"/>
+
+    <!-- E2 queue detector covering approach to J1 -->
+    <laneAreaDetector id="det.upstream_queue"
+                      lane="in_1"
+                      pos="250"
+                      length="40"
+                      freq="30"
+                      file="output/detectors.xml"/>
+
+    <!-- =====================================================
+         MARKET ROAD — TRUTH ONLY
+         Observation gateway must never read this detector.
+         ===================================================== -->
+    <laneAreaDetector id="det.market_mid_TRUTH"
+                      lane="main1_0"
+                      pos="100"
+                      length="50"
+                      freq="30"
+                      file="output/detectors_truth.xml"/>
+
+    <!-- =====================================================
+         BYPASS COVERAGE — not truth-only
+         ===================================================== -->
+    <laneAreaDetector id="det.bypass_mid"
+                      lane="byp1_0"
+                      pos="100"
+                      length="50"
+                      freq="30"
+                      file="output/detectors.xml"/>
+
+    <!-- =====================================================
+         EXIT COUNT — not truth-only
+         ===================================================== -->
+    <inductionLoop id="det.exit_count"
+                   lane="out_1"
+                   pos="50"
+                   freq="30"
+                   file="output/detectors.xml"/>
+
+</additional>
