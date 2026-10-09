@@ -5,9 +5,9 @@ from pathlib import Path
 import pandas as pd
 
 
-def merge_run_logs(root, *, policies=('fixed',)):
+def merge_run_logs(root, *, policies=('fixed',), run_dirs=None):
     tables={'observations':[],'truth':[]}
-    for run in sorted(path for path in Path(root).iterdir() if path.is_dir()):
+    for run in sorted(run_dirs if run_dirs is not None else (path for path in Path(root).iterdir() if path.is_dir())):
         manifest=json.loads((run/'manifest.json').read_text(encoding='utf-8'))
         if manifest['policy'] not in policies:
             continue
@@ -18,6 +18,16 @@ def merge_run_logs(root, *, policies=('fixed',)):
         required.append('demand_id')
         if manifest['data_source'] not in {'sumo','fixture'}:
             raise ValueError('unverified run provenance')
+        if manifest['data_source']=='sumo':
+            from eval.integrity import merge_integrity
+            evidence=dict(manifest)
+            if manifest.get('simulation_integrity_valid') is True and manifest.get('cohort_valid') is False:
+                evidence.pop('valid',None)
+                evidence['invalid_reasons']=[r for r in evidence.get('invalid_reasons',[]) if r!='cohort_incomplete_removed_or_teleported']
+                evidence.pop('invalid_reason',None)
+            integrity=merge_integrity(evidence,dict(complete=manifest.get('complete',False),valid=True))
+            if not integrity['simulation_integrity_valid']:
+                raise ValueError(f"run integrity unsuitable for training: {run.name}: {integrity['invalid_reasons']}")
         for table in tables:
             frame=pd.read_csv(run/f'{table}.csv')
             if frame.empty:

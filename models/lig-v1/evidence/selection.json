@@ -1,0 +1,21 @@
+{
+  "selection_split": "validation_only",
+  "validation_seeds": [
+    200,
+    201,
+    202
+  ],
+  "method": "boosting",
+  "horizon_s": 180,
+  "validation_mae": 0.016088946881746342,
+  "selection_basis": "Lowest validation slowdown MAE across all methods/horizons; not journey benefit.",
+  "reactive": {
+    "danger": 0.8,
+    "persistence_s": 20
+  },
+  "predictive": {
+    "danger": 0.6,
+    "persistence_s": 10
+  },
+  "model_manifest_sha256": "1be7d6836b1c8dd3e776f9b0627072c069210b764e65a4553c3f80d984aead1d"
+}

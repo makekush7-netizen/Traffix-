@@ -6,6 +6,7 @@ import pandas as pd
 from eval.cohort import summarize_cohort, fingerprint
 from eval.io import read_trips_csv
 from eval.network import summarize_network, summarize_actions, read_events
+from eval.integrity import merge_integrity
 
 REQUIRED_METADATA={'run_id','scenario_id','seed','policy','compliance','sensor_mask_id','data_source',
                    'cohort_sha256','network_sha256','incident_sha256','teleported','scheduled_cohort_size'}
@@ -24,7 +25,7 @@ def collect_results(root):
             if len(trips)!=metadata['scheduled_cohort_size']:
                 raise ValueError('trips export does not match scheduled cohort size; preserve pending vehicles')
             metrics=summarize_cohort(trips,teleported=metadata['teleported'],excluded_vehicle_ids=metadata.get('excluded_metric_vehicle_ids',[]))
-            audit={field+'_sha256':fingerprint(metadata[field]) if metadata.get(field) is not None else None
+            audit={field+'_sha256':fingerprint(metadata[field]) if metadata.get(field) is not None else metadata.get(field+'_sha256')
                    for field in ['emission_assumptions','comparison_config','probe_assignment']}
             secondary={}
             if (run/'truth.csv').is_file():
@@ -33,7 +34,7 @@ def collect_results(root):
                     secondary.update(summarize_network(truth,bypass_edges=metadata.get('bypass_edge_ids',[])))
             if (run/'events.jsonl').is_file():
                 secondary.update(summarize_actions(read_events(run/'events.jsonl'),run_id=metadata['run_id']))
-            results.append({**metadata,'demand_id':metadata.get('demand_id','demand.reference'),**metrics,**audit,**secondary})
+            results.append({**merge_integrity(metadata,metrics),'demand_id':metadata.get('demand_id','demand.reference'),**audit,**secondary})
         except (OSError,ValueError,KeyError,TypeError) as exc:
             errors.append({'run_id':run.name,'reason':str(exc)})
     return {'results':results,'errors':errors}

@@ -17,6 +17,12 @@ def value(row,field):
 
 
 def validate_pair(runs, *, sensor_ablation=False):
+    # Fixed labels predate controller selection; responding policies must share
+    # the same resolved execution/model/selection identity when it is declared.
+    responding=[row for row in runs if row.get('policy') in {'reactive','predictive'}]
+    identities={row.get('execution_sha256') for row in responding}
+    if not sensor_ablation and any(identities) and len(identities)>1:
+        raise ValueError('mismatched response execution identity in paired comparison')
     for field in FROZEN_FIELDS:
         if sensor_ablation and field=='probe_assignment_sha256':
             continue

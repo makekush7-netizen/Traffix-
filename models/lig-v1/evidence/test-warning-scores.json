@@ -1,0 +1,2242 @@
+{
+  "reactive_first_alert": {
+    "jam_events": 3,
+    "warning_events": 85,
+    "matched_events": 0,
+    "missed_events": 3,
+    "missed_event_rate": 1.0,
+    "false_alerts": 85,
+    "duplicate_alerts": 0,
+    "exposure_sim_hours": 12.269444444444444,
+    "false_alerts_per_sim_hour": 6.9277790355444875,
+    "median_warning_lead_s": null,
+    "median_detection_delay_s": null,
+    "unmatched_alerts": [
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1450.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 1165.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 630.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 755.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 630.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 630.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      }
+    ],
+    "missed_event_details": [
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 960.0,
+        "end_s": 965.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 960.0,
+        "end_s": 965.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 1165.0,
+        "end_s": 1165.0
+      }
+    ]
+  },
+  "predictive_first_alert": {
+    "jam_events": 3,
+    "warning_events": 120,
+    "matched_events": 0,
+    "missed_events": 3,
+    "missed_event_rate": 1.0,
+    "false_alerts": 120,
+    "duplicate_alerts": 0,
+    "exposure_sim_hours": 12.269444444444444,
+    "false_alerts_per_sim_hour": 9.780393932533395,
+    "median_warning_lead_s": null,
+    "median_detection_delay_s": null,
+    "unmatched_alerts": [
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 140.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 140.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 140.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 140.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 140.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 140.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 510.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 220.0
+      }
+    ],
+    "missed_event_details": [
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 960.0,
+        "end_s": 965.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 960.0,
+        "end_s": 965.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 1165.0,
+        "end_s": 1165.0
+      }
+    ]
+  },
+  "full_timeline_detection": {
+    "true_positive": 5,
+    "false_positive": 8386,
+    "false_negative": 0,
+    "true_negative": 80249,
+    "precision": 0.000595876534382076,
+    "recall": 1.0,
+    "rows": 88640,
+    "coverage_fraction": 0.2635943140794224,
+    "missing_detection_rows": 0,
+    "jam_events": 3,
+    "warning_events": 220,
+    "matched_events": 0,
+    "missed_events": 3,
+    "missed_event_rate": 1.0,
+    "false_alerts": 220,
+    "duplicate_alerts": 0,
+    "exposure_sim_hours": 12.269444444444444,
+    "false_alerts_per_sim_hour": 17.930722209644557,
+    "median_warning_lead_s": null,
+    "median_detection_delay_s": null,
+    "unmatched_alerts": [
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 315.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 605.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 740.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.300.e667868e08",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1265.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 400.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 675.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 895.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 870.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 560.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 640.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 840.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 370.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 415.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 635.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 845.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1450.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1460.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 1165.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 530.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 695.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 815.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 470.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 650.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 815.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 630.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 640.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 855.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 420.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 630.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 985.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 415.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 665.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 860.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 440.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 490.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 885.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 330.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 665.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 755.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 970.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 405.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 615.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 440.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 315.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 605.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 740.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1265.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 400.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 675.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 895.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 870.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 560.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 640.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.301.997426b785",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 840.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 370.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 415.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 635.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.36427644c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 845.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 755.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 530.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 695.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 815.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.302.bf1156163d",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 620.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 815.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 470.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 650.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 815.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 630.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 640.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 400.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 575.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 630.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 985.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 415.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 665.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 860.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 440.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 490.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.5978177f92",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 885.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 330.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 665.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 755.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 970.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 405.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 615.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.rain.fixed.304.e0049875d0",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 440.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 315.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 605.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 740.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1265.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 1245.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 550.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 795.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 400.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 675.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 895.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 835.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 870.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 640.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 840.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 415.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 635.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 845.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 530.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 695.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 815.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 385.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 470.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 650.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 815.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 630.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 640.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 855.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 970.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 985.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 920.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 940.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 330.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 665.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 760.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.1",
+        "sim_time_s": 970.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 305.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 405.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 615.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 445.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.0",
+        "sim_time_s": 345.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 180.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 415.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 665.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.3",
+        "sim_time_s": 860.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 425.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 440.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 490.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 660.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+        "edge_id": "edge.lig.approach.4",
+        "sim_time_s": 885.0
+      }
+    ],
+    "missed_event_details": [
+      {
+        "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 960.0,
+        "end_s": 965.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 960.0,
+        "end_s": 965.0
+      },
+      {
+        "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+        "edge_id": "edge.lig.approach.0",
+        "start_s": 1165.0,
+        "end_s": 1165.0
+      }
+    ]
+  },
+  "limitation": "First-alert scores on fixed no-action traces; these are not journey gains."
+}

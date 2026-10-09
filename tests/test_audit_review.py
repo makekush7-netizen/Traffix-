@@ -62,7 +62,7 @@ def test_merge_enriches_and_checks_demand_id(tmp_path):
     import json
     from eval.merge import merge_run_logs
     run=tmp_path/'r';run.mkdir()
-    metadata=dict(run_id='r',seed=100,policy='fixed',data_source='sumo',scenario_id='rain',demand_id='demand.high')
+    metadata=dict(run_id='r',seed=100,policy='fixed',data_source='sumo',scenario_id='rain',demand_id='demand.high',collisions=0,teleported=0)
     (run/'manifest.json').write_text(json.dumps(metadata))
     for name in ['observations','truth']:
         pd.DataFrame([dict(run_id='r',edge_id='e',sim_time_s=0)]).to_csv(run/f'{name}.csv',index=False)

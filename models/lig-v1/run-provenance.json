@@ -1,0 +1,870 @@
+{
+  "runs": [
+    {
+      "run_id": "run.lig.everyday.fixed.100.4d4830dde6",
+      "manifest_sha256": "99a937b2319bd5931ae1f94e3d6a6f3e2d5dbf17917caa57efe030728d65e722",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "9a57426dc5c457565989d7901095b19c992edbe570457549d4a49d8b85293efa"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.100.822e9a4d0d",
+      "manifest_sha256": "841414a08deb625c45d73ac86f7c73def884ce2463a74d094123c97365195d0e",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "99e85fcb945d686bda06f3c4e3516a297010361eb5ec10e7eff6ea9431020fd1"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.101.5ff4f61854",
+      "manifest_sha256": "0ff26438e5c5fd0c30655e281220366cb0f26040280bbf5d6f4de396d9167a6b",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "58a40ce695915d57cd0bd5017fd09614d2186980f73f314e4014779192a90913"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.101.d271a344ff",
+      "manifest_sha256": "e5b59a2593429c1c07c06f70afa32c9784221866ca2bbf46a6adcfbeca8777da",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "b87ceef01625138d96aa0a78d9814e558267216326713f533e4722702bd88793"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.102.6f1dd0b338",
+      "manifest_sha256": "c63f2b7399b4ec640b31f4a4ad4f760309f86610dbdf7c886223109fc1b77aaf",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "3acddb9e8bc05163e77297c432ad78973c1c34fb108e079c6d42ee180c2511d8"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.102.2fc194d44c",
+      "manifest_sha256": "47ba53088050dc8ce2e29b0ea5dbe9eff161a082e17f8aab6cc791fe06d71dcd",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "b40cb45cf985ca284ca6328c173a5e3aba3533726df62a2b3fe0ea6b81d7c1b1"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.103.c703f4d924",
+      "manifest_sha256": "4fb7adaa29a2fee8ca33415ed5a4da72a227fcd509331e973d79389101865bba",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "f9e3a2cdeecd246ed6d9bd7c310c1b979ad4aa54012cf0bda0dedbfe7252093b"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.103.6fef8523db",
+      "manifest_sha256": "b25532e8312e7437ce6ed03e118d1005a324af32dc6a32bfbecbc398f57fa939",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "83aa7e79611c939f3bb5c8d104c1b496096e9a497ff00f73cf915a1a1e338d44"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.104.c0b9661e70",
+      "manifest_sha256": "a1e9c9b754143a0ff6f101e2423ba7df522170921301d02748a44d1f548d179f",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "a7e66086cf6b904a1975774f575e44b0eaaba713f7d2290686f500827fd027b2"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.104.fc2c2aede5",
+      "manifest_sha256": "9db6a5a716f61c073f74cf95daf0dccd89e8279a76fe84d49b8119d4468cf030",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "0300bacaca431ba658949e319f8dfa113c4aaafca07798a6c3234a9563f92630"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.105.74e6d136ba",
+      "manifest_sha256": "641c878376cb50d20bd06ade251d56b02b7bf3429abbfb08ee52d392d3cc0828",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "c707641ead1a3fb9fc1a96f13788e28a702bc59a9e35640c3b8fe5ac78893e6a"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.105.e006bf4a9e",
+      "manifest_sha256": "5aa973f17c3b401fafdea6fd2b59f94bf2e9dc55261c3d7636c540024afd11c7",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "248a512edc12de1ce5294b269b493e9c93e276d2ac99935526b7a9d9153f5d4b"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.106.51db664408",
+      "manifest_sha256": "ff13db9b4ba2bb58149a2d48383fd7242da738d11b6e0cae6bc9078ac91e4b29",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5f56f03061fd2e2c745bcb39903afa8cff06d99841d268833d22727b446212fd"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.106.6866746437",
+      "manifest_sha256": "4c4d575c85c90ac45f726d4400fc7277b82a4bceb80141185ea3efb8988185f2",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5c1734899e1893d9af40778cccd1d9999df43be93630e652b514a4de077d8602"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.107.a721e51574",
+      "manifest_sha256": "5fe8b52a48670321b83070fa6797e545e9fa7e2598ad3087310ba07a12a62249",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5f7116cc71af01b6e0cc232902ad33cc3a6c4f91ccea1c7a7300c4caafb8dbf6"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.107.3b43fcd26f",
+      "manifest_sha256": "2297c4a6b334b70ad2c2b5364fda4f74a3e094a9c99d1f93ecef1f0275df545f",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "08b616e9d5e33e3f4fd7b2014321ba25238a4f19d0584db0f733eb4cff120b7c"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.200.2b429af9fd",
+      "manifest_sha256": "2e5a17b67374882e90e43763c9f385577d78039735e34a794a08d54a5e911270",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "03239e6ca7b7922a5f46c4272c8c3a7f97cfdabe90bcb97746866fc965d9c94c"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.200.ae60c18f47",
+      "manifest_sha256": "bef0b313d8073311812ecb871208b646378dbb7819a689f3db1cc9b74778cec9",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "a587a28d6f22dea2d969bdf3a007b757bfc75ac1c5793bef1744647ddfbcbc4d"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.201.06347689b5",
+      "manifest_sha256": "c2a085ac67eb7d36eecc4113eb3b2a0da55a9e921525c6637629f76b7496251a",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "25041ae6c14b17cd72b6a0ae3981e0ad9f062ea2d942e5393a39cb19c512fbca"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.201.56a69eaebe",
+      "manifest_sha256": "271a3cfd4cde0a2df49c2def2c06a3e29ff813f14e08ea70f239bb3463a33601",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "ca9083a8e1ec215f83737c4d1a0af65b4c3befe720abdb77907899b67e07bd9c"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.202.6574310c51",
+      "manifest_sha256": "075c7293674438237b2be5802c8b116768ae0298f3e4d8742d624b08b91a1353",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "46dcc69b328077ca769f44cc1a14e8b775ce7373cb29b01ce3856dbb9ecf148c"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.202.6d57152327",
+      "manifest_sha256": "e5495ab481f54160c2803819752570e8e908e25dc19672546deb0d137408cf7f",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "57a248988758ee9b9f51b2f69c55efb441efbf12c24e382f6c4dd1783f461121"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.300.cbf32dc5a9",
+      "manifest_sha256": "06cd0c44b03b13ce3da0d582922fdf5fbd11eeefaa712c232067afcad300036b",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "82fdd1d097b9fb2d03bf262aec525abca055aa09e4f1322e56ae5fe1eb0ba206"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.300.e667868e08",
+      "manifest_sha256": "c0cea3f2cb4d0235e9438df19a08bd9cfe74fde4d1980d39366537f7bdd925f0",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "d9e9ba495fe601667b0a66b106ffc7b3f34d36c2cab41473c5e04a366fcf7840"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.301.157d86d6d4",
+      "manifest_sha256": "c96ae574b0408af1e2eb364cab2a1a203c0ffea81d02617f10508b9afd95b9ee",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "0b4bf5bfe6737f2604ca53d5f6a9a03c56b5086f1af88d09ac007a3af19fa100"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.301.d67174aa50",
+      "manifest_sha256": "c04dc417fae2785dca758402f28768195a59e8af47979832ed142ae9e1091c15",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "2409739f91c6661d8a1286850f1d6ef2bbbee1a4f669ff22e26d9d8b11e709e8"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.302.fb6077b875",
+      "manifest_sha256": "a53d3f6eca583f29e725129e3a326b4b0c53ba1d80295026c906ca498a263b11",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "921dd982c61af993c2a1ec3f456d48afc306efe30009407cc6d652242126f05d"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.302.3fde7b5606",
+      "manifest_sha256": "30d7aa0780e20b1b0125e6016ce5130f7c83924768ddf403845d4ee6ae992520",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "cdd32412edd24e3315c8a1d1d136e3c24ee600d4f032f13ecec66830c102ce68"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.303.b5fb946b5f",
+      "manifest_sha256": "3130b711c35ae6ad61becca294125ccfc3796c5ebba9e2a15ad4be84d69277bd",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "d83802f9a1cd07d84aa62fbdc7d801fd32d52bba2d1b92950218938b2a8237ab"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.303.8563f7b160",
+      "manifest_sha256": "6efe16426092d29f1e3d16c87c77b9daadb2517820b38c12425f97d4a0f5ebef",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "843daf8d123ca2bac745cbe5eb4bc506ef7c641e4c7fbc099003739ade57038e"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.304.342be4e0ed",
+      "manifest_sha256": "dc25c6f9ebb79e51bebb990d6edc450855ce07845d494f1961972bb89e1c3b61",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "3f100cef10d06486b7c9b5cd1447eaeff6d7e1304b59dbba1e9c0eccb384d48b"
+    },
+    {
+      "run_id": "run.lig.everyday.fixed.304.c9513c4874",
+      "manifest_sha256": "ac40fcdddbf72f7c2a5e6d2e22dde1858ea9b978acc6e6cd1feabf29a21d9303",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "992a0eebc48fbc873f65dd3c88107f4f5f1c15edb22b14a809c2c2804918cf74"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.100.5ce9f247f9",
+      "manifest_sha256": "d9cd564ea81d35b5f5d76bcd072a0739d7b229333725609ee0729fea0204fd12",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "9a57426dc5c457565989d7901095b19c992edbe570457549d4a49d8b85293efa"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.100.2e7338af71",
+      "manifest_sha256": "576231ea5d816e3ee299effa07288dad4fec7b7ba57edb6960868d59b30d5a1a",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "99e85fcb945d686bda06f3c4e3516a297010361eb5ec10e7eff6ea9431020fd1"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.101.457b1be7c0",
+      "manifest_sha256": "ff2ee5540b25807ab241755557408dd7ce393fc6ec5378808445a17563270559",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "58a40ce695915d57cd0bd5017fd09614d2186980f73f314e4014779192a90913"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.101.aa3c306b86",
+      "manifest_sha256": "8bc751cb48413fc63763a6f79f50ccf2fcad5f2f7049e4ba0fd871a0e8eca6be",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "b87ceef01625138d96aa0a78d9814e558267216326713f533e4722702bd88793"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.102.131bae412c",
+      "manifest_sha256": "d0ab86e91cd6fe6ad28082973c1b9bd61d38c7db033b29c53a9b2668b4bda8f2",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "3acddb9e8bc05163e77297c432ad78973c1c34fb108e079c6d42ee180c2511d8"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.102.dad6563d00",
+      "manifest_sha256": "fb2117976ab99cab5301a9c29896a88a26123804ffcbc81acc3b11ce8c496601",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "b40cb45cf985ca284ca6328c173a5e3aba3533726df62a2b3fe0ea6b81d7c1b1"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.103.b0574835a4",
+      "manifest_sha256": "4b1eb1294467be416cb5c12a825cb9e4a71632274484b6387df9b7eb6b297daf",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "f9e3a2cdeecd246ed6d9bd7c310c1b979ad4aa54012cf0bda0dedbfe7252093b"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.103.8771f8c900",
+      "manifest_sha256": "d95db2d12f438ccd15d2b0b3ca0da454778d292ebd1f03098509114226845f15",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "83aa7e79611c939f3bb5c8d104c1b496096e9a497ff00f73cf915a1a1e338d44"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.104.daa026c809",
+      "manifest_sha256": "4da7fda24322f5788abfd2e14992ec084162ac53001104e5cea07ca49e391a1e",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "a7e66086cf6b904a1975774f575e44b0eaaba713f7d2290686f500827fd027b2"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.104.779d775074",
+      "manifest_sha256": "450553642a339eceba8aa30daac797a1203dac14df1cb250650c56618a61100e",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "0300bacaca431ba658949e319f8dfa113c4aaafca07798a6c3234a9563f92630"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.105.bc6d9135e9",
+      "manifest_sha256": "49a78c9c4c952b95f71d553d9a1b00ba3c9872cc4da4fe7665550b9240c9e4a6",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "c707641ead1a3fb9fc1a96f13788e28a702bc59a9e35640c3b8fe5ac78893e6a"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.105.c1c741bc5d",
+      "manifest_sha256": "1cde4e488ad3d5fe20a587c34f3f41a5e70c225dd3f42f3ad2542b6f38c11825",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "248a512edc12de1ce5294b269b493e9c93e276d2ac99935526b7a9d9153f5d4b"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.106.76b3dec00d",
+      "manifest_sha256": "7261e5003c24297beb4b93252580eea0926c784d3598d8f7042712dd808ad539",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5f56f03061fd2e2c745bcb39903afa8cff06d99841d268833d22727b446212fd"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.106.5d75c8682a",
+      "manifest_sha256": "cb18683723c5476fb760adea4bb74f5a296c54a2adb7f5205c406a9a79877152",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5c1734899e1893d9af40778cccd1d9999df43be93630e652b514a4de077d8602"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.107.6f727929f5",
+      "manifest_sha256": "aa2a5105d6e748c4c56e72ad670b971033b1124cf2981d32029b3b1bbe7098dd",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5f7116cc71af01b6e0cc232902ad33cc3a6c4f91ccea1c7a7300c4caafb8dbf6"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.107.0b299c1be4",
+      "manifest_sha256": "41c52539378039ba17fbf0af877abe5b402c41f77f1ff2d4ada6a36f94806877",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "08b616e9d5e33e3f4fd7b2014321ba25238a4f19d0584db0f733eb4cff120b7c"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.200.c6554befaf",
+      "manifest_sha256": "743af87cdce2667c05f12ecfcd88383fdc73c564c8ba728eb600b774d5a7603e",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "03239e6ca7b7922a5f46c4272c8c3a7f97cfdabe90bcb97746866fc965d9c94c"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.200.ce93014185",
+      "manifest_sha256": "5823dcf0e6239b35b79b653e04f9b621b1b5705b67254bb7c7fb42fe393ea94d",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "a587a28d6f22dea2d969bdf3a007b757bfc75ac1c5793bef1744647ddfbcbc4d"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.201.a913327154",
+      "manifest_sha256": "40613aae2c7801c826a49916606762777c71f9417b32e795ac331ea88764432c",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "25041ae6c14b17cd72b6a0ae3981e0ad9f062ea2d942e5393a39cb19c512fbca"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.201.24581f7bab",
+      "manifest_sha256": "6dcc5dd49d41f80ec3b4a642e50ffffc04702d4b516e76d07244589c8ba8872e",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "ca9083a8e1ec215f83737c4d1a0af65b4c3befe720abdb77907899b67e07bd9c"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.202.131c01ee46",
+      "manifest_sha256": "df6939690a0097d50b9bf25b061a0ef044e3bd36c2f5ba76e571ff90cfd8e805",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "46dcc69b328077ca769f44cc1a14e8b775ce7373cb29b01ce3856dbb9ecf148c"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.202.990f093220",
+      "manifest_sha256": "380860f37daa87e05614679f355fc455ba7dc041f656dae0bdbb14c5713d40ae",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "57a248988758ee9b9f51b2f69c55efb441efbf12c24e382f6c4dd1783f461121"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.300.07c9b05f59",
+      "manifest_sha256": "cd984d5550e51f0a925cff55ba8b007bcda8af294f38428c54e21cac1935873a",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "82fdd1d097b9fb2d03bf262aec525abca055aa09e4f1322e56ae5fe1eb0ba206"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.300.a513cbe19b",
+      "manifest_sha256": "4b03fe24f5fbb7f13e75207b2036f062d604bff97d118178f44c68a958488c38",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "d9e9ba495fe601667b0a66b106ffc7b3f34d36c2cab41473c5e04a366fcf7840"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.301.0abd6e5c76",
+      "manifest_sha256": "26021ccea2dedef0252d4cd5f2e44f9a3060028fe790de3e5e1b6a0fa9d7f2aa",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "0b4bf5bfe6737f2604ca53d5f6a9a03c56b5086f1af88d09ac007a3af19fa100"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.301.997426b785",
+      "manifest_sha256": "84c8a9700bbd7d4e643bae1b765eb0f758351bb9311845ba9841038c00b5df9a",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "2409739f91c6661d8a1286850f1d6ef2bbbee1a4f669ff22e26d9d8b11e709e8"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.302.bf1156163d",
+      "manifest_sha256": "d3dd5c2080f8b656ddd114717cb93343004a58827d57e32f59038dd1d9bfaab6",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "921dd982c61af993c2a1ec3f456d48afc306efe30009407cc6d652242126f05d"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.302.36427644c2",
+      "manifest_sha256": "f328d01bc1eea740ed6d9a78492ce61a93866d31d680369501a30dc7ecab8662",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "cdd32412edd24e3315c8a1d1d136e3c24ee600d4f032f13ecec66830c102ce68"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.303.68eeb9341a",
+      "manifest_sha256": "6db8a3591105cdb84fcf7f7c3067c79a5970708a9f96fbc3e60feb42e380fd9e",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "d83802f9a1cd07d84aa62fbdc7d801fd32d52bba2d1b92950218938b2a8237ab"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.303.62d7f3f6c2",
+      "manifest_sha256": "1396f2f59851f3b7777ae6e8059cfdd0fc10b8d03124e00babf7dc3d755e8792",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "843daf8d123ca2bac745cbe5eb4bc506ef7c641e4c7fbc099003739ade57038e"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.304.5978177f92",
+      "manifest_sha256": "2b7780336a35504712151f5d578a34b8eba834c3b614991fa6a9f173aab7c9a7",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "3f100cef10d06486b7c9b5cd1447eaeff6d7e1304b59dbba1e9c0eccb384d48b"
+    },
+    {
+      "run_id": "run.lig.rain.fixed.304.e0049875d0",
+      "manifest_sha256": "73d440a6b38555e93c49c72e52d1f9433419ac859b92a666f7262439fcbd04e4",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "992a0eebc48fbc873f65dd3c88107f4f5f1c15edb22b14a809c2c2804918cf74"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.100.8e506778f0",
+      "manifest_sha256": "d2a65ef7c0793cef84098611a738e174448c5824f0faaefd8121879c34f45fa0",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "9a57426dc5c457565989d7901095b19c992edbe570457549d4a49d8b85293efa"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.100.7b9b28115e",
+      "manifest_sha256": "9821e4e4248d94bcb520afe2b7e19d6f073d1207e67230eda33b1fa614cfef08",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "99e85fcb945d686bda06f3c4e3516a297010361eb5ec10e7eff6ea9431020fd1"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.101.f739874a08",
+      "manifest_sha256": "21107a4d75f9dee65fc2d94a636f62dbae470fb398dbcad4be461c1caefd4478",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "58a40ce695915d57cd0bd5017fd09614d2186980f73f314e4014779192a90913"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.101.449b2d54d2",
+      "manifest_sha256": "63ab7aca4d25919e65460698a966452f924c8379fc775649dd20f90028510114",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "b87ceef01625138d96aa0a78d9814e558267216326713f533e4722702bd88793"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.102.32aafc1b8a",
+      "manifest_sha256": "4a49ec2491a63c971be3b4b80a8055fb0bb7c2a92f91e12cf4b92fe389e96ec2",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "3acddb9e8bc05163e77297c432ad78973c1c34fb108e079c6d42ee180c2511d8"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.102.929196a289",
+      "manifest_sha256": "274f9346c9160777bb745c6af2a89a1f7870abc4d98487fa24bb814dcd82aacc",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "b40cb45cf985ca284ca6328c173a5e3aba3533726df62a2b3fe0ea6b81d7c1b1"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.103.6c1ac2ba60",
+      "manifest_sha256": "7fb8f0da2e8213e6bf8faa4c06f401079156b638068bb55bb4d09796be4f9070",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "f9e3a2cdeecd246ed6d9bd7c310c1b979ad4aa54012cf0bda0dedbfe7252093b"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.103.14506916a8",
+      "manifest_sha256": "b33e70d4e7087dde8d37b56507613820c3577a8b19bfb07bf56bc89cfc578208",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "83aa7e79611c939f3bb5c8d104c1b496096e9a497ff00f73cf915a1a1e338d44"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.104.5e1ed24029",
+      "manifest_sha256": "c18883ac694ac17fd55700cabe0486aae8873bca7d1117ca3c13b30d3ab292f1",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "a7e66086cf6b904a1975774f575e44b0eaaba713f7d2290686f500827fd027b2"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.104.a5934bdde8",
+      "manifest_sha256": "f61d97c9eabe5066e00a8c058f86c62305c7c7fd6fe5349b344f2cd1becaea43",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "0300bacaca431ba658949e319f8dfa113c4aaafca07798a6c3234a9563f92630"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.105.086f8616ec",
+      "manifest_sha256": "3b644106a316fd1ad0edc5e524a9e2ee4173b98e8d98db54fb78023e23a581f4",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "c707641ead1a3fb9fc1a96f13788e28a702bc59a9e35640c3b8fe5ac78893e6a"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.105.0feffcfb50",
+      "manifest_sha256": "77208199c2d887346b1ce9fa8710bc8ee3e2d21d3fc3fc0168567c4963467eb8",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "248a512edc12de1ce5294b269b493e9c93e276d2ac99935526b7a9d9153f5d4b"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.106.ea06b29a5a",
+      "manifest_sha256": "e3852f5831e6335bad555a995574f500d9b289fe14b2657f2a94be59971e111b",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5f56f03061fd2e2c745bcb39903afa8cff06d99841d268833d22727b446212fd"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.106.5eda43f080",
+      "manifest_sha256": "1efad48ea93ffbb8b66152b045e13a62c8928117b86f1a47f0ead0bbb9778a3d",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5c1734899e1893d9af40778cccd1d9999df43be93630e652b514a4de077d8602"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.107.95592b55f8",
+      "manifest_sha256": "d0295cd5f2bc9a4628d25fb50df4df20de81b57ab87fac2dcac73b66c88c680f",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "5f7116cc71af01b6e0cc232902ad33cc3a6c4f91ccea1c7a7300c4caafb8dbf6"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.107.7aa76eeebb",
+      "manifest_sha256": "05f092fe065bb5f43cc7ca57773736ad0007e62b207926a47ca5f7ad4bca7e02",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "08b616e9d5e33e3f4fd7b2014321ba25238a4f19d0584db0f733eb4cff120b7c"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.200.c29ae4da76",
+      "manifest_sha256": "65f6e2e39631ed93488172e3408c0e15756031c1d6b4214483a956bfa494d338",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "03239e6ca7b7922a5f46c4272c8c3a7f97cfdabe90bcb97746866fc965d9c94c"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.200.5d8f2961d8",
+      "manifest_sha256": "42a6cf44ab22f21aa71163879371120a565a2e4eb0c02858753a26ad0121a9ef",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "a587a28d6f22dea2d969bdf3a007b757bfc75ac1c5793bef1744647ddfbcbc4d"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.201.bc009e3405",
+      "manifest_sha256": "38fdeff827d63fe1623b60ce6ace9362431fc755da4c687d4054dcae13daf669",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "25041ae6c14b17cd72b6a0ae3981e0ad9f062ea2d942e5393a39cb19c512fbca"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.201.348b92eb64",
+      "manifest_sha256": "5baa7c2ce11f41b801799044919b430220f1556c6db93cd6864666daa38f952f",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "ca9083a8e1ec215f83737c4d1a0af65b4c3befe720abdb77907899b67e07bd9c"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.202.2632a54864",
+      "manifest_sha256": "9a207107485c52a4e5398d2b5200f5f65ab50adc196235c871328bd322476640",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "46dcc69b328077ca769f44cc1a14e8b775ce7373cb29b01ce3856dbb9ecf148c"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.202.476b3f988c",
+      "manifest_sha256": "f021705bce7714f510e2d9678e1fe10a7b697c48fb2034562ad2c016f4fb6a40",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "57a248988758ee9b9f51b2f69c55efb441efbf12c24e382f6c4dd1783f461121"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.300.f4f600f24b",
+      "manifest_sha256": "71fa5da57cfdf2929678ea0917442e20e165f3f269069624a4117064b530c4f5",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "82fdd1d097b9fb2d03bf262aec525abca055aa09e4f1322e56ae5fe1eb0ba206"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.300.808ffbc9cd",
+      "manifest_sha256": "4b38abbbdc4bbee6b61cec72803c932aad0618adf04590f3518b0d3b2c6c57b8",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "d9e9ba495fe601667b0a66b106ffc7b3f34d36c2cab41473c5e04a366fcf7840"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.301.9193c0ae99",
+      "manifest_sha256": "bd763631c04c6eaadf7558fbc7301629401d387b2f58b2d4559b387a8c38ac9b",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "0b4bf5bfe6737f2604ca53d5f6a9a03c56b5086f1af88d09ac007a3af19fa100"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.301.d52dd5ca24",
+      "manifest_sha256": "e53bb267d50a5ebf6a0d4974506b8cb97d3786cb5961ca098bff69cd4ad72bf6",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "2409739f91c6661d8a1286850f1d6ef2bbbee1a4f669ff22e26d9d8b11e709e8"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.302.fc19edd4f6",
+      "manifest_sha256": "8dd699ccc23014c95058074e0ff5ef082f7acf7d192eb5eb08b4f792a53af558",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "921dd982c61af993c2a1ec3f456d48afc306efe30009407cc6d652242126f05d"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.302.0131dbb407",
+      "manifest_sha256": "76b91c5228ade8e372f464e934ad6964c8811ae861368af34ebad0a802f54432",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "cdd32412edd24e3315c8a1d1d136e3c24ee600d4f032f13ecec66830c102ce68"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.303.c568250d6d",
+      "manifest_sha256": "fe8f0aa9cda2e37abfeb756fd7c95cc700c2099dcbb4ff156d31c2391e55e03d",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "d83802f9a1cd07d84aa62fbdc7d801fd32d52bba2d1b92950218938b2a8237ab"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.303.a132e469be",
+      "manifest_sha256": "32b0542ab0b7e3d0872b8702e536f6d1b4ff3b5012c10e6e15ce1a6e35ffffb8",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "843daf8d123ca2bac745cbe5eb4bc506ef7c641e4c7fbc099003739ade57038e"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.304.f7a1bb843b",
+      "manifest_sha256": "3e1459b0c96331a750eb10d177e13852050ba1638643b104b0a54d4279a1aa25",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "3f100cef10d06486b7c9b5cd1447eaeff6d7e1304b59dbba1e9c0eccb384d48b"
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.304.24b788217b",
+      "manifest_sha256": "73cd6da01bfabc6e0476d808976cb3148f770bc1651da07885fdf4e59a438c23",
+      "training_eligible": true,
+      "collisions": 0,
+      "complete": true,
+      "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+      "demand_sha256": "992a0eebc48fbc873f65dd3c88107f4f5f1c15edb22b14a809c2c2804918cf74"
+    }
+  ],
+  "python_version": "3.12.14",
+  "note": "All physical SUMO faults retained. Truncated collision-free labels are allowed; unfinished journeys cannot produce gains."
+}

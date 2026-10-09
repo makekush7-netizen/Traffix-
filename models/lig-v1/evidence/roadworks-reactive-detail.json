@@ -1,0 +1,47 @@
+[
+  {
+    "seed": 300,
+    "fixed_mean_journey_s": 377.2294262295082,
+    "reactive_mean_journey_s": 363.04090163934427,
+    "journey_gain_pct": 3.7612454394084187,
+    "fixed_co2_kg": 107.53786887999999,
+    "reactive_co2_kg": 106.04700333,
+    "co2_gain_pct": 1.386363302088152
+  },
+  {
+    "seed": 301,
+    "fixed_mean_journey_s": 308.2967676767677,
+    "reactive_mean_journey_s": 307.44575757575757,
+    "journey_gain_pct": 0.2760360114778568,
+    "fixed_co2_kg": 76.06677743,
+    "reactive_co2_kg": 76.68943745,
+    "co2_gain_pct": -0.8185702629153667
+  },
+  {
+    "seed": 302,
+    "fixed_mean_journey_s": 351.0593442622951,
+    "reactive_mean_journey_s": 316.3298360655738,
+    "journey_gain_pct": 9.892774188848557,
+    "fixed_co2_kg": 94.33464316,
+    "reactive_co2_kg": 88.51069351000001,
+    "co2_gain_pct": 6.173712493004344
+  },
+  {
+    "seed": 303,
+    "fixed_mean_journey_s": 348.6716239316239,
+    "reactive_mean_journey_s": 345.68444444444447,
+    "journey_gain_pct": 0.8567314579534714,
+    "fixed_co2_kg": 89.74516045,
+    "reactive_co2_kg": 89.35579292,
+    "co2_gain_pct": 0.4338590828158704
+  },
+  {
+    "seed": 304,
+    "fixed_mean_journey_s": 366.2419696969697,
+    "reactive_mean_journey_s": 333.9086363636364,
+    "journey_gain_pct": 8.828407448792955,
+    "fixed_co2_kg": 104.71760816,
+    "reactive_co2_kg": 98.64020602,
+    "co2_gain_pct": 5.803610535789002
+  }
+]

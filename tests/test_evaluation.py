@@ -52,7 +52,7 @@ def test_sumo_report_requires_verified_scheduled_cohort_size(tmp_path):
 
 def test_report_uses_declared_artificial_blocker_exclusions(tmp_path):
     from eval.cohort import Trip
-    metadata=dict(run_id='r',data_source='sumo',teleported=0,scheduled_cohort_size=2,excluded_metric_vehicle_ids=['blocker'])
+    metadata=dict(run_id='r',data_source='sumo',teleported=0,collisions=0,scheduled_cohort_size=2,excluded_metric_vehicle_ids=['blocker'])
     trips=[Trip('a',0,10,100,'arrived',co2_mg=100),Trip('blocker',0,0,None,'removed')]
     report=write_run_report(trips,metadata,tmp_path)
     assert report['scheduled']==1 and report['excluded']==1 and report['valid']
