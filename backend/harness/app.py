@@ -36,7 +36,9 @@ def create_app(engine_factory=HarnessEngine,bridge_factory=MobileBridge,demo=Fal
         app.state.mobile=bridge_factory(engine)
         async def monitor():
             while True:
-                app.state.mobile.status()
+                try: app.state.mobile.status()
+                except HTTPException:
+                    pass  # Remain alive to expose the engine fault and permit safe shutdown.
                 await asyncio.sleep(.2)
         monitor_task=asyncio.create_task(monitor())
         try:

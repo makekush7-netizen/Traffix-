@@ -7,7 +7,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from backend.harness.demo_engine import DemoEngine, BASELINE_PATH
 
 
-def run(repeats=3, save_baseline=False):
+def run(repeats=3, save_baseline=False,output_file='runs/demo-validation.json'):
     results=[]
     for repeat in range(repeats):
         engine=DemoEngine()
@@ -28,7 +28,7 @@ def run(repeats=3, save_baseline=False):
                 BASELINE_PATH.write_text(json.dumps(record,separators=(',',':')),encoding='utf-8')
         finally:
             if engine._conn: engine._conn.close()
-    output=Path('runs/demo-validation.json'); output.parent.mkdir(exist_ok=True)
+    output=Path(output_file); output.parent.mkdir(exist_ok=True)
     output.write_text(json.dumps(results,indent=2),encoding='utf-8')
     passed=all(r['complete'] and r['collisions']==0 and r['teleports']==0 and r['unfinished']==0 for r in results)
     print('PASS: repeatable demo cohort' if passed else 'FAIL: incomplete or faulty demo',flush=True)
@@ -36,5 +36,5 @@ def run(repeats=3, save_baseline=False):
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser(); parser.add_argument('--repeats',type=int,default=3); parser.add_argument('--save-baseline',action='store_true')
-    args=parser.parse_args(); raise SystemExit(run(args.repeats,args.save_baseline))
+    parser=argparse.ArgumentParser(); parser.add_argument('--repeats',type=int,default=3); parser.add_argument('--save-baseline',action='store_true');parser.add_argument('--output',default='runs/demo-validation.json')
+    args=parser.parse_args(); raise SystemExit(run(args.repeats,args.save_baseline,args.output))

@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "parameters": {
+    "demo.rain_speed_mps": {
+      "value": 1.2,
+      "unit": "m/s",
+      "source_type": "assumed",
+      "source_note": "Severe waterlogging speed-restriction surrogate for a staged demo. TODO: observe wet-weather speeds at LIG. Not a measured monsoon effect.",
+      "date_added": "2026-10-09"
+    },
+    "demo.rain_end_s": {
+      "value": 120,
+      "unit": "simulated seconds",
+      "source_type": "assumed",
+      "source_note": "Short repeatable restriction duration. TODO: collect incident durations; this timing is not an ML feature.",
+      "date_added": "2026-10-09"
+    },
+    "demo.horizon_s": {
+      "value": 600,
+      "unit": "simulated seconds",
+      "source_type": "assumed",
+      "source_note": "Bounded demo drain. Unfinished journeys remain invalid for comparison.",
+      "date_added": "2026-10-09"
+    },
+    "demo.step_s": {
+      "value": 0.25,
+      "unit": "simulated seconds",
+      "source_type": "assumed",
+      "source_note": "Engineering timestep inherited from the harness; not field data.",
+      "date_added": "2026-10-09"
+    },
+    "demo.decision_margin_m": {
+      "value": 20,
+      "unit": "m",
+      "source_type": "assumed",
+      "source_note": "Conservative demo turn rejection margin, not a road-safety standard. TODO: validate maneuver constraints.",
+      "date_added": "2026-10-09"
+    },
+    "demo.guidance_lifetime_s": {
+      "value": 90,
+      "unit": "simulated seconds",
+      "source_type": "assumed",
+      "source_note": "Prototype advisory expiry; late turns are rejected separately.",
+      "date_added": "2026-10-09"
+    },
+    "demo.cohort": {
+      "value": [
+        "motorcycle",
+        "auto",
+        "delivery",
+        "car",
+        "bus",
+        "erickshaw",
+        "car",
+        "motorcycle",
+        "auto",
+        "car",
+        "motorcycle",
+        "delivery"
+      ],
+      "unit": "staged vehicle type sequence",
+      "source_type": "assumed",
+      "source_note": "12 vehicles placed on two lanes at time zero to support a short demonstration. NOT an observed Indian fleet mix. TODO: replace with a declared field-informed cohort after stability testing.",
+      "date_added": "2026-10-09"
+    },
+    "fleet_mix_reference": {
+      "value": {
+        "cars": 32,
+        "motorcycles": 35,
+        "autos": 15,
+        "erickshaws": 8,
+        "buses": 4,
+        "delivery": 6
+      },
+      "unit": "sampling weight percent",
+      "source_type": "assumed",
+      "source_note": "Original exploratory harness weights; not used as measured proportions or as probabilities in the staged demo. TODO: count vehicles at LIG.",
+      "date_added": "2026-10-09"
+    },
+    "speed_limits": {
+      "value": "backend/harness/data/lig.net.xml",
+      "unit": "lane speed in m/s",
+      "source_type": "assumed",
+      "source_note": "Imported/converter lane limits; per-road field provenance is not established. TODO: record signage and verify OSM/default assignments.",
+      "date_added": "2026-10-09"
+    },
+    "demo.reference_speed_mps": {
+      "value": 13.9,
+      "unit": "m/s",
+      "source_type": "assumed",
+      "source_note": "Reference is min(imported lane limit, this cap). Not a measured normal-traffic speed. TODO: measure quiet conditions.",
+      "date_added": "2026-10-09"
+    },
+    "signal_timing": {
+      "value": {
+        "green_s": 30,
+        "yellow_s": 3,
+        "all_red_s": 8
+      },
+      "unit": "s",
+      "source_type": "assumed",
+      "source_note": "Existing imported demonstration signal plan, unchanged by guidance. TODO: stopwatch actual LIG phases; not a safety-standard claim.",
+      "date_added": "2026-10-09"
+    },
+    "evening_peak_shape": {
+      "value": "12 staged departures at time zero; no measured peak curve",
+      "unit": "departure schedule",
+      "source_type": "assumed",
+      "source_note": "Evening is a narrative setting, not demand calibration. TODO: collect quiet and rush 10-minute counts.",
+      "date_added": "2026-10-09"
+    },
+    "left_hand_traffic": {
+      "value": true,
+      "unit": "boolean",
+      "source_type": "assumed",
+      "source_note": "Left-hand network setting chosen for the Indian demonstration; geometry is already built this way. TODO: verify turns in field footage. Changing this requires a new network.",
+      "date_added": "2026-10-09"
+    },
+    "sublane": {
+      "value": false,
+      "unit": "boolean",
+      "source_type": "assumed",
+      "source_note": "Disabled in the small lane-based demo for reproducible stability. Not calibrated lane-independent Indian driving.",
+      "date_added": "2026-10-09"
+    },
+    "driving_profile": {
+      "value": {
+        "min_gap_m": 2.5,
+        "tau_s": 2.5,
+        "sigma": 0,
+        "speed_deviation": 0
+      },
+      "unit": "SUMO driver settings",
+      "source_type": "assumed",
+      "source_note": "Conservative deterministic demonstration parameters. TODO: field validation; defaults are not behavioral evidence.",
+      "date_added": "2026-10-09"
+    },
+    "demo.rule_slowdown": {
+      "value": 0.45,
+      "unit": "fraction below assumed reference",
+      "source_type": "assumed",
+      "source_note": "Rule prototype threshold, not a trained or validated Indian congestion classifier.",
+      "date_added": "2026-10-09"
+    },
+    "demo.rule_duration_s": {
+      "value": 30,
+      "unit": "simulated seconds",
+      "source_type": "assumed",
+      "source_note": "Continuous fresh evidence requirement. TODO: validate detection precision against independent labels.",
+      "date_added": "2026-10-09"
+    },
+    "installed_bypass_sensor": {
+      "value": "SUMO lane-area detectors on every lane of route_b[1]",
+      "unit": "virtual fixed instrumentation",
+      "source_type": "assumed",
+      "source_note": "Declared capacity guard input, not hidden whole-network truth and not a real sensor installed at LIG. Slowdown triggering uses validated phone samples only. TODO: establish real bypass coverage before deployment.",
+      "date_added": "2026-10-09"
+    },
+    "vehicle_specs": {
+      "value": "backend/harness/engine.py:TYPES",
+      "unit": "SUMO type parameters",
+      "source_type": "assumed",
+      "source_note": "Unvalidated vehicle dimensions, acceleration, gaps, speeds and emission proxies. TODO: validate heterogeneous fleet settings; e-rickshaw default emissions are not realistic.",
+      "date_added": "2026-10-09"
+    }
+  }
+}

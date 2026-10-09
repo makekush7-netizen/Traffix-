@@ -86,6 +86,10 @@ def test_real_phone_evidence_offer_and_explicit_accept_change_only_bound_route()
             final=app.state.engine.snapshot()
             assert final['metrics']['arrived']==12
             assert final['metrics']['collisions']==final['metrics']['teleports']==0
+            import json
+            saved=json.loads((app.state.engine.run_dir/'manifest.json').read_text(encoding='utf-8'))
+            assert saved['complete'] and saved['final_counts']['arrived']==12
+            assert saved['mean_journey_s']==final['result']['mean_journey_s']
             assert client.get('/api/operator/state',headers=auth).json()['comparison']['available']
 
 

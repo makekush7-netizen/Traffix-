@@ -37,6 +37,15 @@ def test_unknown_road_never_has_an_observed_colour():
     assert road_colour({'coverage':'fresh','slowdown':.8})=='alert'
 
 
+def test_stale_simulation_truth_is_not_issued_as_a_live_frame():
+    from fastapi import HTTPException
+    from backend.harness.mobile import MobileBridge
+    class FailedEngine:
+        def snapshot(self): return {'ready':True,'error':'SUMO stopped'}
+    with pytest.raises(HTTPException) as failure: MobileBridge(FailedEngine())
+    assert failure.value.status_code==503
+
+
 def test_comparison_requires_matching_seed_checksums_and_complete_integrity():
     from backend.harness.demo_rules import comparison
     manifest=dict(seed=42,scenario_sha256='a',network_sha256='b',demand_sha256='c',complete=True,

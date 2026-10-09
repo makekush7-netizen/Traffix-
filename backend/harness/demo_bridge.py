@@ -22,7 +22,10 @@ class DemoBridge(MobileBridge):
         previous=self.sessions.run_id if self.sessions else None
         state=super().sync()
         if previous!=state['run_id']:
-            self.rules=DemoRules(); self.offers={}; self.offered=set(); self.alert=None; self.detected_once=False
+            self.rules=DemoRules(self.engine.config['rule_slowdown'],self.engine.config['rule_duration_s'])
+            self.offers={}; self.offered=set(); self.alert=None; self.detected_once=False
+            self.references={edge:min(speed,self.engine.config['reference_speed_mps']) for edge,speed in self.references.items()}
+            self.aggregator.reference_speeds=dict(self.references)
             self.recording=json.loads(BASELINE_PATH.read_text(encoding='utf-8')) if BASELINE_PATH.exists() else None
         return state
 
@@ -59,7 +62,7 @@ class DemoBridge(MobileBridge):
                         and demo['bypass_queue_ratio']<=.35):
                     key='advisory.demo.'+secrets.token_hex(6)
                     offer=dict(advisory_id=key,vehicle_id=session.vehicle_id,kind='reroute',route_id='route.demo.B',
-                               message='Slowdown ahead. Take Route B. It avoids the simulated waterlogged segment.',
+                               message='Phones report slowdown on this approach. Route B is a pre-validated alternate path beyond this road. Travel-time estimate unavailable.',
                                expires_sim_s=now+self.engine.config['guidance_lifetime_s'])
                     self.guidance[key]=offer; self.offers[key]={**offer,'status':'pending'}
                     self.offered.add(session.vehicle_id); self.detected_once=True
@@ -74,6 +77,7 @@ class DemoBridge(MobileBridge):
         stage=3 if applied else 2 if self.detected_once else 1 if observed else 0
         data.update(demo_mode=True,name=self.engine.config['name'],guidance_enabled=self.rules.enabled,
                     stage=stage,stages=list(STAGES),alert=self.alert,roads_observed=len(observed),roads_total=len(scoped),
+                    rule_threshold=self.rules.threshold,rule_duration_s=self.rules.duration_s,
                     phones_reporting=sum(s.connected and s.reporting for s in self.sessions.sessions.values()),
                     freshest_age_s=min((o['sample_age_sim_s'] for o in observed),default=None),
                     integrity=dict(collisions=state['metrics']['collisions'],teleports=state['metrics']['teleports'],
@@ -104,7 +108,7 @@ class DemoBridge(MobileBridge):
             self.log('driver_ignored',session.vehicle_id,'Driver declined. Original route continues.')
             return 'applied','original_route_kept'
         observation=self.aggregator.snapshot(self.edge_ids[state['demo']['decision_edge']],state['sim_time_s'])
-        if not session.connected or not session.reporting or observation.coverage!='fresh' or observation.fresh_probes<2 or observation.slowdown is None or observation.slowdown<.45:
+        if not session.connected or not session.reporting or observation.coverage!='fresh' or observation.fresh_probes<2 or observation.slowdown is None or observation.slowdown<self.rules.threshold:
             raise ValueError('phone_evidence_unavailable')
         future=self.engine.command(dict(action='demo_reroute',run_id=self.sessions.run_id,vehicle_id=session.vehicle_id,
                                         addressed_vehicle=offer['vehicle_id'],accepted=True,

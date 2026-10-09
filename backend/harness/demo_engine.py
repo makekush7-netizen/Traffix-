@@ -15,11 +15,24 @@ CONFIG_PATH=DATA/'demo-config.json'
 BASELINE_PATH=DATA/'demo-baseline.json'
 
 
+def load_demo_config():
+    config=json.loads(CONFIG_PATH.read_text(encoding='utf-8'))
+    path=ROOT/'sim/assumptions.json'
+    registry=json.loads(path.read_text(encoding='utf-8'))
+    for key,row in registry['parameters'].items():
+        if key.startswith('demo.'): config[key[5:]]=row['value']
+    config['assumption_registry_sha256']=hashlib.sha256(json.dumps(registry,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    if len(config['cohort'])>12 or len(config['cohort'])<2: raise ValueError('Staged demo supports 2–12 vehicles')
+    if config['rain_speed_mps']<=0 or not 0<config['rule_slowdown']<1 or config['rule_duration_s']<=0:
+        raise ValueError('Invalid demo assumptions')
+    return config
+
+
 class DemoEngine(HarnessEngine):
     def __init__(self):
         super().__init__()
         self._lock=threading.RLock()
-        self.config=json.loads(CONFIG_PATH.read_text(encoding='utf-8'))
+        self.config=load_demo_config()
         self.demo_mode=True
 
     def _reset(self, scenario=None, seed=None):
@@ -29,7 +42,7 @@ class DemoEngine(HarnessEngine):
         import sumolib
         if self._conn:
             self._save(); self._conn.close(); self._conn=None
-        config=self.config
+        self.config=load_demo_config(); config=self.config
         self.scenario='rain'; self.seed=config['seed']; self.run_id='lig.demo.'+uuid.uuid4().hex[:12]
         self.paused=True; self.rate=1
         self.run_dir=ROOT/'runs'/self.run_id; self.run_dir.mkdir(parents=True)
@@ -83,7 +96,7 @@ class DemoEngine(HarnessEngine):
                                 sumo_version=self._conn.getVersion()[1],scheduled=self.scheduled,complete=False,
                                 network_sha256=hashlib.sha256((DATA/'lig.net.xml').read_bytes()).hexdigest(),
                                 demand_sha256=hashlib.sha256((self.run_dir/'demand.rou.xml').read_bytes()).hexdigest(),
-                                scenario_sha256=hashlib.sha256(CONFIG_PATH.read_bytes()).hexdigest(),
+                                scenario_sha256=hashlib.sha256(json.dumps(config,sort_keys=True).encode()).hexdigest(),
                                 assumptions=config,mean_journey_s=None)
         self._step()
 
@@ -127,6 +140,10 @@ class DemoEngine(HarnessEngine):
             self._snapshot['result']=deepcopy(self._manifest)
             # Replace the recorded truth frame with the fully decorated version.
             if self._frames and self._frames[-1]['sim_time_s']==t: self._frames[-1]=deepcopy(self._snapshot)
+            # A completed comparison must already exist on disk, not only in memory.
+            if ended and getattr(self,'_saved_end_run',None)!=self.run_id:
+                self._save()
+                self._saved_end_run=self.run_id
 
     def _execute(self,c):
         if c['action']=='demo_reroute':

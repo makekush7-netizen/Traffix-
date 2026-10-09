@@ -48,6 +48,8 @@ class MobileBridge:
         state = self.engine.snapshot()
         if not state.get('ready'):
             raise HTTPException(503,'Simulation is starting')
+        if state.get('error'):
+            raise HTTPException(503,'Simulation unavailable; restart the demo and rejoin phones')
         if self.sessions is None or self.sessions.run_id != state['run_id']:
             self.audit.clear()
             self.sessions = SessionStore(vehicles=[v['id'] for v in state['vehicles']],run_id=state['run_id'])
@@ -209,7 +211,9 @@ class MobileBridge:
             async def produce():
                 last_frame=None; delivered=set()
                 while True:
-                    self.sync()
+                    try: self.sync()
+                    except HTTPException:
+                        await ws.close(code=1011,reason='simulation_unavailable'); return
                     if store is not self.sessions:
                         await ws.close(code=1008,reason='run_reset'); return
                     if time.monotonic()-session.last_seen>6:

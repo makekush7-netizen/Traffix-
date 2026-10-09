@@ -5,8 +5,9 @@ STAGES=('Blind spot','Phones see','Traffix decides','Driver follows')
 
 
 class DemoRules:
-    def __init__(self):
+    def __init__(self,threshold=.45,duration_s=30):
         self.enabled=False
+        self.threshold=threshold; self.duration_s=duration_s
         self.since=None
         self.last=None
 
@@ -17,14 +18,14 @@ class DemoRules:
     def update(self, observation, now):
         eligible=(self.enabled and observation['coverage']=='fresh' and
                   observation.get('fresh_probes',0)>=2 and observation.get('slowdown') is not None and
-                  observation['slowdown']>=.45)
+                  observation['slowdown']>=self.threshold)
         if not eligible:
             self.since=self.last=None
             return None
         if self.last is not None and (now<self.last or now-self.last>15): self.since=None
         if self.since is None: self.since=now
         self.last=now
-        if now-self.since<30: return None
+        if now-self.since<self.duration_s: return None
         return dict(edge_id=observation['edge_id'],phones=observation['fresh_probes'],
                     slowdown=observation['slowdown'],duration_s=now-self.since,
                     evidence=f"{observation['fresh_probes']} phones report speeds {round(observation['slowdown']*100)}% below the assumed reference for {int(now-self.since)} s")
