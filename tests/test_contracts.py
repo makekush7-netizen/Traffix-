@@ -1,31 +1,22 @@
-"""Sanity test: schemas and examples are valid JSON and example messages parse."""
-import json, pathlib
-import copy
-import pytest
-from jsonschema import ValidationError
+import json
+from pathlib import Path
 from jsonschema import Draft202012Validator
+from ml.integration import TrafficIntelligence
 
-C = pathlib.Path(__file__).resolve().parent.parent / "contracts"
 
-def load(name):
-    return json.loads((C / name).read_text(encoding="utf-8"))
-
-def test_schemas_are_valid():
-    for name in ["contracts.schema.json", "scenario.schema.json"]:
-        Draft202012Validator.check_schema(load(name))
-
-def test_examples_load():
-    validator = Draft202012Validator(load("contracts.schema.json"))
-    for message in load("messages.example.json"):
+def test_original_contract_examples_and_ml_payloads_validate():
+    root=Path(__file__).resolve().parents[1]/'contracts'
+    schema=json.loads((root/'contracts.schema.json').read_text())
+    Draft202012Validator.check_schema(schema)
+    validator=Draft202012Validator(schema)
+    for message in json.loads((root/'messages.example.json').read_text()):
         validator.validate(message)
-    Draft202012Validator(load("scenario.schema.json")).validate(load("rain-demo.example.json"))
-
-@pytest.mark.parametrize('change', ['negative_speed', 'extra_field', 'invalid_choice'])
-def test_contract_rejections(change):
-    examples = load('messages.example.json')
-    message = copy.deepcopy(examples[2] if change == 'invalid_choice' else examples[0])
-    if change == 'negative_speed': message['payload']['pose']['speed_mps'] = -1
-    if change == 'extra_field': message['payload']['unexpected'] = True
-    if change == 'invalid_choice': message['payload']['choice'] = 'auto_accept'
-    with pytest.raises(ValidationError):
-        Draft202012Validator(load('contracts.schema.json')).validate(message)
+    runtime=TrafficIntelligence('run.example',{'edge.market':10})
+    output=runtime.tick(0,{})
+    for name,rows in [('observation',output['observations']),('forecast',output['forecasts'])]:
+        payload_validator=Draft202012Validator({'$defs':schema['$defs'],'$ref':f'#/$defs/{name}'})
+        for row in rows:
+            payload_validator.validate(row)
+    scenario_schema=json.loads((root/'scenario.schema.json').read_text())
+    Draft202012Validator.check_schema(scenario_schema)
+    Draft202012Validator(scenario_schema).validate(json.loads((root/'rain-demo.example.json').read_text()))

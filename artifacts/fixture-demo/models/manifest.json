@@ -1,0 +1,54 @@
+{
+  "artifact_version": 2,
+  "feature_version": 2,
+  "label_step_s": 5,
+  "sklearn_version": "1.9.1",
+  "feature_columns": [
+    "slowdown_now",
+    "slowdown_mean_30",
+    "slowdown_mean_60",
+    "slowdown_mean_120",
+    "slowdown_slope_60",
+    "distinct_probes_60s",
+    "sample_age_sim_s",
+    "fixed_queue_ratio",
+    "history_span_s",
+    "fresh_fraction_60"
+  ],
+  "horizons": [
+    120,
+    180,
+    300
+  ],
+  "train_seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107
+  ],
+  "validation_seeds": [
+    200,
+    201,
+    202
+  ],
+  "test_seeds": [
+    300,
+    301,
+    302,
+    303,
+    304
+  ],
+  "label_policy": "fixed_no_action",
+  "training_data_sha256": "be9b5f5557e9d5a1cd3508648446619f85f0b973b717da5e90579b236032557e",
+  "data_source": "fixture",
+  "model_sha256": {
+    "120": "811c7188628627955ddab24dfbe8533ae21ecd2df4f7bdbeba146e9b0af2096f",
+    "180": "276c4df4b441e786bf94575a03c8099f9173526e4d4d3fdfcad6d6e8d2e2647c",
+    "300": "60a77446abd97b0430359c7da2e4ad128ab7fb05a566e2db906f679b2e5c6d83"
+  },
+  "preprocessing": "training-fitted constant imputation with missingness indicators; online unknown coverage remains null"
+}

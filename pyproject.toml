@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "traffix-ml-evaluation"
+version = "0.1.0"
+description = "Sparse-probe detection, forecasting and honest cohort evaluation for Traffix"
+requires-python = ">=3.12"
+dependencies = ["numpy>=1.26", "pandas>=2.2", "scikit-learn>=1.5", "matplotlib>=3.8", "jsonschema>=4.22"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+sumo = ["traci", "sumolib"]
+
+[tool.setuptools.packages.find]
+include = ["ml*", "eval*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --basetemp=.cache/pytest"
