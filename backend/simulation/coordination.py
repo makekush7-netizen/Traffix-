@@ -23,6 +23,7 @@ class Coordinator:
         return {'revision':self.revision,'lease':deepcopy(lease),'audit':list(self.audit)[-100:]}
 
     def acquire(self, actor, action='acquire', takeover=False):
+        if actor.get('expires_wall_s',float('inf'))<=self.clock(): raise Conflict('session_expired')
         if actor['role']!='operator': raise Conflict('operator_required')
         lease=self.view()['lease']
         if action not in ('acquire','renew','release'): raise Conflict('invalid_lease_action')
@@ -34,6 +35,7 @@ class Coordinator:
         return self.view()
 
     def execute(self, actor, command, run_id, execute):
+        if actor.get('expires_wall_s',float('inf'))<=self.clock(): raise Conflict('session_expired')
         if actor['role']!='operator': raise Conflict('operator_required')
         cid=command['command_id']; key=(actor['id'],cid)
         digest=hashlib.sha256(json.dumps(command,sort_keys=True).encode()).hexdigest()

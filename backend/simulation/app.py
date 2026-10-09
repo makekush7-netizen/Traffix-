@@ -28,18 +28,20 @@ def create_app(engine=None, accounts=None):
     async def lifespan(app):
         if not auth.accounts: raise RuntimeError('Set TRAFFIX_ACCOUNTS with explicit operator/viewer accounts before boot')
         await asyncio.to_thread(engine.start)
-        app.state.mobile=MobileBridge(engine)
+        from .phone import UnifiedMobileBridge
+        app.state.mobile=UnifiedMobileBridge(engine)
         try: yield
         finally: await asyncio.to_thread(engine.stop)
     app=FastAPI(title='Traffix unified API',version='2.0',lifespan=lifespan)
     app.state.engine=engine; app.state.auth=auth
+    engine._actor_validator=auth.validate_actor
     def identity(request):
         origin=request.headers.get('origin')
         if origin:
             from urllib.parse import urlsplit
             if urlsplit(origin).netloc!=request.headers.get('host'): raise HTTPException(403,'origin_forbidden')
         token=request.headers.get('authorization','').removeprefix('Bearer ')
-        try: return auth.identity(token)
+        try: return auth.command_actor(token)
         except ValueError as exc: raise HTTPException(401,str(exc)) from exc
     async def submit(command):
         try: return await asyncio.wrap_future(engine.command(command))
@@ -51,19 +53,14 @@ def create_app(engine=None, accounts=None):
         try: return auth.login(body.username,body.password,request.client.host)
         except ValueError as exc: raise HTTPException(401,str(exc)) from exc
     @app.get('/api/v2/auth/identity')
-    async def who(request:Request): return identity(request)
+    async def who(request:Request): return {k:v for k,v in identity(request).items() if not k.startswith('_')}
     @app.post('/api/v2/auth/revoke')
     async def revoke(request:Request):
         identity(request); auth.revoke(request.headers.get('authorization','').removeprefix('Bearer ')); return {'status':'revoked'}
     @app.post('/api/v2/auth/renew')
     async def renew(request:Request):
-        actor=identity(request)
-        # Renewal rotates the opaque token; stolen old tokens are invalidated.
-        import secrets,hashlib,time
-        auth.revoke(request.headers.get('authorization','').removeprefix('Bearer '))
-        token=secrets.token_urlsafe(32); actor['expires_wall_s']=time.time()+3600
-        auth.sessions[hashlib.sha256(token.encode()).hexdigest()]=actor
-        return {'token':token,**actor}
+        identity(request)
+        return auth.renew(request.headers.get('authorization','').removeprefix('Bearer '))
     @app.get('/api/v2/locations')
     async def locations(request:Request,q:str=''):
         identity(request); return [p for p in LOCATIONS if q.lower() in p['name'].lower()]
@@ -79,8 +76,61 @@ def create_app(engine=None, accounts=None):
         return await submit({'action':'lease','actor':identity(request),**body.model_dump(exclude={'action'}),'lease_action':body.action})
     @app.get('/api/v2/results')
     async def results(request:Request): identity(request); return engine.export()
+    @app.get('/api/v2/runs')
+    async def run_catalog(request:Request):
+        identity(request)
+        from .engine import saved_runs
+        return {'api_version':'2.0','runs':saved_runs(),'active_run_id':engine.state()['run'].get('run_id')}
+    def load_saved(run_id,filename):
+        from .engine import saved_run_path
+        try: return json.loads((saved_run_path(run_id)/filename).read_text(encoding='utf-8'))
+        except FileNotFoundError as exc: raise HTTPException(404,'run_not_found_or_not_saved') from exc
+        except (ValueError,OSError) as exc: raise HTTPException(422,'invalid_run_or_record') from exc
+    @app.get('/api/v2/runs/{run_id}/results')
+    async def saved_results(run_id:str,request:Request):
+        identity(request); return load_saved(run_id,'manifest.json')
+    @app.get('/api/v2/runs/{run_id}/replay')
+    async def replay(run_id:str,request:Request):
+        identity(request)
+        return {'api_version':'2.0','read_only':True,'source':'saved_simulation_recording',
+                'recording':load_saved(run_id,'recording.json')}
+    @app.get('/api/v2/runs/{run_id}/comparable')
+    async def comparable(run_id:str,request:Request):
+        identity(request)
+        from .engine import comparable_runs
+        return {'api_version':'2.0','runs':comparable_runs(load_saved(run_id,'manifest.json'))}
     @app.get('/api/v2/observations')
     async def observations(request:Request): identity(request); return app.state.mobile.status()
+    def adapter_store():
+        from .observations import ObservationStore
+        state=engine.snapshot()
+        store=getattr(app.state,'observation_store',None)
+        if store is None or store.run_id!=state['run_id']:
+            store=app.state.observation_store=ObservationStore(state['run_id'])
+        return store,state
+    @app.post('/api/v2/observations/ingest')
+    async def ingest_adapter(request:Request):
+        actor=identity(request)
+        if actor['role']!='operator': raise HTTPException(403,'operator_required')
+        data=await request.json()
+        if not isinstance(data,dict) or data.get('api_version')!='2.0': raise HTTPException(422,'unsupported_version')
+        observation=data.get('observation')
+        if not isinstance(observation,dict): raise HTTPException(422,'missing_observation')
+        # Phone observations must retain the existing server-issued-frame validation.
+        if observation.get('source_type')=='phone_sample': raise HTTPException(422,'phone_gateway_required')
+        store,state=adapter_store()
+        import time
+        try: result=store.ingest(observation,now_sim_s=state['sim_time_s'],now_wall_s=time.time())
+        except ValueError as exc: raise HTTPException(422,str(exc)) from exc
+        return {'api_version':'2.0','status':'accepted','usable_for_control':False,
+                'reason_code':'adapter_stored_not_connected_to_controller','observation':result}
+    @app.get('/api/v2/observations/health')
+    async def adapter_health(request:Request):
+        identity(request); store,state=adapter_store()
+        import time
+        return {'api_version':'2.0','run_id':state['run_id'],
+                **store.snapshot(now_sim_s=state['sim_time_s'],now_wall_s=time.time()),
+                'phone_gateway':app.state.mobile.status(),'usable_for_control':False}
     @app.post('/api/v2/phones/invites')
     async def invite(request:Request):
         actor=identity(request)
@@ -97,10 +147,31 @@ def create_app(engine=None, accounts=None):
         bridge=app.state.mobile; bridge.same_origin(request); bridge.sync()
         try: return bridge.sessions.claim(body.join_code)
         except ValueError as exc: raise HTTPException(409,str(exc)) from exc
+    @app.get('/api/v2/phones/state')
+    async def own_trip(request:Request,session_id:str,run_id:str):
+        bridge=app.state.mobile; bridge.same_origin(request); state=bridge.sync()
+        token=request.headers.get('authorization','').removeprefix('Bearer ')
+        try: session=bridge.sessions.authenticate({'sender_id':session_id,'run_id':run_id,'payload':{'token':token}})
+        except ValueError as exc: raise HTTPException(401,str(exc)) from exc
+        offers=[]
+        for offer in bridge.offers.values():
+            if offer['vehicle_id']!=session.vehicle_id: continue
+            row=dict(offer)
+            if row['status']=='pending' and state['sim_time_s']>=row['expires_sim_s']: row['status']='expired'
+            offers.append(row)
+        return {'api_version':'2.0','run_id':run_id,'vehicle_id':session.vehicle_id,'reporting':session.reporting,
+                'connected':session.connected,'sim_time_s':state['sim_time_s'],
+                'vehicle':next((v for v in state['vehicles'] if v['id']==session.vehicle_id),None),
+                'guidance_enabled':state.get('guidance_enabled',False),'advisories':offers,
+                'source':'SUMO simulated own vehicle; sensor sharing requires phone uplinks'}
     @app.websocket('/api/v2/phones/ws')
     async def phones(ws:WebSocket): await app.state.mobile.serve(ws)
     @app.websocket('/api/v2/stream')
     async def stream(ws:WebSocket):
+        from urllib.parse import urlsplit
+        origin=ws.headers.get('origin')
+        if origin and urlsplit(origin).netloc!=ws.headers.get('host'):
+            await ws.close(code=1008); return
         await ws.accept()
         try:
             hello=await asyncio.wait_for(ws.receive_json(),5)

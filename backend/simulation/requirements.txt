@@ -1,0 +1,13 @@
+# Exercised with Python 3.12. Optional vision packages are deliberately separate.
+fastapi==0.143.0
+uvicorn==0.54.0
+pydantic==2.14.0
+httpx==0.28.1
+eclipse-sumo==1.28.0
+traci==1.28.0
+sumolib==1.28.0
+-r ../../requirements-lock.txt
+qrcode[pil]==8.2
+websockets==17.2
+pyproj==3.7.2
+

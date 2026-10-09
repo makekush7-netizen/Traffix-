@@ -53,3 +53,45 @@ remote tunnel credentials and held-out camera clips are external acceptance inpu
 Separate scenario CRUD/run catalog/replay endpoints are not yet published as implemented;
 state/reset and result export are the initial integration surface. Breaking changes
 require a new version.
+
+## Additive read-only and adapter surface (v2.0)
+
+Authenticated GET `/api/v2/runs` lists saved manifests, with `active_run_id`. GET
+`/api/v2/runs/{run_id}/results` loads its saved manifest; `/replay` returns a
+`read_only:true` saved recording and cannot execute commands. `/comparable` only
+lists unchanged scenarios with identical seed, network hash, cohort hash, settings
+and scenario label. It does not itself establish integrity or a gain. Run IDs are
+strict `lig.` plus 12 lowercase hexadecimal characters. Missing records return404;
+invalid IDs return422. Old demo IDs are intentionally outside this new catalog.
+
+POST `/api/v2/observations/ingest` requires an operator token and the object
+`{api_version:"2.0",observation:{source_type,source_id,run_id,sim_time_s,wall_time_s,
+confidence,coverage,units,values}}`. Camera/simulated/emulated/manual adapters are
+stored independently; `phone_sample` is rejected and must use the validated phone
+frame gateway. For example `values:{count:2,speed_mps:null}` and
+`units:{count:"vehicles",speed_mps:"m/s"}` retain unavailable calibration.
+Manual reports stay unverified. Duplicate, wrong-run, future or stale values reject.
+GET `/api/v2/observations/health` returns fresh adapter measurements plus separate
+phone-gateway health. These externally submitted measurements are currently
+`usable_for_control:false`; installed simulated lane measurements drive the worker
+controller. Reset creates a fresh adapter store.
+
+## Unified phone guidance and execution identity
+
+Enable the observed phone rule explicitly with a leased, revisioned command
+`{action:"guidance",enabled:true}`. Default/reset is off. Two fresh authenticated
+phone probes, slowdown≥0.45 for30 simulated seconds are untested starting thresholds.
+The engine only offers the existing reviewed bypass when the current approach,
+class permissions and matching destination support it. Other approaches produce
+no route offer. Guidance uses frozenv1 `guidance` and `driver.decision` messages;
+Accept ACK follows worker confirmation. Decline keeps the route. Worker validates
+run/expiry/current route and class, decision distance, receiving space and current
+phone consent/evidence immediately before applying. Phone views may GET
+`/api/v2/phones/state?session_id=...&run_id=...` with the scoped driver bearer token;
+this returns only that binding's simulated vehicle and advisory state, including
+expiry/cancellation. Admin tokens cannot impersonate driver sessions.
+
+Run comparability now additionally requires saved `execution_sha256` and complete
+integrity. The fingerprint includes engine, policy, demand and phone adapter source;
+older runs lacking it are unverified and excluded. Pace accepts finite target rates
+0.25..20 simulated seconds per wall second; it does not guarantee achieved throughput.
