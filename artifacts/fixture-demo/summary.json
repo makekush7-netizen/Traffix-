@@ -1,0 +1,21 @@
+{
+  "data_source": "fixture",
+  "software_pipeline": "completed",
+  "observation_rows": 2896,
+  "dataset_rows": 2896,
+  "trained_horizons_s": [
+    120,
+    180,
+    300
+  ],
+  "test_seeds": [
+    300,
+    301,
+    302,
+    303,
+    304
+  ],
+  "traffic_improvement": null,
+  "real_SUMO_validation": "pending Nandani network, demand and runner",
+  "report": "mentor-report/report.md"
+}

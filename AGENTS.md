@@ -39,3 +39,26 @@ Full spec: `docs/astra-build-plan.md` (long; read only the sections you need).
 - Tests: `pytest`
 - Env check: `python scripts/check_env.py`
 - Server: `python -m uvicorn backend.app:app --host 0.0.0.0 --port 8000 --workers 1`
+
+## Prakhyat's LIG handoff, approved by Kush on 2026-10-09
+
+The project is now named **Traffix**. Kush has requested that Prakhyat's Codex
+continue the combined ML and existing offline LIG Square harness. For this
+handoff, the existing OSM map is an approved scope extension. Read
+`docs/prakhyat-work.md` for the bounded task sequence and current limitations.
+The original synthetic-corridor plan remains reference material; read only
+the relevant module sections. No RL is part of this handoff.
+
+Prakhyat may edit `ml/`, `eval/`, `models/`, his imported ML tests and documents,
+and, for simulation repair/export/integration, `backend/harness/`,
+`scripts/build_lig.py`, `scripts/check_lig.py`, and new LIG training/batch scripts.
+He may extend `tests/test_harness.py` for these changes. Preserve the phone
+backend, its acceptance tests, Nandani's `sim/`, Urvashi's `web/`, and shared
+contracts. Report contract gaps to Kush rather than changing the wire format.
+
+Continue to enforce one TraCI owner. Online ML receives permitted observations,
+not hidden truth. Offline truth supplies labels/evaluation only. Batch emulated
+probes must be labeled `emulated_probe`; live zero phone uplinks must still
+mean zero phone observations. Preserve invalid/incomplete run evidence, reject
+collision-bearing runs for benchmark headlines, and keep fixture-trained
+models disabled for live control. Do not hide simulation faults to pass a gate.

@@ -1,0 +1,24 @@
+{
+  "audit_date": "2026-10-09",
+  "automated_tests_passed": 101,
+  "full_fixture_pipeline_passed": true,
+  "fixture_observation_rows": 2896,
+  "cli_workflow_passed": true,
+  "cli_verification_file": ".cache/cli-audit/f5d8f67c47ee4c8f8f6b561145ec0a90/verification.json",
+  "compiled_modules": ["ml", "eval", "scripts", "tests"],
+  "planned_jobs": {
+    "training": 48,
+    "validation": 18,
+    "forecast_test": 15,
+    "core_policies": 45,
+    "sensor_ablation": 10,
+    "optional_compliance": 30
+  },
+  "real_sumo_runs_ready": false,
+  "executed_sumo_jobs": 0,
+  "real_phone_integration_verified": false,
+  "traffic_improvement": null,
+  "forecast_performance_claim": null,
+  "co2_reduction": null,
+  "limitations": "Software and labelled fixtures verified. Real simulation, gateway/controller integration, calibration and traffic outcome evidence remain pending. Planned jobs overlap and must be reused rather than added as unique executions."
+}

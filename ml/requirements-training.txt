@@ -1,0 +1,5 @@
+# Combined backend + LIG + Prakhyat ML environment; use Python 3.12.
+-r ../requirements.txt
+-r ../backend/sumo-requirements.txt
+-r ../requirements-lock.txt
+pyproj==3.7.2
