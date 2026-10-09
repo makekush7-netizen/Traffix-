@@ -1,0 +1,54 @@
+{
+  "artifact_version": 2,
+  "feature_version": 2,
+  "label_step_s": 5,
+  "sklearn_version": "1.9.1",
+  "feature_columns": [
+    "slowdown_now",
+    "slowdown_mean_30",
+    "slowdown_mean_60",
+    "slowdown_mean_120",
+    "slowdown_slope_60",
+    "distinct_probes_60s",
+    "sample_age_sim_s",
+    "fixed_queue_ratio",
+    "history_span_s",
+    "fresh_fraction_60"
+  ],
+  "horizons": [
+    120,
+    180,
+    300
+  ],
+  "train_seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107
+  ],
+  "validation_seeds": [
+    200,
+    201,
+    202
+  ],
+  "test_seeds": [
+    300,
+    301,
+    302,
+    303,
+    304
+  ],
+  "label_policy": "fixed_no_action",
+  "training_data_sha256": "0fe29505e3f4735177ab8943da7950a5f466a0e36b2af37ce932ac7b4f865d48",
+  "data_source": "sumo",
+  "model_sha256": {
+    "120": "9291cc6eede8aa2a0748897ba78c07153c07eea07202076812682754d3900e0a",
+    "180": "0b8b2c739888c693ff627eaaa5841d1530bbe153fd09d70fa4ae74a207fc46aa",
+    "300": "1d2c6515127ed7caaa997e89416b908d8412eb8ee81ba5cc1885fcdbebfe479b"
+  },
+  "preprocessing": "training-fitted constant imputation with missingness indicators; online unknown coverage remains null"
+}

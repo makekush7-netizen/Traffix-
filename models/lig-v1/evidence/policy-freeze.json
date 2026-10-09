@@ -1,0 +1,12 @@
+{
+  "selection_sha256": "0167cd4ee9164c5a4f232c86664edf97c9e423f013d1457e6f5ced2281702a97",
+  "test_seeds": [
+    300,
+    301,
+    302,
+    303,
+    304
+  ],
+  "validation_comparison_sha256": "d8d16a4246c9c789c409fc7dbbdcc3dcf0d4f902e985d8edb6dc4723241f379f",
+  "parameters_changed_after_validation": false
+}

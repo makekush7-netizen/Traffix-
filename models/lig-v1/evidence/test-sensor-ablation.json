@@ -1,0 +1,157 @@
+{
+  "baseline_mask": "mask.lig.boundary",
+  "phone_mask": "mask.lig.probes",
+  "pairs": [
+    {
+      "scenario_id": "lig.roadworks",
+      "demand_id": "demand.lig.ordinary",
+      "seed": 300,
+      "policy": "reactive",
+      "compliance": 0.6,
+      "data_source": "sumo",
+      "missing_masks": [],
+      "valid": true,
+      "journey_improvement_pct": 3.7612454394084187,
+      "co2_improvement_pct": 1.386363302088152
+    },
+    {
+      "scenario_id": "lig.roadworks",
+      "demand_id": "demand.lig.ordinary",
+      "seed": 301,
+      "policy": "reactive",
+      "compliance": 0.6,
+      "data_source": "sumo",
+      "missing_masks": [],
+      "valid": true,
+      "journey_improvement_pct": 0.2760360114778568,
+      "co2_improvement_pct": -0.8185702629153667
+    },
+    {
+      "scenario_id": "lig.roadworks",
+      "demand_id": "demand.lig.ordinary",
+      "seed": 302,
+      "policy": "reactive",
+      "compliance": 0.6,
+      "data_source": "sumo",
+      "missing_masks": [],
+      "valid": true,
+      "journey_improvement_pct": 9.892774188848557,
+      "co2_improvement_pct": 6.173712493004344
+    },
+    {
+      "scenario_id": "lig.roadworks",
+      "demand_id": "demand.lig.ordinary",
+      "seed": 303,
+      "policy": "reactive",
+      "compliance": 0.6,
+      "data_source": "sumo",
+      "missing_masks": [],
+      "valid": true,
+      "journey_improvement_pct": 0.8567314579534714,
+      "co2_improvement_pct": 0.4338590828158704
+    },
+    {
+      "scenario_id": "lig.roadworks",
+      "demand_id": "demand.lig.ordinary",
+      "seed": 304,
+      "policy": "reactive",
+      "compliance": 0.6,
+      "data_source": "sumo",
+      "missing_masks": [],
+      "valid": true,
+      "journey_improvement_pct": 8.828407448792955,
+      "co2_improvement_pct": 5.803610535789002
+    }
+  ],
+  "summary": [
+    {
+      "scenario_id": "lig.roadworks",
+      "demand_id": "demand.lig.ordinary",
+      "policy": "reactive",
+      "compliance": 0.6,
+      "data_source": "sumo",
+      "attempted_seeds": 5,
+      "paired_valid": 5,
+      "wins": 5,
+      "median_journey_improvement_pct": 3.7612454394084187,
+      "min_pct": 0.2760360114778568,
+      "max_pct": 9.892774188848557
+    }
+  ],
+  "coverage": [
+    {
+      "run_id": "run.lig.roadworks.reactive.300.2a02db52f3",
+      "seed": 300,
+      "sensor_mask_id": "mask.lig.boundary",
+      "focus_fresh_fraction": 0.0,
+      "focus_two_fresh_probe_fraction": 0.0
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.301.94e6a860eb",
+      "seed": 301,
+      "sensor_mask_id": "mask.lig.boundary",
+      "focus_fresh_fraction": 0.0,
+      "focus_two_fresh_probe_fraction": 0.0
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.302.0e483e04b0",
+      "seed": 302,
+      "sensor_mask_id": "mask.lig.boundary",
+      "focus_fresh_fraction": 0.0,
+      "focus_two_fresh_probe_fraction": 0.0
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.303.90aa83021f",
+      "seed": 303,
+      "sensor_mask_id": "mask.lig.boundary",
+      "focus_fresh_fraction": 0.0,
+      "focus_two_fresh_probe_fraction": 0.0
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.304.f35260cdbf",
+      "seed": 304,
+      "sensor_mask_id": "mask.lig.boundary",
+      "focus_fresh_fraction": 0.0,
+      "focus_two_fresh_probe_fraction": 0.0
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.300.a6bcaf83d0",
+      "seed": 300,
+      "sensor_mask_id": "mask.lig.probes",
+      "focus_fresh_fraction": 0.7335766423357665,
+      "focus_two_fresh_probe_fraction": 0.583941605839416
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.301.a61b3b2bd4",
+      "seed": 301,
+      "sensor_mask_id": "mask.lig.probes",
+      "focus_fresh_fraction": 0.6909871244635193,
+      "focus_two_fresh_probe_fraction": 0.49356223175965663
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.302.6412b2b513",
+      "seed": 302,
+      "sensor_mask_id": "mask.lig.probes",
+      "focus_fresh_fraction": 0.7977099236641222,
+      "focus_two_fresh_probe_fraction": 0.7251908396946565
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.303.7f423eb52b",
+      "seed": 303,
+      "sensor_mask_id": "mask.lig.probes",
+      "focus_fresh_fraction": 0.4854014598540146,
+      "focus_two_fresh_probe_fraction": 0.35766423357664234
+    },
+    {
+      "run_id": "run.lig.roadworks.reactive.304.e7d5db213c",
+      "seed": 304,
+      "sensor_mask_id": "mask.lig.probes",
+      "focus_fresh_fraction": 0.7392996108949417,
+      "focus_two_fresh_probe_fraction": 0.7003891050583657
+    }
+  ],
+  "probe_source": "emulated_probe",
+  "authenticated_phone_uplinks": 0,
+  "interpretation": "Sensor-poor approach has no fixed sensor in either mask; simulated boundary capacity detectors remain. Emulated probes are not physical phones.",
+  "collection_errors": []
+}

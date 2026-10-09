@@ -54,13 +54,18 @@ every scheduled vehicle, entry delay, unfinished states and emission units.
 ## Mentor demo
 
 ```powershell
-python scripts/run_lig_ml.py --probe-mode emulated --policy predictive --scenario roadworks --models models/lig-v1 --selection runs/lig-evidence/selection.json
+python scripts/run_lig_ml.py --probe-mode emulated --policy reactive --scenario roadworks --models models/lig-v1 --selection runs/lig-evidence/selection.json
 ```
 
 Open `http://127.0.0.1:8001`. This is a LIVE SUMO run with explicitly EMULATED
 probes; it is not a physical-phone demonstration. At 8x playback use pause,
 step, reset, clear incident and the bounded-autonomy pause button. The default
 phone mode can demonstrate the honesty gate:
+
+Reactive is the recommended demo policy: validation showed little consistent
+prediction benefit. Boosting forecasts remain visible before intervention.
+Use `--policy predictive` to demonstrate the separately evaluated predictive
+controller; do not claim it consistently beats reactive control.
 
 For the checked-in pretrained release, use its matching packaged
 `--selection models/lig-v1/evidence/selection.json`. After rerunning training,

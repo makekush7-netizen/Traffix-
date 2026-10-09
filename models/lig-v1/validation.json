@@ -1,0 +1,27 @@
+{
+  "selection_split": "validation_only",
+  "data_source": "sumo",
+  "horizons": {
+    "120": {
+      "train_rows": 17775,
+      "validation_rows": 6778,
+      "boosting_mae": 0.02176862329672206,
+      "persistence_mae": 0.09085958684526825,
+      "trend_mae": 0.18404698053132737
+    },
+    "180": {
+      "train_rows": 18501,
+      "validation_rows": 7204,
+      "boosting_mae": 0.016088946881746342,
+      "persistence_mae": 0.07388417391910267,
+      "trend_mae": 0.15727111565991883
+    },
+    "300": {
+      "train_rows": 14295,
+      "validation_rows": 5252,
+      "boosting_mae": 0.026253250181275296,
+      "persistence_mae": 0.09174002749345968,
+      "trend_mae": 0.23527430684118256
+    }
+  }
+}
