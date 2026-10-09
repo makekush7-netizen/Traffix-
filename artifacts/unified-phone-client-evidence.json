@@ -1,0 +1,65 @@
+{
+  "label": "real SUMO; two authenticated in-process clients; route-A test scenario; no physical phones or WebSocket network proof",
+  "test": "tests/test_unified_phone_guidance.py::test_two_authenticated_phone_observations_accept_worker_route",
+  "manifest": {
+    "run_id": "lig.8d3d890ed684",
+    "scenario": "rush",
+    "seed": 42,
+    "calibrated": false,
+    "source": "OSM geometry + synthetic demand",
+    "warmup_s": 0,
+    "sumo_version": "SUMO 1.28.0",
+    "scheduled": 10,
+    "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+    "demand_sha256": "7181158d2ec0604045f1bbbb86d020e10ac9e475801406f0c2257c652db90b99",
+    "provenance": {
+      "source": "OpenStreetMap",
+      "attribution": "\u00a9 OpenStreetMap contributors",
+      "source_url": "https://www.openstreetmap.org/#map=16/22.73360/75.89011",
+      "downloaded_at": "2026-10-09",
+      "osm_sha256": "78c8f15096b15d1f9e7b534299133a45246b39d5060028b03da654d79cdbb6a3",
+      "sumo_version": "1.28.0",
+      "left_hand": true,
+      "calibrated": false,
+      "note": "OSM road geometry; inferred lane/signal defaults and building heights; synthetic traffic demand."
+    },
+    "complete": false,
+    "settings": {
+      "mode": "experiment",
+      "demand_per_hour": 3600,
+      "duration_s": 10,
+      "drain_s": 180,
+      "location": "lig"
+    },
+    "policy": "fixed",
+    "scenario_mutated": true,
+    "scenario_requested": "rush",
+    "execution_sha256": "d8a9a01aeb3b2b97dbc39a008c7a662720a81c52dd2d41ba007b3641c50b6d35",
+    "scenario_effect": "Events are applied explicitly through preview/apply; legacy scenario names do not inject hidden restrictions",
+    "final_counts": {
+      "active": 8,
+      "queued": 0,
+      "mean_speed_kph": 4.8,
+      "scheduled": 10,
+      "departed": 8,
+      "arrived": 0,
+      "not_departed": 2,
+      "collisions": 0,
+      "teleports": 0,
+      "co2_kg": 0.2195
+    },
+    "integrity": "incomplete",
+    "emission_mapping_reviewed": false
+  },
+  "worker_route_events": [
+    {
+      "kind": "driver_route_applied",
+      "vehicle_id": "car.1",
+      "advisory_id": "advisory.c4706945c94aceefc1a1",
+      "sim_time_s": 34.75,
+      "source_type": "phone_sample",
+      "receiving_space_source": "simulated_sensor"
+    }
+  ],
+  "recorded_frames": 35
+}
