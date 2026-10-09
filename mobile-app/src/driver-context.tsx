@@ -3,7 +3,12 @@ import type { Dispatch, SetStateAction } from "react";
 import type { TrafficClient } from "./client";
 import type { ClientState, World } from "./protocol";
 import type { Tab } from "./ui";
+import type { Profile } from "./profile";
 type DriverContextValue = {
+  profile: Profile;
+  profileLoaded: boolean;
+  profileError: string;
+  updateProfile: (update: (p: Profile) => Profile) => void;
   state: ClientState;
   world: World | null;
   api: TrafficClient;

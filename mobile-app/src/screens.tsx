@@ -3,12 +3,18 @@ import { View, Text, Pressable, Image, Switch, TextInput } from "react-native";
 import { useDriver } from "./driver-context";
 import { C, s, Icon, Button, Card, lessons } from "./ui";
 import { TripMap } from "./Map";
+import { router } from "expo-router";
+import { lessonArt } from "./LessonDetail";
 export function HomeScreen() {
-  const { state, openJoin, setTab, setLesson } = useDriver();
+  const { state, openJoin, setTab, setLesson, profile, profileError } = useDriver();
   return (
     <>
       <Text style={s.eyebrow}>A LITTLE LESS STOP. A BETTER TRIP.</Text>
-      <Text style={s.h1}>Hello, traveller 👋</Text>
+      <Pressable accessibilityRole="button" accessibilityLabel="Edit your profile" onPress={() => router.push("/profile")} style={s.sectionHeading}>
+        <View style={{ flex: 1 }}><Text style={s.h1}>Hello, {profile.name || "traveller"} 👋</Text><Text style={s.textLink}>{profile.name ? "Your personal profile →" : "Make this yours · Add your name →"}</Text></View>
+        <Text style={{ fontSize: 34 }}>{profile.avatar}</Text>
+      </Pressable>
+      {!!profileError && <Text style={s.error}>{profileError}</Text>}
       <Text style={s.body}>Your next journey, with a clearer picture.</Text>
       <View style={s.hero}>
         <View style={s.heroTop}>
@@ -32,8 +38,8 @@ export function HomeScreen() {
       </View>
       <View style={s.sectionHeading}>
         <Text style={s.h2}>Your impact</Text>
-        <Pressable onPress={() => setLesson(3)}>
-          <Text style={s.textLink}>How it works</Text>
+        <Pressable onPress={() => router.push("/impact")}>
+          <Text style={s.textLink}>View activity →</Text>
         </Pressable>
       </View>
       <View style={s.grid}>
@@ -61,14 +67,14 @@ export function HomeScreen() {
           <Icon name="Arrow" color={C.purple} />
         </Pressable>
       </Card>
-      <Pressable
+      {profile.homeTips && <Pressable
         onPress={() => setLesson(0)}
         style={[s.card, { backgroundColor: C.yellow }]}
       >
         <Text style={s.eyebrow}>GOOD TO KNOW</Text>
         <Text style={s.h2}>A green light needs a clear exit.</Text>
         <Text style={s.body}>A 30-second read for a better junction.</Text>
-      </Pressable>
+      </Pressable>}
       <Text style={s.footnote}>
         SIMULATION PROTOTYPE · Your position comes from SUMO, not phone GPS.
       </Text>
@@ -87,6 +93,7 @@ export function RideScreen() {
     active,
     openJoin,
     leave,
+    profile,
   } = useDriver();
   return (
     <>
@@ -124,8 +131,8 @@ export function RideScreen() {
             <View style={[s.tile, { backgroundColor: C.lavender }]}>
               <Text style={s.small}>CURRENT SPEED</Text>
               <Text style={s.metric}>
-                {speed ?? "—"}
-                <Text style={{ fontSize: 14, fontWeight: "500" }}> km/h</Text>
+                {profile.units === "m/s" && state.fresh && state.frame?.payload.pose ? state.frame.payload.pose.speed_mps.toFixed(1) : speed ?? "—"}
+                <Text style={{ fontSize: 14, fontWeight: "500" }}> {profile.units}</Text>
               </Text>
               <Text style={s.small}>
                 {speed === null
@@ -232,12 +239,13 @@ export function RideScreen() {
   );
 }
 export function LearnScreen() {
-  const { setLesson } = useDriver();
+  const { setLesson, profile } = useDriver();
   return (
     <>
       <Text style={s.eyebrow}>SMALL LESSONS, BETTER JOURNEYS</Text>
       <Text style={s.h1}>Road sense.</Text>
       <Text style={s.body}>Practical ideas for smoother, safer movement.</Text>
+      <Card color={C.lavender}><Text style={s.h2}>{profile.learned.length} / 4 learned</Text><Text style={s.small}>Illustrated ideas, one quick check each. Pick up where you left off.</Text></Card>
       {lessons.map((l, i) => (
         <Pressable
           key={l.title}
@@ -246,9 +254,10 @@ export function LearnScreen() {
           accessibilityRole="button"
         >
           <Text style={s.eyebrow}>{l.tag}</Text>
+          {profile.illustrations && <Image source={lessonArt[i]} style={{ width: "100%", height: 145 }} resizeMode="contain" />}
           <Text style={s.h2}>{l.title}</Text>
           <View style={s.linkRow}>
-            <Text style={s.small}>Read the tip · under a minute</Text>
+            <Text style={s.small}>{profile.learned.includes(i) ? "✓ Learned · Revisit" : "Explore & try a quick check"}</Text>
             <Icon name="Arrow" />
           </View>
         </Pressable>
@@ -265,14 +274,24 @@ export function SettingsScreen() {
     setDraftServer,
     saveServer,
     leave,
+    profile, updateProfile, profileError,
   } = useDriver();
   return (
     <>
       <Text style={s.eyebrow}>YOU’RE IN CONTROL</Text>
-      <Text style={s.h1}>Your connection.</Text>
+      <Text style={s.h1}>Your space.</Text>
       <Text style={s.body}>
-        Connect over USB or the same network as the simulation laptop.
+        Your profile, preferences and connection, all in one place.
       </Text>
+      <Pressable accessibilityRole="button" onPress={() => router.push("/profile")} style={[s.card, { backgroundColor: C.lavender }]}><View style={s.shareRow}><Text style={{ fontSize: 42 }}>{profile.avatar}</Text><View style={{ flex: 1 }}><Text style={s.h2}>{profile.name || "Create your profile"}</Text><Text style={s.small}>{profile.vehicle} · Saved on this phone</Text></View><Icon name="Arrow" /></View><Text style={s.textLink}>Edit profile & local account</Text></Pressable>
+      {!!profileError && <Text style={s.error}>{profileError}</Text>}
+      <Card><Text style={s.h2}>Make it comfortable</Text>
+        <Text style={s.label}>SPEED UNITS</Text><View style={s.grid}>{(["km/h", "m/s"] as const).map(unit => <Pressable key={unit} accessibilityRole="radio" accessibilityState={{ checked: profile.units === unit }} onPress={() => updateProfile(p => ({ ...p, units: unit }))} style={[s.tile, { minHeight: 54, backgroundColor: profile.units === unit ? C.lavender : C.cream }]}><Text style={s.tileTitle}>{unit}</Text></Pressable>)}</View>
+        <View style={s.shareRow}><View style={{ flex: 1 }}><Text style={s.tileTitle}>Learning illustrations</Text><Text style={s.small}>Show original offline lesson artwork</Text></View><Switch accessibilityLabel="Learning illustrations" value={profile.illustrations} onValueChange={v => updateProfile(p => ({ ...p, illustrations: v }))} trackColor={{ true: "#B7A4FF" }} thumbColor={profile.illustrations ? C.purple : "#FFF"}/></View>
+        <View style={[s.shareRow, { marginTop: 16 }]}><View style={{ flex: 1 }}><Text style={s.tileTitle}>Home road tips</Text><Text style={s.small}>Keep a short lesson on your home screen</Text></View><Switch accessibilityLabel="Home road tips" value={profile.homeTips} onValueChange={v => updateProfile(p => ({ ...p, homeTips: v }))} trackColor={{ true: "#B7A4FF" }} thumbColor={profile.homeTips ? C.purple : "#FFF"}/></View>
+      </Card>
+      <Card color={C.mint}><Text style={s.h2}>Your journeys & impact</Text><Text style={s.body}>Local simulation activity, learning progress and the status of your carbon estimate.</Text><Button secondary label="Explore my activity" onPress={() => router.push("/impact")} /></Card>
+      <Text style={[s.h2, { marginTop: 22 }]}>Connection & permissions</Text>
       <Card>
         <Text style={s.h2}>Simulation host</Text>
         <Text style={s.small}>
@@ -299,6 +318,9 @@ export function SettingsScreen() {
           {error}
         </Text>
       )}
+      <Card color={C.yellow}><Text style={s.h2}>Need a hand?</Text><Text style={s.body}>Not connecting? Keep the laptop server running. For USB, ask the operator to enable ADB forwarding on port 8004. For Wi-Fi, use the same network and the laptop’s local address.</Text><Text style={s.body}>Invitation expired? Get a new code. Camera denied? Paste the invitation instead. App resumed? Sharing stays off until you choose to enable it again.</Text></Card>
+      <Card><Text style={s.h2}>About Traffix</Text><Text style={s.body}>{"Native driver preview · 1.1.0\nExpo + React Native · SUMO simulation host"}</Text><Text style={s.small}>Foreground route guidance only. Local profile is not a cloud login. No real GPS or background push. Data sharing remains an explicit choice for each connection.</Text></Card>
+
       <Card color={C.lavender}>
         <Text style={s.h2}>What this version does</Text>
         <Text style={s.body}>

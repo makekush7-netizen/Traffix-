@@ -79,3 +79,23 @@ Replace prototype role/Route A/Route B labels with real trip destinations after
 the host supplies verified names. Keep permission choices and unknown-data states
 visible when extending the app. A local YOLO detector must label its observations
 and uncertainty; it must not present an unverified report as a confirmed event.
+
+
+## Revision 1.1 — personal and visual
+
+Preserve the cream/purple/mint/peach system and four primary tabs. Add profile
+and impact as secondary Expo Router screens, reached from Home/Settings. No fifth
+tab. Profile edits use an explicit save, short Unicode name, avatar choices and
+vehicle preference; deletion has a scoped confirmation. Cold launch shows the
+existing logo for about one second without blocking network readiness.
+
+Learn cards show one cohesive original 3D illustration each; detail has artwork,
+short explanation, two-option check, answer feedback and persisted completion.
+Artwork can be hidden in Settings. No GIF autoplay. Learning can be finished
+later and revisited. Settings has meaningful working preferences followed by
+connection, help and privacy information, all in the existing scrolling container.
+
+Never display invented CO₂ savings. Use an unavailable state with explanation
+and a learning link. Show local observed simulation activity separately from
+impact evidence. The preferred vehicle never changes server-bound identity.
+A local profile must never be labelled authenticated cloud account.

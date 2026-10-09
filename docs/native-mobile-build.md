@@ -93,3 +93,57 @@ hardening, production signing, dependency remediation and real-device testing.
 The saved local dependency audit lists 28 findings (18 high, 10 moderate); suggested
 incompatible major downgrades were not applied. The preview's manifest excludes
 microphone, storage, overlay and location access; camera is requested only for QR.
+
+
+## Personal and learning update — 1.1.0 (10 October 2026)
+
+Kush requested visual learning, a named profile, a logo introduction, richer
+settings and personalized impact. This revision preserves the existing phone
+bridge and adds native client features only:
+
+- Four original transparent PNG learning illustrations, interactive two-option
+  knowledge checks, saved learned state and optional illustration visibility.
+- Device-local profile: Unicode name, four avatar choices, usual vehicle.
+  Operator-bound vehicle identity is unchanged. No cloud account is implied.
+- Approximately one-second cold-launch logo introduction, without network delay.
+- Working speed units, Home tip preference, local activity/arrival history,
+  connection troubleshooting, privacy details and scoped profile erasure.
+- Impact page explicitly keeps CO₂ unavailable pending matched completed-run
+  evidence; no fabricated savings or trip completion. Last 20 local vehicles
+  are retained. Reconnects use a run/vehicle/host key and nondecreasing sample
+  record to avoid duplicate trip/activity claims.
+
+Storage errors are visible, and credentials are stored separately. Erasing the
+profile does not unbind the vehicle or delete operator evidence. Connection
+loss/reset/leave does not count as arrival. Original lesson assets and exact
+built-in imagegen prompts are in `mobile-app/assets/lesson-sources.json`.
+
+Validation: 12 mobile tests passed; TypeScript and lint passed. The new tests
+cover Unicode/empty/oversized names, invalid persisted preferences/progress and
+repeated/reconnected ride records. Native build/device status is recorded below.
+No changes to SUMO, ML, frozen contracts or backend transport were required.
+
+Manual acceptance after installing 1.1.0: open Home → add Kush as name → Save;
+restart and confirm greeting persists. Open all four illustrated lessons; wrong
+answer must not allow completion, correct answer must save progress. Hide
+illustrations and Home tips in Settings, restart to confirm preferences. Switch
+speed units on a linked active vehicle. Check activity after a confirmed arrival,
+then reset/rejoin; counters must not fabricate completion or carbon savings.
+Erase local profile and confirm credentials remain separate.
+
+1.1.0 build result: `BUILD SUCCESSFUL` (full regeneration 6m17s, final
+incremental package 1m24s). Android package `in.traffix.driver`, versionCode 2,
+versionName 1.1.0, ARM64, local preview signing. APK: `mobile-app/builds/traffix-preview-1.1.0.apk`
+(60,240,095 bytes). SHA256: `953df9714c03a6f85578e1d56d9f6f2e8fe677ede04594f92da8b424afae3733`.
+The generic `traffix-preview.apk` is also updated. All four lesson images were
+verified in packaged Android resources; visible pixels match their originals.
+
+Device status at delivery: `ae4400d3 unauthorized`. No new APK was installed
+or copied to the phone in this update; no native visual/interaction pass is
+claimed. Unlock and accept Android's USB debugging authorization to allow
+installation. The earlier phone Downloads APK is version 1.0.0. Keep existing
+app data by installing this version with `adb install -r`, not uninstalling.
+Source/client checks pass, but the manual acceptance list above remains pending.
+
+The local Gradle daemon initially failed its IPv4 lock-socket bind; this build
+succeeded without the IPv4 override, using Java21, 2 workers and a 2GB heap.

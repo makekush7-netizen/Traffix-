@@ -2,7 +2,7 @@
   "expo": {
     "name": "Traffix",
     "slug": "traffix-driver",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/traffix-icon.png",
     "userInterfaceStyle": "light",
@@ -21,7 +21,8 @@
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.SYSTEM_ALERT_WINDOW"
-      ]
+      ],
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"

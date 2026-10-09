@@ -30,6 +30,9 @@ import {
   eligible,
 } from "./src/protocol";
 import type { ClientState, World, Claim } from "./src/protocol";
+import { useProfile } from "./src/use-profile";
+import { recordRide } from "./src/profile";
+import { LessonDetail } from "./src/LessonDetail";
 let sessionWrites: Promise<void> = Promise.resolve();
 function persistSession(claim: Claim | null, seq: number) {
   const data = claim ? JSON.stringify({ claim, seq }) : null;
@@ -41,13 +44,19 @@ function persistSession(claim: Claim | null, seq: number) {
     });
 }
 function Main() {
+  const { profile, updateProfile, loaded: profileLoaded, profileError } = useProfile();
+  const [intro, setIntro] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setIntro(false), 1100);
+    return () => clearTimeout(timer);
+  }, []);
   const pathname = usePathname();
   const tab: Tab =
     pathname === "/ride"
       ? "Ride"
       : pathname === "/learn"
         ? "Learn"
-        : pathname === "/settings"
+        : pathname === "/settings" || pathname === "/profile" || pathname === "/impact"
           ? "Settings"
           : "Home";
   const setTab = (next: Tab) =>
@@ -67,6 +76,13 @@ function Main() {
   const [permission, requestPermission] = useCameraPermissions();
   const scanned = useRef(false);
   const [api] = useState(() => new TrafficClient(setState, persistSession));
+  const rideId = state.claim ? JSON.stringify([server, state.claim.run_id, state.claim.vehicle_id]) : null;
+  const rideRole = state.own?.role || "Simulated vehicle";
+  const arrived = state.frame?.payload.state === "arrived";
+  useEffect(() => {
+    if (!profileLoaded || !rideId) return;
+    updateProfile(p => recordRide(p, { id: rideId, role: rideRole, samples: state.samples, arrived, date: new Date().toISOString() }));
+  }, [profileLoaded, rideId, rideRole, state.samples, arrived, updateProfile]);
   useEffect(() => {
     let mounted = true;
     (async () => {
@@ -198,6 +214,10 @@ function Main() {
   return (
     <DriverContext.Provider
       value={{
+        profile,
+        profileLoaded,
+        profileError,
+        updateProfile,
         state,
         world,
         api,
@@ -246,10 +266,11 @@ function Main() {
           </Pressable>
         </View>
         <ScrollView
+          key={pathname}
           contentContainerStyle={s.content}
           keyboardShouldPersistTaps="handled"
         >
-          <Slot />
+          {profileLoaded ? <Slot /> : <ActivityIndicator accessibilityLabel="Loading your profile" color={C.purple} />}
         </ScrollView>
         {state.offer && tab !== "Ride" && (
           <Pressable
@@ -426,7 +447,7 @@ function Main() {
           <SafeAreaView
             style={[s.safe, { backgroundColor: lessons[lesson ?? 0].color }]}
           >
-            <ScrollView contentContainerStyle={s.content}>
+            <ScrollView key={lesson ?? "closed"} contentContainerStyle={s.content}>
               <Pressable
                 style={s.linkRow}
                 onPress={() => setLesson(null)}
@@ -435,20 +456,16 @@ function Main() {
                 <Icon name="Back" />
                 <Text style={s.h2}>Back</Text>
               </Pressable>
-              <Text style={s.eyebrow}>{lessons[lesson ?? 0].tag}</Text>
-              <Text style={s.h1}>{lessons[lesson ?? 0].title}</Text>
-              <Text
-                style={[
-                  s.body,
-                  { fontSize: 20, lineHeight: 32, marginTop: 24 },
-                ]}
-              >
-                {lessons[lesson ?? 0].text}
-              </Text>
-              <View style={{ marginTop: 40 }}>
-                <Button label="Got it" onPress={() => setLesson(null)} />
-              </View>
+              <LessonDetail key={lesson ?? 0} index={lesson ?? 0} onClose={() => setLesson(null)} />
             </ScrollView>
+          </SafeAreaView>
+        </Modal>
+        <Modal visible={intro} animationType="fade" onRequestClose={() => setIntro(false)}>
+          <SafeAreaView style={[s.safe, { justifyContent: "center", alignItems: "center", padding: 32 }]}>
+            <Image source={require("./assets/traffix-icon.png")} style={{ width: 104, height: 104, borderRadius: 30, marginBottom: 24 }} />
+            <Text style={[s.h1, { fontSize: 44 }]}>traffix<Text style={{ color: C.purple }}>.</Text></Text>
+            <Text style={[s.body, { textAlign: "center" }]}>Small choices. Smoother roads.</Text>
+            <Text style={s.footnote}>Your journey starts with you.</Text>
           </SafeAreaView>
         </Modal>
       </SafeAreaView>

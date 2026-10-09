@@ -106,3 +106,34 @@ Production needs server HTTPS, native network hardening, release signing and
 dependency remediation. The dependency audit reported 28 findings
 (18 high, 10 moderate); automatic suggested major downgrades are not applied.
 Review the saved local audit before any public release.
+
+
+## Personal preview 1.1.0
+
+Home now greets the saved local profile name. Open the greeting or Settings →
+Edit profile to choose a name, avatar and usual vehicle. This is device-local
+personalization, not a server/cloud account. The operator still assigns your
+simulated vehicle. Name validation accepts Unicode; no email or password needed.
+
+Learn has four original offline illustrations, a quick check per lesson and
+persisted completion. A correct answer enables saving the lesson; revisits are
+allowed. Settings controls illustration visibility, Home tips and live speed
+units (km/h or m/s), with connection help, privacy and profile erasure.
+
+Activity records the last 20 simulation vehicles on this device, observed
+arrivals and acknowledged sample counts. Reconnects/duplicate frames do not
+create extra trips. An arrival counts only after an arrived frame is observed.
+Counters are local records, not an official host history. Carbon saved remains
+unavailable until a validated matched completed-trip comparison is supplied.
+
+A short logo introduction appears on cold launch and dismisses after about one
+second. It does not wait for the laptop network, loop, or play distracting motion.
+The current lesson assets are static PNGs, not GIFs. All artwork is bundled.
+
+Erase local profile clears personalization, preferences, learning and activity;
+it does not leave the bound vehicle or erase operator records. To stop sharing
+and leave, use the separate Leave vehicle action. Storage failures are displayed
+without discarding credentials. No cloud login, real GPS or background push is
+implemented in this revision.
+
+Generated lesson images and full prompts: `assets/lesson-sources.json`.
