@@ -82,3 +82,23 @@ Do not enable trained models without evidence they beat the simple rule on held-
 runs. Frozen contracts and existing other owners' implementations stay preserved.
 The preceding task explicitly authorized creating `sim/assumptions.json` and its
 README; that exception does not authorize rewriting Nandani's simulation files.
+
+
+## Mentoring-response extension, requested by Kush 2026-10-09
+
+Kush explicitly requested an operator congestion-response direction, simulated
+fixed-sensor counts/speeds, variable mixed traffic and bounded signal manipulation.
+`backend/harness/response_lab.py` and `web/src/mobile/response.*` implement an
+isolated experiment on port 8003. Keep the 8002 phone demo running and unchanged.
+Signal actions require operator approval; all sensor inputs are labelled simulated.
+No field traffic feed or live ML decision is established. Read docs/mentor-briefing.md.
+
+
+## Smart response demonstration, requested by Kush
+
+Kush explicitly authorized the Smart coordination switch and phone learning/advice
+UI. The response experiment on port 8004 may automatically apply the bounded
+queue-responsive extension after operator opt-in. Preserve single-worker TraCI
+ownership, clearance, receiving-space and maximum-green checks. Reset disables
+smart mode. Do not label this controller live ML or claim emissions savings without
+a matched comparison. Read docs/smart-demo-guide.md.

@@ -32,7 +32,7 @@ function vehicleGeometry(kind){
 
 export class DemoScene{
  constructor(world,canvas,viewport,fps){
-  this.world=world;this.models=new Map();this.labels=new Map();this.rings=new Map();this.spans=new Map();this.colours=new Map();this.pulses=new Map();this.fps=fps;this.low=false;this.followId=null;
+  this.signalHeads=new Map();this.signalPositions=new Map();this.world=world;this.models=new Map();this.labels=new Map();this.rings=new Map();this.spans=new Map();this.colours=new Map();this.pulses=new Map();this.fps=fps;this.low=false;this.followId=null;
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));this.renderer.setClearColor(0,0);this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   this.scene=new THREE.Scene();this.scene.fog=new THREE.Fog('#203945',600,1700);this.camera=new THREE.PerspectiveCamera(43,1,1,3500);this.controls=new OrbitControls(this.camera,canvas);this.controls.enableDamping=true;this.controls.maxPolarAngle=Math.PI*.48;this.controls.minDistance=25;this.controls.maxDistance=1300;this.home(false);
   this.scene.add(new THREE.HemisphereLight('#d8edf3','#20333c',1.7));const sun=new THREE.DirectionalLight('#ffe9bf',1.8);sun.position.set(-280,500,280);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-600,right:600,top:600,bottom:-600,near:1,far:1400});sun.shadow.bias=-.001;this.scene.add(sun);this.sun=sun;
@@ -62,6 +62,10 @@ export class DemoScene{
  paint(edge,kind,brightness=1){const span=this.spans.get(edge);if(!span)return;const c=new THREE.Color(colours[kind]||colours.unknown).multiplyScalar(brightness),array=this.roadGeometry.attributes.color.array;for(let i=span[0];i<span[1];i+=3){array[i]=c.r;array[i+1]=c.g;array[i+2]=c.b;}this.roadGeometry.attributes.color.needsUpdate=true;}
  frame(state,sessions,observations,roles){
   if(this.run!==state.run_id){this.run=state.run_id;this.followId=null;for(const edge of this.colours.keys()){this.colours.set(edge,'unknown');this.paint(edge,'unknown');}this.pulses.clear();}
+  for(const signal of state.signals||[]){
+   this.signalPositions.set(signal.id,signal.positions.filter(Boolean));
+   signal.positions.forEach((pos,i)=>{if(!pos)return;const key=signal.id+':'+i;let head=this.signalHeads.get(key);if(!head){head=new THREE.Mesh(new THREE.SphereGeometry(1.7,10,8),new THREE.MeshBasicMaterial());head.position.set(pos[0],5,-pos[1]);this.scene.add(head);this.signalHeads.set(key,head);}const value=signal.state[i];head.material.color.set(value==='G'||value==='g'?'#3cfa8b':value==='y'||value==='Y'?'#ffcb4d':'#ff4e55');});
+  }
   const active=new Set();for(const v of state.vehicles){active.add(v.id);let m=this.models.get(v.id);if(!m){m=new THREE.Mesh(this.vehicleGeometries[v.type],this.vehicleMaterial);m.userData.target=new THREE.Vector3();this.scene.add(m);this.models.set(v.id,m);m.position.set(v.x,.15,-v.y);}m.visible=true;m.userData.target.set(v.x,.15,-v.y);m.userData.angle=-v.angle*Math.PI/180;}
   for(const [id,m] of this.models)m.visible=active.has(id);
   const bound=new Set(sessions.map(s=>s.vehicle_id));for(const id of bound){if(!this.labels.has(id)){const label=this.label('YOU · '+(roles[id]||id).toUpperCase());label.scale.set(45,7,1);this.labels.set(id,label);this.scene.add(label);const ring=new THREE.Mesh(new THREE.RingGeometry(3.8,4.25,32),new THREE.MeshBasicMaterial({color:'#b2eccb',side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;this.rings.set(id,ring);this.scene.add(ring);}}
@@ -69,6 +73,7 @@ export class DemoScene{
   const rows=new Map(observations.map(o=>[o.edge_id,o]));for(const edge of this.colours.keys()){const row=rows.get(edge),kind=row?.coverage==='fresh'&&row.slowdown!==null?(row.slowdown>=.7?'alert':row.slowdown>=.4?'slow':'observed'):'unknown';if(this.colours.get(edge)!==kind){if(kind!=='unknown')this.pulses.set(edge,performance.now()+1400);this.colours.set(edge,kind);this.paint(edge,kind);}}
  }
  home(top){this.followId=null;this.controls.target.set(-110,0,-90);this.camera.position.set(...(top?[-110,520,-89.9]:[70,240,190]));this.controls.update();}
+ focusSignal(id){const positions=this.signalPositions.get(id);if(!positions?.length)return;const [x,y]=positions[0];this.followId=null;this.controls.target.set(x,0,-y);this.camera.position.set(x+60,100,-y+80);this.controls.update();}
  focus(id){if(id)this.followId=id;}
  reduced(enabled){this.low=enabled;this.renderer.setPixelRatio(enabled?1:Math.min(devicePixelRatio,1.5));this.renderer.shadowMap.enabled=!enabled;for(const edge of this.colours.keys())this.paint(edge,this.colours.get(edge));if(enabled)this.pulses.clear();}
 }
