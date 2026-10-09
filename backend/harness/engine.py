@@ -18,7 +18,7 @@ DATA = Path(__file__).parent / 'data'
 ROOT = Path(__file__).resolve().parents[2]
 WORLD = json.loads((DATA / 'world.json').read_text(encoding='utf-8'))
 SCENARIOS = {
-    'everyday': dict(name='Everyday flow', description='A mixed fleet with room to move.', demand=1900, incident=None),
+    'everyday': dict(name='Everyday flow', description='500 vehicles/hour synthetic arrivals; bounded cohort drain.', demand=500, incident=None),
     'rush': dict(name='Evening rush', description='Higher arrivals meet fixed signal plans.', demand=3400, incident=None),
     'rain': dict(name='Monsoon slowdown', description='Rush demand; reduced speeds around the junction.', demand=3400, incident='rain'),
     'roadworks': dict(name='Curbside obstruction', description='A narrowed approach exposes queue spillback.', demand=3400, incident='obstruction'),
@@ -34,7 +34,12 @@ TYPES = {
 
 
 class HarnessEngine:
-    def __init__(self):
+    def __init__(self, *, run_config=None, output_root=None, requested_run_id=None, output_directory=None):
+        from .configuration import normalized_config
+        self.run_config=normalized_config(run_config or {'profile':'conservative','max_end_s':2400,'sublane':False})
+        self.output_root=Path(output_root) if output_root is not None else ROOT/'runs'
+        self.requested_run_id=requested_run_id
+        self.output_directory=Path(output_directory) if output_directory is not None else None
         self._queue = queue.Queue(maxsize=64)
         self._stop = threading.Event()
         self._ready = threading.Event()
@@ -93,34 +98,27 @@ class HarnessEngine:
             self._save()
             self._conn.close()
             self._conn = None
-        self.run_id = 'lig.' + uuid.uuid4().hex[:12]
+        self.run_id = self.requested_run_id or 'lig.' + uuid.uuid4().hex[:12]
         self.scenario, self.seed = scenario, seed
         self.paused, self.rate = True, 1
-        self.run_dir = ROOT / 'runs' / self.run_id
-        self.run_dir.mkdir(parents=True)
-        rng = random.Random(seed)
-        demand=ET.Element('routes')
-        for name, attrs in TYPES.items():
-            ET.SubElement(demand,'vType',id=name, sigma='.45', speedDev='.08', lcPushy='0', lcAssertive='1', tau='1.5', **attrs)
-        for i,edges in enumerate(WORLD['routes']):
-            ET.SubElement(demand,'route',id=f'route.{i}',edges=' '.join(edges))
-        self.scheduled = 0
-        # Explicit seeded cohort: route/type/departure fixed before simulation starts.
-        t=0
-        while t<900:
-            kind=rng.choices(list(TYPES),weights=[32,35,15,8,4,6])[0]
-            ET.SubElement(demand,'vehicle',id=f'{kind}.{self.scheduled}',type=kind,
-                          route=f'route.{rng.randrange(len(WORLD["routes"]))}',depart=f'{t:.2f}',
-                          departLane='best',departSpeed='random')
-            self.scheduled+=1
-            t += rng.expovariate(SCENARIOS[scenario]['demand']/3600)
+        self.run_dir = self.output_directory or self.output_root / self.run_id
+        if self.output_directory is not None and self.run_dir.exists():
+            if any(p.name!='job.json' for p in self.run_dir.iterdir()):
+                raise ValueError('Batch output already contains run artifacts')
+        self.run_dir.mkdir(parents=True,exist_ok=self.output_directory is not None)
+        from .configuration import create_demand
+        demand=create_demand(seed,self.run_config,demand_per_hour=SCENARIOS[scenario]['demand'])
+        self.scheduled=len(demand.findall('vehicle'))
         ET.ElementTree(demand).write(self.run_dir/'demand.rou.xml',encoding='utf-8',xml_declaration=True)
         args=[str(Path(sumo.SUMO_HOME)/'bin'/('sumo.exe' if os.name=='nt' else 'sumo')),
               '-n',str(DATA/'lig.net.xml'),'-r',str(self.run_dir/'demand.rou.xml'),
-              '--seed',str(seed),'--step-length','.25','--lateral-resolution','.7',
+              '--seed',str(seed),'--step-length',str(self.run_config['step_s']),
               '--time-to-teleport','-1','--collision.action','warn','--collision.check-junctions',
               '--no-step-log','--duration-log.disable','--tripinfo-output',str(self.run_dir/'trips.xml'),
-              '--tripinfo-output.write-unfinished','--error-log',str(self.run_dir/'sumo.log')]
+              '--tripinfo-output.write-unfinished','--device.emissions.probability','1',
+              '--error-log',str(self.run_dir/'sumo.log')]
+        if self.run_config['sublane']:
+            args.extend(['--lateral-resolution','.7'])
         traci.start(args,label=self.run_id,doSwitch=False,verbose=False)
         self._conn=traci.getConnection(self.run_id)
         self._tc=tc
@@ -134,10 +132,10 @@ class HarnessEngine:
             self._frames.clear()
             self._events=[]
             self._manifest=dict(run_id=self.run_id,scenario=scenario,seed=seed,calibrated=False,
-                            source='OSM geometry + synthetic demand',warmup_s=120,sumo_version='1.28.0',scheduled=self.scheduled,
+                            source='OSM geometry + synthetic demand',warmup_s=self.run_config['warmup_s'],sumo_version=self._conn.getVersion()[1],scheduled=self.scheduled,
                             network_sha256=hashlib.sha256((DATA/'lig.net.xml').read_bytes()).hexdigest(),
                             demand_sha256=hashlib.sha256((self.run_dir/'demand.rou.xml').read_bytes()).hexdigest(),
-                            provenance=WORLD['provenance'],complete=False)
+                            provenance=WORLD['provenance'],complete=False,configuration=deepcopy(self.run_config))
         (self.run_dir/'manifest.json').write_text(json.dumps(self._manifest,indent=2),encoding='utf-8')
         self._signals=[]
         nodes={n['id']:n for n in WORLD['junctions']}
@@ -152,7 +150,7 @@ class HarnessEngine:
                     lane_positions.append([pos[0]-WORLD['center'][0],pos[1]-WORLD['center'][1]])
                 else: lane_positions.append(None)
             self._signals.append(dict(id=tls,positions=lane_positions))
-        for _ in range(480): self._step(publish=False)
+        for _ in range(int(self.run_config['warmup_s']/self.run_config['step_s'])): self._step(publish=False)
         self._publish()
 
     def _step(self,publish=True):
@@ -168,13 +166,15 @@ class HarnessEngine:
                                             self._tc.VAR_TYPE,self._tc.VAR_CO2EMISSION,self._tc.VAR_WAITING_TIME])
         self._subscriptions=ids
         t=conn.simulation.getTime()
-        if not self._incident_started and t>=60 and SCENARIOS[self.scenario]['incident']:
+        if not self._incident_started and t>=self.run_config['incident_start_s'] and SCENARIOS[self.scenario]['incident']:
             self._apply_incident()
-        if self._incident and t>=360: self._clear_incident()
+        if self._incident and t>=self.run_config['incident_end_s']: self._clear_incident()
+        elif self._incident and self.run_config['incident_ramp_s'] and round(t/self.run_config['step_s']) % round(5/self.run_config['step_s'])==0:
+            self._advance_incident(t)
         values=conn.vehicle.getAllSubscriptionResults()
-        self.co2_kg+=sum(v.get(self._tc.VAR_CO2EMISSION,0) for v in values.values())*.25/1e6
+        self.co2_kg+=sum(v.get(self._tc.VAR_CO2EMISSION,0) for v in values.values())*self.run_config['step_s']/1e6
         if publish: self._publish(values)
-        if t>=1200 or (t>=900 and conn.simulation.getMinExpectedNumber()==0):
+        if self._ended(t):
             self.paused=True
 
     def _apply_incident(self):
@@ -182,15 +182,24 @@ class HarnessEngine:
         near=[r for r in WORLD['roads'] if not r['internal'] and r['lanes'] and
               min((p[0]**2+p[1]**2 for p in r['shape']),default=1e9)<250**2]
         lanes=[lane['id'] for r in near for lane in r['lanes']]
-        if self.scenario=='roadworks':
-            lanes=[WORLD['incident_edge']+'_0']
+        if self.run_config['incident_edge'] and self.scenario=='rain':
+            lanes=[lane['id'] for r in WORLD['roads'] if r['id']==self.run_config['incident_edge'] for lane in r['lanes']]
+        elif self.scenario=='roadworks':
+            lanes=[(self.run_config['incident_edge'] or WORLD['incident_edge'])+'_0']
         for lane in lanes:
             self._original_speeds[lane]=conn.lane.getMaxSpeed(lane)
-            conn.lane.setMaxSpeed(lane, 3.0 if self.scenario=='rain' else .7)
+            if not self.run_config['incident_ramp_s']:
+                conn.lane.setMaxSpeed(lane, 3.0 if self.scenario=='rain' else .7)
         self._incident=True
         self._incident_started=True
         self._events.append(dict(sim_time_s=conn.simulation.getTime(),kind='incident_started',scenario=self.scenario,
                                  explanation='Lane speed restriction; obstruction represented as a slow lane.',lanes=lanes))
+
+    def _advance_incident(self,t):
+        fraction=min(1,max(0,(t-self.run_config['incident_start_s'])/self.run_config['incident_ramp_s']))
+        target=3.0 if self.scenario=='rain' else .7
+        for lane,original in self._original_speeds.items():
+            self._conn.lane.setMaxSpeed(lane,original+(target-original)*fraction)
 
     def _clear_incident(self):
         for lane,speed in self._original_speeds.items(): self._conn.lane.setMaxSpeed(lane,speed)
@@ -218,13 +227,16 @@ class HarnessEngine:
         snapshot=dict(ready=True,error=None,run_id=self.run_id,scenario=self.scenario,seed=self.seed,
                       source='SUMO simulation truth',sim_time_s=t,paused=self.paused,rate=self.rate,
                       vehicles=vehicles,signals=signals,metrics=metrics,incident_active=self._incident,events=self._events[-12:],
-                      ended=t>=1200 or (t>=900 and conn.simulation.getMinExpectedNumber()==0))
+                      ended=self._ended(t),horizon_s=self.run_config['horizon_s'],max_end_s=self.run_config['max_end_s'])
         with self._lock:
             self._snapshot=snapshot
             self._manifest['complete']=self.arrived==self.scheduled and not self.collisions and not self.teleports
             self._manifest['final_counts']=metrics
             if not self._frames or t-self._frames[-1]['sim_time_s']>=1:
                 self._frames.append(deepcopy(snapshot))
+
+    def _ended(self,t):
+        return t>=self.run_config['max_end_s'] or (t>=self.run_config['demand_end_s'] and self._conn.simulation.getMinExpectedNumber()==0)
 
     def _execute(self,c):
         action=c['action']
