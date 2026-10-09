@@ -95,3 +95,26 @@ Run comparability now additionally requires saved `execution_sha256` and complet
 integrity. The fingerprint includes engine, policy, demand and phone adapter source;
 older runs lacking it are unverified and excluded. Pace accepts finite target rates
 0.25..20 simulated seconds per wall second; it does not guarantee achieved throughput.
+
+## Registration and owner approval
+
+POST `/api/v2/auth/register` accepts `{username,password,request_operator:true}`.
+Registration creates a viewer only; client-supplied role fields reject. Usernames
+normalize to lowercase ASCII, 3..32 characters, begin with a letter and permit
+letters/digits/underscore/dot/hyphen. Passwords require at least8 characters (up to256).
+At most5 registration attempts per remote address per60 wall seconds and256 total
+accounts are allowed. Duplicate normalized names return409; weak/invalid fields422;
+rate limits429. Browser cross-origin registration rejects.
+
+Configured bootstrap accounts in `TRAFFIX_ACCOUNTS` remain protected. An existing
+operator with `can_takeover:true` may GET `/api/v2/auth/users` (public account metadata
+and bounded approval audit only) and POST `/api/v2/auth/users/{username}/approve` with
+`{}`. Approval grants operator, never owner, revokes target sessions, and requires
+login again. Ordinary operators/viewers cannot approve. No first-registration owner.
+
+Production registration records persist as salted scrypt hashes in ignored
+`.cache/private/accounts.json`; no plaintext passwords or bootstrap credentials are
+written there. Registration/approval file writes are atomic and failed writes roll
+back. Protect this local directory with your OS user permissions; it is not a public
+asset or an export. Sessions remain ephemeral across restart. Explicit test account
+maps use in-memory storage unless an isolated `account_store` path is provided.

@@ -43,3 +43,39 @@ Automated local browser-independent checks:
 These tests validate causal source gaps, LAN command IDs, event-preview normalization
 and scenario setting rejection. They do not replace multi-device, slow-viewer or
 long-duration visual/performance tests.
+
+## Discoverable registration follow-up
+
+The login dialog now exposes Join this team / create an account. Actual Chrome
+verification showed the viewer-account registration form, owner-approval explanation,
+username format guidance, password confirmation and return-to-sign-in link.
+Submitting mismatched passwords showed the inline error Passwords do not match;
+no account creation request was sent. Screenshot:
+[operator-signup.png](../artifacts/ui/operator-signup.png).
+
+Registration payload tests now total **5 passed**. The new test verifies username
+format, password length, matching confirmation and that clients request access
+without selecting an administrator role. Successful account creation and owner
+approval require the newly restarted host; this paragraph does not claim those
+operations have already been verified.
+
+### Actual signup and owner approval verified
+
+After restarting the host with registration endpoints, an isolated QA account was
+created through the actual Chrome form using a random password kept only in the
+browser-control process. No password entered source files or screenshots.
+
+- Registration signed the member in as **viewer** automatically.
+- The visible notice said operator access was pending owner approval.
+- The viewer's Request control button was disabled.
+- The host owner signed in and saw the pending request in Team access.
+- Only the newly created QA account was approved; existing users were untouched.
+- The QA account signed in again and its header role became **operator**.
+- Request control became enabled, while the owner-only Team access section was absent.
+- Signed out after verification. This account remains in the host's ignored private
+  local account store; no account secrets are distributed with the repository.
+- Screenshot: [operator-registered-member.png](../artifacts/ui/operator-registered-member.png).
+
+This is local browser registration/approval evidence; it does not establish a
+physical handset, remote HTTPS deployment, email identity verification or
+password recovery service.

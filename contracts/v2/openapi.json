@@ -41,6 +41,105 @@
         }
       }
     },
+    "/api/v2/auth/register": {
+      "post": {
+        "summary": "Register",
+        "operationId": "register_api_v2_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Registration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/auth/users": {
+      "get": {
+        "summary": "Users",
+        "operationId": "users_api_v2_auth_users_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/auth/users/{username}/approve": {
+      "post": {
+        "summary": "Approve",
+        "operationId": "approve_api_v2_auth_users__username__approve_post",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Username"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approval"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v2/auth/identity": {
       "get": {
         "summary": "Who",
@@ -539,6 +638,12 @@
   },
   "components": {
     "schemas": {
+      "Approval": {
+        "properties": {},
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Approval"
+      },
       "ClaimRequest": {
         "properties": {
           "join_code": {
@@ -653,6 +758,34 @@
           "password"
         ],
         "title": "Login"
+      },
+      "Registration": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 3,
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "request_operator": {
+            "type": "boolean",
+            "title": "Request Operator",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "Registration"
       },
       "ValidationError": {
         "properties": {

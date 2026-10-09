@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconn
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from .auth import Auth
-from .protocol import Command, Login, Lease
+from .protocol import Command, Login, Lease, Registration, Approval
 from .coordination import Conflict
 from backend.harness.engine import WORLD, ROOT
 from backend.harness.mobile import MobileBridge
@@ -19,14 +19,14 @@ LOCATIONS=[{'id':'lig','name':'LIG Square, Indore','status':'prepared','version'
            {'id':'vijay-nagar','name':'Vijay Nagar, Indore','status':'awaiting_topology_review'},
            {'id':'palasia','name':'Palasia, Indore','status':'awaiting_topology_review'}]
 
-def create_app(engine=None, accounts=None):
+def create_app(engine=None, accounts=None, account_store=None):
     if engine is None:
         from .engine import UnifiedEngine
         engine=UnifiedEngine()
-    auth=Auth(accounts if accounts is not None else json.loads(os.getenv('TRAFFIX_ACCOUNTS','{}')))
+    auth=Auth(accounts if accounts is not None else json.loads(os.getenv('TRAFFIX_ACCOUNTS','{}')),
+              storage_path=account_store if account_store is not None else (ROOT/'.cache/private/accounts.json' if accounts is None else None))
     @asynccontextmanager
     async def lifespan(app):
-        if not auth.accounts: raise RuntimeError('Set TRAFFIX_ACCOUNTS with explicit operator/viewer accounts before boot')
         await asyncio.to_thread(engine.start)
         from .phone import UnifiedMobileBridge
         app.state.mobile=UnifiedMobileBridge(engine)
@@ -52,6 +52,27 @@ def create_app(engine=None, accounts=None):
     async def login(body:Login,request:Request):
         try: return auth.login(body.username,body.password,request.client.host)
         except ValueError as exc: raise HTTPException(401,str(exc)) from exc
+    def public_origin(request):
+        from urllib.parse import urlsplit
+        origin=request.headers.get('origin')
+        if origin and urlsplit(origin).netloc!=request.headers.get('host'): raise HTTPException(403,'origin_forbidden')
+    @app.post('/api/v2/auth/register')
+    async def register(body:Registration,request:Request):
+        public_origin(request)
+        try: return auth.register(body.username,body.password,request.client.host,body.request_operator)
+        except ValueError as exc:
+            reason=str(exc); code=429 if reason.endswith('rate_limited') else 409 if reason=='username_unavailable' else 422
+            raise HTTPException(code,reason) from exc
+        except OSError as exc: raise HTTPException(503,'account_store_unavailable') from exc
+    @app.get('/api/v2/auth/users')
+    async def users(request:Request):
+        try: return {'accounts':auth.list_users(identity(request)),'audit':list(auth.audit)[-100:]}
+        except ValueError as exc: raise HTTPException(403,str(exc)) from exc
+    @app.post('/api/v2/auth/users/{username}/approve')
+    async def approve(username:str,body:Approval,request:Request):
+        try: return auth.approve(identity(request),username)
+        except ValueError as exc: raise HTTPException(403 if str(exc)=='owner_required' else 409,str(exc)) from exc
+        except OSError as exc: raise HTTPException(503,'account_store_unavailable') from exc
     @app.get('/api/v2/auth/identity')
     async def who(request:Request): return {k:v for k,v in identity(request).items() if not k.startswith('_')}
     @app.post('/api/v2/auth/revoke')

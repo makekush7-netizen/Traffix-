@@ -14,6 +14,8 @@ python -m scripts.run_unified
 
 Open http://127.0.0.1:8005. Accounts are explicitly configured; there is no public bootstrap password. For LAN, set `TRAFFIX_HOST=0.0.0.0`, permit this Python process on the private network firewall and use the host's LAN address on clients. Permit only port 8005; do not expose TraCI or a shell. Plain LAN HTTP is for a trusted demo network. Online access requires HTTPS/WSS at an authenticated tunnel/reverse proxy, a secure configuration and a separate integration check; no public URL was deployed.
 
+The sign-in screen now includes **Join this team · create an account**. Registration creates a viewer immediately and can request operator access. A configured owner (`operator` with `can_takeover:true`) approves requests in Control → Team access; the member signs in again after approval. Public signup cannot create an owner. Registered credentials persist as salted scrypt hashes in ignored `.cache/private/accounts.json`; bootstrap credentials remain configured by the host. Registration/approval/persistence and existing host/phone checks passed in a targeted 17-test run; the browser protocol suite now has 5 passing tests. No repeated full-suite claim is implied by this registration update.
+
 On this laptop the exercised Python executable is `C:/Users/prakh/Documents/Codex/lig-venv/Scripts/python.exe`. The default system Python is 3.14 and was not the tested runtime. To create a project-local environment, run `scripts/setup_unified.ps1 -Python312 <path-to-Python-3.12>`; then use `.venv/Scripts/python.exe` for the commands above. The setup script has passed PowerShell parsing; installation into a fresh environment remains a separate reproducibility check.
 
 ## Short live demonstration

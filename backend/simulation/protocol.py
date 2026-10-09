@@ -19,3 +19,12 @@ class Lease(BaseModel):
     model_config=ConfigDict(extra='forbid')
     action: Literal['acquire','renew','release']='acquire'
     takeover: bool=False
+
+class Registration(BaseModel):
+    model_config=ConfigDict(extra='forbid')
+    username: str=Field(min_length=3,max_length=32)
+    password: str=Field(min_length=8,max_length=256)
+    request_operator: bool=True
+
+class Approval(BaseModel):
+    model_config=ConfigDict(extra='forbid')
