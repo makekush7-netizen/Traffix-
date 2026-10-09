@@ -4,10 +4,17 @@ Prediction-driven traffic incident response for sensor-poor Indian corridors.
 Built for the Agnitia 36-hour hackathon, TERRA track, problem statement
 "Intelligent Traffic Congestion Response System".
 
-**Status:** hackathon prototype. Everything runs on a synthetic network
-("Nandipur Bazaar") with simulated vehicle data. No real-world performance claim yet.
+**Status:** hackathon prototype. The LIG Square lab now uses real OpenStreetMap
+geometry with simulated traffic, a mobile driver app, and an authenticated phone
+bridge. Native APK packaging, calibrated traffic, and live automatic routing or
+signal control are not complete. No real-world performance claim yet.
 
-## What it does
+**Current mobile demo:** run `./scripts/run_mobile.ps1` on Windows, then open
+`http://localhost:8002/dashboard` on the laptop. Invite phones on the same Wi-Fi
+through QR codes. Read [the mobile runbook](docs/mobile-app.md) for setup,
+verification and limitations. The 3D simulation is at `/`; driver screens at `/driver`.
+
+## Intended full system
 1. Simulates a mixed-traffic market corridor in SUMO.
 2. Real phones connect over the local network and act as probe devices for simulated vehicles.
 3. A restricted gateway admits only phone-sent data as observations (missing uplink = unknown, not "clear").

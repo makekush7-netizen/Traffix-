@@ -1,5 +1,8 @@
 # Ownership (one owner per path; do not edit paths you do not own)
 
+Kush's 2026-10-09 mobile task also assigns `web/src/mobile/` and the phone-to-LIG
+integration to the coordinator. The remainder of `web/` stays with Urvashi.
+
 | Path | Owner |
 |---|---|
 | `contracts/` | Coordinator only (changes need coordinator approval) |

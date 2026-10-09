@@ -165,7 +165,7 @@ class HarnessEngine:
         ids=set(conn.vehicle.getIDList())
         for vehicle in ids-self._subscriptions:
             conn.vehicle.subscribe(vehicle,[self._tc.VAR_POSITION,self._tc.VAR_ANGLE,self._tc.VAR_SPEED,
-                                            self._tc.VAR_TYPE,self._tc.VAR_CO2EMISSION,self._tc.VAR_WAITING_TIME])
+                                            self._tc.VAR_TYPE,self._tc.VAR_CO2EMISSION,self._tc.VAR_WAITING_TIME,self._tc.VAR_ROAD_ID])
         self._subscriptions=ids
         t=conn.simulation.getTime()
         if not self._incident_started and t>=60 and SCENARIOS[self.scenario]['incident']:
@@ -205,7 +205,7 @@ class HarnessEngine:
         vehicles=[]
         for vehicle,v in sorted(values.items()):
             px,py=v[tc.VAR_POSITION]
-            vehicles.append(dict(id=vehicle,type=v[tc.VAR_TYPE],x=round(px-WORLD['center'][0],3),
+            vehicles.append(dict(id=vehicle,type=v[tc.VAR_TYPE],edge_id=v[tc.VAR_ROAD_ID],x=round(px-WORLD['center'][0],3),
                                  y=round(py-WORLD['center'][1],3),angle=round(v[tc.VAR_ANGLE],2),
                                  speed=round(v[tc.VAR_SPEED],3),waiting=round(v[tc.VAR_WAITING_TIME],1)))
         speeds=[v['speed'] for v in vehicles]

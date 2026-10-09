@@ -18,14 +18,15 @@ class Session:
 
 
 class SessionStore:
-    def __init__(self, clock=time.monotonic):
+    def __init__(self, clock=time.monotonic, *, vehicles=VEHICLES, run_id=None):
         self.clock = clock
-        self.run_id = 'run.' + secrets.token_hex(8)
+        self.vehicles = tuple(vehicles)
+        self.run_id = run_id or 'run.' + secrets.token_hex(8)
         self.codes = {}
         self.sessions = {}
 
     def issue(self, vehicle_id):
-        if vehicle_id not in VEHICLES:
+        if vehicle_id not in self.vehicles:
             raise ValueError('wrong_role')
         if any(s.vehicle_id == vehicle_id for s in self.sessions.values()):
             raise ValueError('occupied_role')
@@ -49,6 +50,6 @@ class SessionStore:
     def authenticate(self, message):
         session = self.sessions.get(message['sender_id'])
         if (message['run_id'] != self.run_id or not session or
-                not secrets.compare_digest(message['payload']['token'], session.token)):
+                not secrets.compare_digest(message['payload']['token'].encode(), session.token.encode())):
             raise ValueError('unauthenticated')
         return session

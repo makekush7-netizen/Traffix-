@@ -1,5 +1,12 @@
 # AGENTS.md: rules for coding agents working on Trafixx
 
+Kush approved coordinator implementation of both the mobile UI and its LIG
+bridge on 2026-10-09. For this task the coordinator may edit `web/src/mobile/`,
+`backend/harness/`, shared `backend/session.py` compatibly, the harness tests,
+and add mobile integration tests/runbooks/scripts. Preserve frozen contracts
+and Prakhyat's ML internals. The first mobile deliverable is an offline-assets
+browser app for real phones; native packaging is a separate release step.
+
 Read this first. Then read only the module spec you were given and `contracts/`.
 
 ## Project in one paragraph

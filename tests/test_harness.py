@@ -40,6 +40,7 @@ def test_real_sumo_reset_step_and_seed_reproducibility():
 
 def test_web_controls_and_export():
     with TestClient(create_app()) as client:
+        auth={'Authorization':'Bearer '+client.get('/api/operator/bootstrap').json()['token']}
         assert client.get('/').status_code == 200
         geometry = client.get('/api/world').json()
         assert geometry['provenance']['source'] == 'OpenStreetMap'
@@ -48,7 +49,7 @@ def test_web_controls_and_export():
                    ('2023505360','2023505361','2023505364','8389132295')))
         assert max(abs(value) for value in lig['position']) < 50
         assert client.post('/api/control', json={'action': 'set_rate', 'rate': 999}).status_code == 422
-        response = client.post('/api/control', json={'action': 'step'})
+        response = client.post('/api/control', headers=auth, json={'action': 'step'})
         assert response.status_code == 200
         export = client.get('/api/export').json()
         assert export['manifest']['calibrated'] is False
