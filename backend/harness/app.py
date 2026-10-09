@@ -1,6 +1,8 @@
 import asyncio
 from contextlib import asynccontextmanager
 from pathlib import Path
+import os
+import json
 from typing import Literal
 from urllib.parse import urlsplit
 
@@ -16,14 +18,22 @@ STATIC=Path(__file__).parent/'static'
 
 class Control(BaseModel):
     model_config=ConfigDict(extra='forbid')
-    action: Literal['play','pause','step','reset','set_rate','clear_incident']
+    action: Literal['play','pause','step','reset','set_rate','clear_incident','set_autonomy']
     scenario: Literal['everyday','rush','rain','roadworks'] | None=None
     seed: int=Field(default=42,ge=0,le=999999)
     rate: Literal[1,2,4,8] | None=None
+    enabled: bool | None=None
 
 
 def create_app():
-    engine=HarnessEngine()
+    model_dir=os.environ.get('TRAFFIX_MODELS')
+    selection_path=os.environ.get('TRAFFIX_SELECTION')
+    selection=json.loads(Path(selection_path).read_text(encoding='utf-8')) if selection_path else None
+    engine=HarnessEngine(ml_options=dict(probe_mode=os.environ.get('TRAFFIX_PROBE_MODE','phone'),
+                                        policy=os.environ.get('TRAFFIX_POLICY','fixed'),
+                                        model_dir=model_dir,selection=selection,
+                                        batch_profile=os.environ.get('TRAFFIX_LIG_PROFILE')=='batch',
+                                        initial_scenario=os.environ.get('TRAFFIX_INITIAL_SCENARIO','everyday')))
     @asynccontextmanager
     async def lifespan(app):
         await asyncio.to_thread(engine.start)

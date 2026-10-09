@@ -34,12 +34,22 @@ TYPES = {
 
 
 class HarnessEngine:
-    def __init__(self, *, run_config=None, output_root=None, requested_run_id=None, output_directory=None):
+    def __init__(self, *, run_config=None, output_root=None, requested_run_id=None, output_directory=None, ml_options=None):
         from .configuration import normalized_config
         self.run_config=normalized_config(run_config or {'profile':'conservative','max_end_s':2400,'sublane':False})
         self.output_root=Path(output_root) if output_root is not None else ROOT/'runs'
         self.requested_run_id=requested_run_id
         self.output_directory=Path(output_directory) if output_directory is not None else None
+        self.ml_options=dict(enabled=ml_options is not None,probe_mode='phone',policy='fixed',model_dir=None,selection=None,**{})
+        self.ml_options.update(ml_options or {})
+        if self.ml_options['probe_mode'] not in {'phone','emulated','none'}:
+            raise ValueError('invalid probe mode')
+        if self.ml_options['policy'] not in {'fixed','reactive','predictive'}:
+            raise ValueError('invalid policy')
+        if self.ml_options['policy']=='predictive' and not (self.ml_options['model_dir'] and self.ml_options['selection']):
+            raise ValueError('predictive mode requires genuine models and frozen selection')
+        self._sampler=None;self._policy=None;self._ml_latest=None
+        self._phone_uplinks=0;self.autonomy_enabled=True;self._has_intervention=False
         self._queue = queue.Queue(maxsize=64)
         self._stop = threading.Event()
         self._ready = threading.Event()
@@ -81,6 +91,12 @@ class HarnessEngine:
         record = self.export()
         (self.run_dir/'manifest.json').write_text(json.dumps(record['manifest'],indent=2),encoding='utf-8')
         (self.run_dir/'recording.json').write_text(json.dumps(record,separators=(',',':')),encoding='utf-8')
+        if self._sampler:
+            import pandas as pd
+            for name,rows in [('observations',self._sampler.observations),('truth',self._sampler.truth),
+                              ('forecasts',self._sampler.forecasts),('detections',self._sampler.detections),('capacity',self._sampler.capacity)]:
+                pd.DataFrame(rows).to_csv(self.run_dir/f'{name}.csv',index=False)
+            (self.run_dir/'actions.json').write_text(json.dumps(self._policy.events if self._policy else [],indent=2),encoding='utf-8')
 
     def stop(self):
         self._stop.set()
@@ -91,6 +107,13 @@ class HarnessEngine:
     def _reset(self, scenario, seed):
         if scenario not in SCENARIOS: raise ValueError('Unknown scenario')
         if not isinstance(seed,int) or not 0<=seed<=999999: raise ValueError('Invalid seed')
+        if self.ml_options.get('batch_profile'):
+            from eval.lig_runner import resolve_job
+            from .configuration import normalized_config
+            batch=resolve_job(dict(run_id='run.lig.live',scenario_id=f'lig.{scenario}',seed=seed,
+                                  policy='fixed',compliance=.6,sensor_mask_id='mask.lig.probes',
+                                  data_source='sumo',demand_id='demand.lig.ordinary'))
+            self.run_config=normalized_config({**batch,'warmup_s':120})
         import traci
         import traci.constants as tc
         import sumo
@@ -150,6 +173,28 @@ class HarnessEngine:
                     lane_positions.append([pos[0]-WORLD['center'][0],pos[1]-WORLD['center'][1]])
                 else: lane_positions.append(None)
             self._signals.append(dict(id=tls,positions=lane_positions))
+        self._sampler=None;self._policy=None;self._ml_latest=None
+        self._phone_uplinks=0;self._has_intervention=False
+        if self.ml_options['enabled']:
+            from eval.lig_registry import load_registry,probe_assignment
+            from eval.lig_runner import Sampler
+            from ml.forecast import ForecastService
+            registry=load_registry()
+            mode=self.ml_options['probe_mode']
+            assignment=probe_assignment([v.get('id') for v in demand.findall('vehicle')],seed,.6) if mode=='emulated' else []
+            service=ForecastService.from_directory(self.ml_options['model_dir']) if self.ml_options['model_dir'] else None
+            if service and service.data_source!='sumo':
+                raise ValueError('Harness requires genuine SUMO model artifacts')
+            self._sampler=Sampler(self.run_id,registry,'mask.lig.probes' if mode=='emulated' else 'mask.lig.boundary',assignment,service)
+            if self.ml_options['policy']!='fixed':
+                from .policy import BoundedPolicy
+                self._policy=BoundedPolicy(self.ml_options['policy'],registry,selection=self.ml_options['selection'])
+                if self.ml_options['selection']:
+                    from ml.detect import DetectionEngine
+                    self._sampler.intelligence.detector=DetectionEngine(**self.ml_options['selection']['reactive'])
+            self._manifest['intelligence_configuration']=dict(probe_mode=mode,policy=self.ml_options['policy'],
+                                  model_data_source=service.data_source if service else 'baseline_only',probe_assignment=assignment,
+                                  registry=registry,selection=self.ml_options['selection'])
         for _ in range(int(self.run_config['warmup_s']/self.run_config['step_s'])): self._step(publish=False)
         self._publish()
 
@@ -173,6 +218,13 @@ class HarnessEngine:
             self._advance_incident(t)
         values=conn.vehicle.getAllSubscriptionResults()
         self.co2_kg+=sum(v.get(self._tc.VAR_CO2EMISSION,0) for v in values.values())*self.run_config['step_s']/1e6
+        if self._sampler:
+            latest=self._sampler.sample(conn,t,intervention_active=self._has_intervention)
+            if latest:
+                self._ml_latest=latest
+                if self._policy:
+                    self._policy.tick(conn,t,latest,self._sampler.intelligence,enabled=self.autonomy_enabled)
+                    self._has_intervention=self._has_intervention or self._policy.intervened
         if publish: self._publish(values)
         if self._ended(t):
             self.paused=True
@@ -227,7 +279,19 @@ class HarnessEngine:
         snapshot=dict(ready=True,error=None,run_id=self.run_id,scenario=self.scenario,seed=self.seed,
                       source='SUMO simulation truth',sim_time_s=t,paused=self.paused,rate=self.rate,
                       vehicles=vehicles,signals=signals,metrics=metrics,incident_active=self._incident,events=self._events[-12:],
-                      ended=self._ended(t),horizon_s=self.run_config['horizon_s'],max_end_s=self.run_config['max_end_s'])
+                      ended=self._ended(t),horizon_s=self.run_config['horizon_s'],max_end_s=self.run_config['max_end_s'],
+                      configuration=deepcopy(self.run_config))
+        if self._sampler:
+            visible={key:value for key,value in (self._ml_latest or {}).items() if key in {'run_id','sim_time_s','observations','forecasts','detections'}}
+            from .policy import visible_forecasts
+            visible['forecasts']=visible_forecasts(visible.get('forecasts',[]),intervened=self._has_intervention)
+            snapshot['intelligence']=dict(**visible,probe_mode=self.ml_options['probe_mode'],
+                authenticated_phone_uplinks=self._phone_uplinks,policy=self.ml_options['policy'],
+                model_data_source=self._sampler.intelligence.forecaster.data_source,
+                control_forecast_method=(self.ml_options['selection'] or {}).get('method'),
+                control_forecast_horizon_s=(self.ml_options['selection'] or {}).get('horizon_s'),
+                autonomy_enabled=self.autonomy_enabled,intervention_active=self._has_intervention,
+                actions=self._policy.events[-20:] if self._policy else [])
         with self._lock:
             self._snapshot=snapshot
             self._manifest['complete']=self.arrived==self.scheduled and not self.collisions and not self.teleports
@@ -253,13 +317,29 @@ class HarnessEngine:
             if c.get('rate') not in (1,2,4,8): raise ValueError('Invalid playback speed')
             self.rate=c['rate']
         elif action=='clear_incident': self._clear_incident()
+        elif action=='set_autonomy':
+            if type(c.get('enabled')) is not bool: raise ValueError('enabled must be boolean')
+            self.autonomy_enabled=c['enabled']
+            self._events.append(dict(sim_time_s=self._conn.simulation.getTime(),kind='operator_override',enabled=self.autonomy_enabled))
+        elif action=='validated_probe':
+            if not self._sampler or self.ml_options['probe_mode']!='phone': raise ValueError('phone observation mode unavailable')
+            accepted=self._sampler.intelligence.ingest_probe(c['message'])
+            if accepted: self._phone_uplinks+=1
         else: raise ValueError('Unknown command')
         self._publish()
         return self.snapshot()
 
+    def accept_validated_probe(self,message):
+        """Internal gateway boundary only: caller already authenticates/binds/validates frame echoes.
+
+        Do not expose this as an unauthenticated HTTP/WebSocket endpoint. The current
+        phone fixture backend uses a separate simulation and must not feed this run.
+        """
+        return self.command(dict(action='validated_probe',message=deepcopy(message)))
+
     def _run(self):
         try:
-            self._reset('rush',42)
+            self._reset(self.ml_options.get('initial_scenario','rush'),42)
             self._ready.set()
             deadline=time.monotonic()+.25
             while not self._stop.is_set():

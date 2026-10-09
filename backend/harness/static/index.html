@@ -22,6 +22,13 @@
  <div class="fleet"><span><i style="--dot:#5675a3"></i>Cars <b>32%</b></span><span><i style="--dot:#ef8b49"></i>Motorcycles <b>35%</b></span><span><i style="--dot:#dfb62c"></i>Autos <b>15%</b></span><span><i style="--dot:#42a794"></i>E-rickshaws <b>8%</b></span><span><i style="--dot:#ba594c"></i>Buses <b>4%</b></span><span><i style="--dot:#af9ccb"></i>Delivery <b>6%</b></span></div>
  <div class="seed-row"><label for="seed">Scenario seed</label><input id="seed" type="number" min="0" max="999999" value="42"><button id="reset" title="Reset this scenario">↻ Reset</button></div>
  <details class="method"><summary>What is real? What is simulated?</summary><p>Roads and building footprints: OpenStreetMap. Traffic demand, driver behaviour and fixed signal plans: simulation assumptions. Building heights may be inferred. This is a SUMO harness, not a calibrated model of Indore traffic.</p><p>Fleet shares are sampling weights. Rain and obstruction are scripted speed restrictions from 01:00 to 06:00. CO₂ uses SUMO default emission classes, including unvalidated rickshaw proxies.</p></details>
+ <div class="section-label">03 / PERMITTED OBSERVATIONS</div>
+ <p id="ml-source" class="intro">Waiting for observation pipeline.</p>
+ <p id="ml-coverage" class="intro">Sensor-poor LIG approach: unknown.</p>
+ <p id="ml-forecast" class="intro">Forecasts abstain until coverage is sufficient.</p>
+ <p id="ml-actions" class="intro">No intervention.</p>
+ <button id="autonomy" class="export" type="button">Pause autonomous actions</button>
+ <details class="method"><summary>Observation honesty</summary><p>The rendered vehicles are simulation truth. They are not automatically phone observations. Phone mode needs authenticated, validated uplinks for this run; zero uplinks means unknown on the sensor-poor approach. Emulated probe mode is labelled and is used for offline policy experiments. Boundary capacity sensors are simulated fixed detectors.</p></details>
  <div class="sidebar-foot"><span class="source-dot"></span> SUMO 1.28 · LOCAL ENGINE <span>↗</span></div>
 </aside>
 <section class="stage">
@@ -32,7 +39,7 @@
   <div class="compass"><b>N</b><span>↑</span></div>
   <div class="map-label" id="lig-label">LIG SQUARE <span>●</span></div>
   <div class="inspector" id="inspector" hidden><button id="close-inspector" aria-label="Close vehicle details">×</button><span class="eyebrow">VEHICLE INSPECTOR</span><h3 id="vehicle-name"></h3><p id="vehicle-detail"></p><button id="follow">Follow vehicle ↗</button></div>
-  <div class="incident-banner" id="incident" hidden><span>●</span><div><b id="incident-title">Restriction active</b><small>Scheduled recovery at 06:00 sim time</small></div><button id="clear">Clear now</button></div>
+  <div class="incident-banner" id="incident" hidden><span>●</span><div><b id="incident-title">Restriction active</b><small id="incident-recovery">Scheduled recovery from run manifest</small></div><button id="clear">Clear now</button></div>
   <div class="map-help">Drag to orbit · scroll to zoom · right-drag to pan · click a vehicle</div>
   <a class="attribution" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a>
   <div id="loading" class="loading"><div class="loader"></div><b>Preparing LIG Square</b><span>Loading real roads and the SUMO world…</span></div>

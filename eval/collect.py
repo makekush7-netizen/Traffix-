@@ -25,7 +25,7 @@ def collect_results(root):
             if len(trips)!=metadata['scheduled_cohort_size']:
                 raise ValueError('trips export does not match scheduled cohort size; preserve pending vehicles')
             metrics=summarize_cohort(trips,teleported=metadata['teleported'],excluded_vehicle_ids=metadata.get('excluded_metric_vehicle_ids',[]))
-            audit={field+'_sha256':fingerprint(metadata[field]) if metadata.get(field) is not None else None
+            audit={field+'_sha256':fingerprint(metadata[field]) if metadata.get(field) is not None else metadata.get(field+'_sha256')
                    for field in ['emission_assumptions','comparison_config','probe_assignment']}
             secondary={}
             if (run/'truth.csv').is_file():

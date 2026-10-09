@@ -171,7 +171,9 @@ def run_job(job,output_dir,*,model_dir=None,selection=None):
               'clock':'simulated_seconds','step_s':config['step_s'],'label_step_s':5,
               'max_end_s':config['max_end_s'],'actual_end_s':engine.snapshot()['sim_time_s'],
               'wall_time_s':round(time.monotonic()-started,3),'assumptions':common,
-              'policy_selection':selection,'training_eligible':engine.collisions==0 and engine.teleports==0}
+              'policy_selection':selection,'training_eligible':engine.collisions==0 and engine.teleports==0,
+              'comparison_config':common,'emission_assumptions':emissions,
+              'bypass_edge_ids':[edge for edge in registry['edges'] if '.exit.' in edge]}
     manifest=merge_integrity(manifest,metrics)
     (directory/'manifest.json').write_text(json.dumps(manifest,indent=2,allow_nan=False),encoding='utf-8')
     events=[*engine._events,*(policy.events if policy else [])]
