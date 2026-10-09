@@ -46,7 +46,10 @@ def check_baseline_jam(truth, *, slowdown_threshold=.7, min_jam_length_m=50, min
                 recovery_start=None
             else:
                 start=None;green_start=None;green_seen=False;event=None
-                if candidate is not None and row['slowdown_true']<=.3 and row['jam_length_m']<min_jam_length_m:
+                # An explicitly empty full-state road is physical clearance evidence.
+                # Its slowdown remains null; this is offline, never an online fill.
+                cleared=(row['slowdown_true']<=.3 or row.get('vehicle_count')==0) and row['jam_length_m']<min_jam_length_m
+                if candidate is not None and cleared:
                     recovery_start=now if recovery_start is None else recovery_start
                     if now-recovery_start>=recovery_s:
                         candidate['recovery_seen']=True;candidate['recovery_s']=now
