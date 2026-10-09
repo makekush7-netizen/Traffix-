@@ -33,3 +33,13 @@ Do not enable trained models without evidence they beat the simple rule on held-
 runs. Frozen contracts and existing other owners' implementations stay preserved.
 The preceding task explicitly authorized creating `sim/assumptions.json` and its
 README; that exception does not authorize rewriting Nandani's simulation files.
+
+## Final unified-build assignment, 9 October 2026
+
+Kush assigns the scope in `docs/prakhyat-final-build.md` to Prakhyat, including
+`backend/simulation/`, compatible harness extraction, `web/src/operator/`,
+`web/src/shared/`, simulation scripts/tests, his ML/evaluation adapters and versioned
+`contracts/v2/` with compatibility. Native mobile-client implementation and the
+existing phone bridge remain with Kush. Original sim assets remain with Nandani;
+coordinate generation/review of new packs. This scoped assignment supersedes earlier
+web ownership only for the new operator/shared paths, not other Urvashi files.

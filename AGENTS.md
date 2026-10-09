@@ -102,3 +102,23 @@ queue-responsive extension after operator opt-in. Preserve single-worker TraCI
 ownership, clearance, receiving-space and maximum-green checks. Reset disables
 smart mode. Do not label this controller live ML or claim emissions savings without
 a matched comparison. Read docs/smart-demo-guide.md.
+
+## Final module split authorized by Kush, 9 October 2026
+
+Kush assigned Prakhyat the unified simulation host, admin dashboard, detection/forecast
+adapters, team-client operation, versioned integration API and complete build handoff.
+Read `docs/prakhyat-final-build.md` before implementing this scope. The accepted UI
+direction is revision 2 in `docs/ui-direction-proposal.md`. Prakhyat may implement
+`backend/simulation/`, compatible `backend/harness/` extraction, `web/src/operator/`,
+`web/src/shared/`, simulation/setup scripts, evaluation/ML/model adapters and relevant
+tests/docs. Coordinate topology and generated location packs with Nandani; preserve
+the existing phone demos and original reviewed sim assets. New contracts go in
+`contracts/v2/` with compatibility; do not rewrite frozen contracts in place.
+
+Kush retains native mobile-client implementation and the existing phone bridge.
+Explicitly authorized next-build scope includes local camera detection and secured
+online access; older offline/native restrictions do not prohibit this new module.
+Existing demos retain their constraints. One simulation owner, authenticated commands,
+data provenance, stale-input rejection and evidence-based claims remain mandatory.
+Build on `feat/prakhyat-unified-simulation`; return a draft integration PR and build
+report. Do not auto-merge into main or expose localhost admin bootstrap publicly.
