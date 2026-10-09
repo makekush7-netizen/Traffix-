@@ -1,0 +1,470 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "scenario_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]+$"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "synthetic": {
+      "const": true
+    },
+    "sumocfg": {
+      "type": "string",
+      "minLength": 1
+    },
+    "network_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "demand_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "additional_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "geometry_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "id_registry_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "step_s": {
+      "const": 1
+    },
+    "warmup_end_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "departures_end_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "max_end_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "sensor_mask_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]+$"
+    },
+    "fixed_detector_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]+$"
+      }
+    },
+    "probe_bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/probe"
+      }
+    },
+    "emulated_probe_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "emulated_probe_excluded_edges": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]+$"
+      }
+    },
+    "incidents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/incident"
+      }
+    },
+    "control": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "enum": [
+            "fixed",
+            "reactive",
+            "predictive"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "fixed",
+            "manual",
+            "auto"
+          ]
+        },
+        "decision_interval_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "forecast_horizon_s": {
+          "enum": [
+            120,
+            180,
+            300
+          ]
+        },
+        "danger_slowdown": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_slowdown": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "min_distinct_probes_60s": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_sample_age_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "reactive_persistence_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "forecast_persistence_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "forecast_history_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "response_ttl_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "recovery_persistence_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "clear_slowdown": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "min_green_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_green_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "extension_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "offer_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "compliance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "advisory_ttl_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "bypass_queue_limit": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "require_bypass_fixed_sensor": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "policy",
+        "mode",
+        "decision_interval_s",
+        "forecast_horizon_s",
+        "danger_slowdown",
+        "evidence_slowdown",
+        "min_distinct_probes_60s",
+        "max_sample_age_s",
+        "reactive_persistence_s",
+        "forecast_persistence_s",
+        "forecast_history_s",
+        "response_ttl_s",
+        "recovery_persistence_s",
+        "clear_slowdown",
+        "min_green_s",
+        "max_green_s",
+        "extension_s",
+        "offer_fraction",
+        "compliance",
+        "advisory_ttl_s",
+        "bypass_queue_limit",
+        "require_bypass_fixed_sensor"
+      ],
+      "additionalProperties": false
+    },
+    "sublane": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "lateral_resolution_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "enabled",
+        "lateral_resolution_m"
+      ],
+      "additionalProperties": false
+    },
+    "emissions": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "const": true
+        },
+        "mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/emission_mapping"
+          }
+        }
+      },
+      "required": [
+        "enabled",
+        "mappings"
+      ],
+      "additionalProperties": false
+    },
+    "baseline_recording_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "label",
+    "synthetic",
+    "sumocfg",
+    "network_file",
+    "demand_file",
+    "additional_file",
+    "geometry_file",
+    "id_registry_file",
+    "seed",
+    "step_s",
+    "warmup_end_s",
+    "departures_end_s",
+    "max_end_s",
+    "sensor_mask_id",
+    "fixed_detector_ids",
+    "probe_bindings",
+    "emulated_probe_fraction",
+    "emulated_probe_excluded_edges",
+    "incidents",
+    "control",
+    "sublane",
+    "emissions",
+    "baseline_recording_id"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agnitia:scenario:v1",
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "properties": {
+        "at_sim_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "speed_mps": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "at_sim_s",
+        "speed_mps"
+      ],
+      "additionalProperties": false
+    },
+    "incident": {
+      "type": "object",
+      "properties": {
+        "incident_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "kind": {
+          "enum": [
+            "on_lane_stop",
+            "speed_ramp",
+            "signal_closure"
+          ]
+        },
+        "start_sim_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "end_sim_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lane_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]+$"
+          }
+        },
+        "stopped_vehicle_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stop_pos_m": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signal_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "closure_program_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "speed_stages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stage"
+          }
+        }
+      },
+      "required": [
+        "incident_id",
+        "kind",
+        "start_sim_s",
+        "end_sim_s",
+        "lane_ids",
+        "stopped_vehicle_id",
+        "stop_pos_m",
+        "signal_id",
+        "closure_program_id",
+        "speed_stages"
+      ],
+      "additionalProperties": false
+    },
+    "probe": {
+      "type": "object",
+      "properties": {
+        "vehicle_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "channel": {
+          "enum": [
+            "phone",
+            "emulated"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "vehicle_id",
+        "channel",
+        "role"
+      ],
+      "additionalProperties": false
+    },
+    "emission_mapping": {
+      "type": "object",
+      "properties": {
+        "vtype_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sumo_emission_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assumption": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "vtype_id",
+        "sumo_emission_class",
+        "assumption"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "title": "Scenario manifest v1",
+  "description": "Application configuration; compile incidents into verified TraCI calls. Paths relative to repository root. Example parameters are untested starting settings."
+}

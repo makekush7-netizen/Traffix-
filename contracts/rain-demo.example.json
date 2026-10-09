@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "scenario_id": "scn.rain_ramp",
+  "label": "Nandipur Bazaar - synthetic corridor",
+  "synthetic": true,
+  "sumocfg": "sim/net/bazaar.sumocfg",
+  "network_file": "sim/net/bazaar.net.xml",
+  "demand_file": "sim/demand/rain_ramp.seed-042.rou.xml",
+  "additional_file": "sim/net/detectors.add.xml",
+  "geometry_file": "sim/net/geometry.json",
+  "id_registry_file": "sim/net/id-registry.json",
+  "seed": 42,
+  "step_s": 1,
+  "warmup_end_s": 240,
+  "departures_end_s": 900,
+  "max_end_s": 2400,
+  "sensor_mask_id": "mask.market_gap",
+  "fixed_detector_ids": [
+    "det.entry",
+    "det.bypass",
+    "det.exit"
+  ],
+  "probe_bindings": [
+    {
+      "vehicle_id": "veh.role.rider",
+      "channel": "phone",
+      "role": "two-wheeler commuter"
+    },
+    {
+      "vehicle_id": "veh.role.auto",
+      "channel": "phone",
+      "role": "auto driver"
+    },
+    {
+      "vehicle_id": "veh.role.delivery",
+      "channel": "phone",
+      "role": "delivery driver"
+    }
+  ],
+  "emulated_probe_fraction": 0.1,
+  "emulated_probe_excluded_edges": [
+    "edge.market"
+  ],
+  "incidents": [
+    {
+      "incident_id": "inc.rain",
+      "kind": "speed_ramp",
+      "start_sim_s": 300,
+      "end_sim_s": 900,
+      "lane_ids": [
+        "edge.market_0",
+        "edge.market_1"
+      ],
+      "stopped_vehicle_id": null,
+      "stop_pos_m": null,
+      "signal_id": null,
+      "closure_program_id": null,
+      "speed_stages": [
+        {
+          "at_sim_s": 300,
+          "speed_mps": 8.0
+        },
+        {
+          "at_sim_s": 420,
+          "speed_mps": 5.0
+        },
+        {
+          "at_sim_s": 540,
+          "speed_mps": 2.0
+        }
+      ]
+    }
+  ],
+  "control": {
+    "policy": "predictive",
+    "mode": "manual",
+    "decision_interval_s": 10,
+    "forecast_horizon_s": 180,
+    "danger_slowdown": 0.7,
+    "evidence_slowdown": 0.3,
+    "min_distinct_probes_60s": 2,
+    "max_sample_age_s": 15,
+    "reactive_persistence_s": 30,
+    "forecast_persistence_s": 20,
+    "forecast_history_s": 60,
+    "response_ttl_s": 180,
+    "recovery_persistence_s": 60,
+    "clear_slowdown": 0.3,
+    "min_green_s": 10,
+    "max_green_s": 40,
+    "extension_s": 5,
+    "offer_fraction": 0.3,
+    "compliance": 0.6,
+    "advisory_ttl_s": 45,
+    "bypass_queue_limit": 0.35,
+    "require_bypass_fixed_sensor": true
+  },
+  "sublane": {
+    "enabled": false,
+    "lateral_resolution_m": 0.8
+  },
+  "emissions": {
+    "enabled": true,
+    "mappings": [
+      {
+        "vtype_id": "type.car",
+        "sumo_emission_class": "HBEFA3/PC_G_EU4",
+        "assumption": "Documented passenger-car class; synthetic fleet assumption, not Indian calibration."
+      },
+      {
+        "vtype_id": "type.bike",
+        "sumo_emission_class": "HBEFA3/PC_G_EU4",
+        "assumption": "Temporary passenger-car proxy for contract example only; replace with verified available class before reporting mixed-fleet CO2."
+      },
+      {
+        "vtype_id": "type.auto",
+        "sumo_emission_class": "HBEFA3/PC_G_EU4",
+        "assumption": "Temporary passenger-car proxy for contract example only; replace or explicitly report sensitivity before claiming mixed-fleet CO2."
+      }
+    ]
+  },
+  "baseline_recording_id": null
+}

@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pydantic>=2
+numpy
+pandas
+scikit-learn
+pytest
+jsonschema
+websockets
+qrcode[pil]

@@ -1,0 +1,68 @@
+[
+  {
+    "v": 1,
+    "type": "vehicle.frame",
+    "msg_id": "msg.101",
+    "run_id": "run.demo.001",
+    "sender_id": "server",
+    "seq": 101,
+    "sim_time_s": 360,
+    "payload": {
+      "frame_id": "frame.rider.360",
+      "vehicle_id": "veh.role.rider",
+      "state": "active",
+      "pose": {
+        "edge_id": "edge.market",
+        "x_m": 200,
+        "y_m": 100,
+        "speed_mps": 2.0
+      }
+    }
+  },
+  {
+    "v": 1,
+    "type": "probe.sample",
+    "msg_id": "msg.phone1.12",
+    "run_id": "run.demo.001",
+    "sender_id": "session.phone1",
+    "seq": 12,
+    "sim_time_s": 360,
+    "payload": {
+      "frame_id": "frame.rider.360",
+      "vehicle_id": "veh.role.rider",
+      "pose": {
+        "edge_id": "edge.market",
+        "x_m": 200,
+        "y_m": 100,
+        "speed_mps": 2.0
+      }
+    }
+  },
+  {
+    "v": 1,
+    "type": "driver.decision",
+    "msg_id": "msg.phone3.20",
+    "run_id": "run.demo.001",
+    "sender_id": "session.phone3",
+    "seq": 20,
+    "sim_time_s": 500,
+    "payload": {
+      "advisory_id": "advisory.delivery.1",
+      "choice": "accept"
+    }
+  },
+  {
+    "v": 1,
+    "type": "ack",
+    "msg_id": "msg.125",
+    "run_id": "run.demo.001",
+    "sender_id": "server",
+    "seq": 125,
+    "sim_time_s": 501,
+    "payload": {
+      "in_reply_to": "msg.phone3.20",
+      "status": "applied",
+      "reason": "Route changed at the eligible upstream decision edge."
+    }
+  }
+]
