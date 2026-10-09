@@ -13,7 +13,7 @@ ipconfig
 ```
 
 The prepared local virtual environment reuses the installed Python dependencies and includes qrcode.
-For a fresh laptop, create a virtual environment and install `requirements.txt` plus `httpx` (FastAPI TestClient dependency).
+For a fresh laptop, create a virtual environment and install `backend/requirements.txt` (includes the starter dependencies and the FastAPI TestClient dependency).
 
 1. Turn on the laptop hotspot and connect both physical phones. Recheck `ipconfig` after enabling the hotspot.
 2. Open `http://localhost:8000/setup` on the laptop. Enter `http://<actual-IP>:8000`.
