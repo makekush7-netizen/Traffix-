@@ -54,13 +54,18 @@ every scheduled vehicle, entry delay, unfinished states and emission units.
 ## Mentor demo
 
 ```powershell
-python scripts/run_lig_ml.py --probe-mode emulated --policy predictive --scenario roadworks --models models/lig-v1 --selection models/lig-v1/evidence/selection.json
+python scripts/run_lig_ml.py --probe-mode emulated --policy predictive --scenario roadworks --models models/lig-v1 --selection runs/lig-evidence/selection.json
 ```
 
 Open `http://127.0.0.1:8001`. This is a LIVE SUMO run with explicitly EMULATED
 probes; it is not a physical-phone demonstration. At 8x playback use pause,
 step, reset, clear incident and the bounded-autonomy pause button. The default
 phone mode can demonstrate the honesty gate:
+
+For the checked-in pretrained release, use its matching packaged
+`--selection models/lig-v1/evidence/selection.json`. After rerunning training,
+use the newly generated `runs/lig-evidence/selection.json` as shown above;
+model/selection checksum mismatches stop before SUMO starts.
 
 ```powershell
 python scripts/run_lig_ml.py --probe-mode phone --policy fixed --models models/lig-v1

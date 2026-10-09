@@ -48,6 +48,12 @@ class HarnessEngine:
             raise ValueError('invalid policy')
         if self.ml_options['policy']=='predictive' and not (self.ml_options['model_dir'] and self.ml_options['selection']):
             raise ValueError('predictive mode requires genuine models and frozen selection')
+        from ml.artifacts import execution_artifacts
+        self._artifact_identity=execution_artifacts(self.ml_options['model_dir'],self.ml_options['selection'])
+        self._forecaster=None
+        if self.ml_options['model_dir']:
+            from ml.forecast import ForecastService
+            self._forecaster=ForecastService.from_directory(self.ml_options['model_dir'])
         self._sampler=None;self._policy=None;self._ml_latest=None
         self._phone_uplinks=0;self.autonomy_enabled=True;self._has_intervention=False
         self._queue = queue.Queue(maxsize=64)
@@ -182,7 +188,7 @@ class HarnessEngine:
             registry=load_registry()
             mode=self.ml_options['probe_mode']
             assignment=probe_assignment([v.get('id') for v in demand.findall('vehicle')],seed,.6) if mode=='emulated' else []
-            service=ForecastService.from_directory(self.ml_options['model_dir']) if self.ml_options['model_dir'] else None
+            service=self._forecaster
             if service and service.data_source!='sumo':
                 raise ValueError('Harness requires genuine SUMO model artifacts')
             self._sampler=Sampler(self.run_id,registry,'mask.lig.probes' if mode=='emulated' else 'mask.lig.boundary',assignment,service)
@@ -195,6 +201,7 @@ class HarnessEngine:
             self._manifest['intelligence_configuration']=dict(probe_mode=mode,policy=self.ml_options['policy'],
                                   model_data_source=service.data_source if service else 'baseline_only',probe_assignment=assignment,
                                   registry=registry,selection=self.ml_options['selection'])
+            self._manifest['intelligence_configuration']['artifact_identity']=deepcopy(self._artifact_identity)
         for _ in range(int(self.run_config['warmup_s']/self.run_config['step_s'])): self._step(publish=False)
         self._publish()
 

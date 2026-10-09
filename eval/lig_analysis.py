@@ -111,8 +111,13 @@ def policy_report(fixed_runs,response_runs,seeds,evidence_path):
     results=[row for row in fixed['results']+response['results'] if row['seed'] in seeds]
     report=compare_results(results,expected_jobs=expected)
     report['collection_errors']=fixed['errors']+response['errors']
-    report['actions']=[dict(run_id=job['run_id'],events=json.loads((Path(response_runs)/job['run_id']/'events.json').read_text(encoding='utf-8')))
-                       for job in policy_plan(seeds)]
+    report['actions']=[]
+    for job in policy_plan(seeds):
+        try:
+            events=json.loads((Path(response_runs)/job['run_id']/'events.json').read_text(encoding='utf-8'))
+            report['actions'].append(dict(run_id=job['run_id'],events=events))
+        except (OSError,ValueError) as error:
+            report['collection_errors'].append(dict(run_id=job['run_id'],reason=f'action_evidence_unavailable: {error}'))
     save(evidence_path,report)
     Path(evidence_path).with_suffix('.md').write_text(markdown_report(report),encoding='utf-8')
     return report

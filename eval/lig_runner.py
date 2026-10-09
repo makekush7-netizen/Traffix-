@@ -19,6 +19,11 @@ from ml.observations import ProbeSample
 DEMAND={'demand.lig.ordinary':500,'demand.lig.busy':750}
 MASKS={'mask.lig.probes','mask.lig.boundary','mask.lig.none'}
 
+def execution_identity(job,model_dir=None,selection=None):
+    from ml.artifacts import execution_artifacts
+    return fingerprint(dict(configuration=resolve_job(job),artifacts=execution_artifacts(model_dir,selection),
+                            runner_version=2,probe_participation=.6,observation_step_s=5))
+
 def resolve_job(job):
     if job.get('scenario_id') not in {'lig.everyday','lig.rain','lig.roadworks','lig.rush'}:
         raise ValueError('unsupported LIG scenario')
@@ -106,6 +111,7 @@ def run_job(job,output_dir,*,model_dir=None,selection=None):
     prepare_environment()
     from ml.forecast import ForecastService
     config=resolve_job(job);registry=load_registry();directory=Path(output_dir)
+    identity=execution_identity(job,model_dir,selection)
     service=ForecastService.from_directory(model_dir) if model_dir else None
     if job['policy']=='predictive' and (selection is None or service is None):
         raise ValueError('predictive run requires frozen validation selection and genuine models')
@@ -172,7 +178,7 @@ def run_job(job,output_dir,*,model_dir=None,selection=None):
               'max_end_s':config['max_end_s'],'actual_end_s':engine.snapshot()['sim_time_s'],
               'wall_time_s':round(time.monotonic()-started,3),'assumptions':common,
               'policy_selection':selection,'training_eligible':engine.collisions==0 and engine.teleports==0,
-              'comparison_config':common,'emission_assumptions':emissions,
+              'comparison_config':common,'emission_assumptions':emissions,'execution_sha256':identity,
               'bypass_edge_ids':[edge for edge in registry['edges'] if '.exit.' in edge]}
     manifest=merge_integrity(manifest,metrics)
     (directory/'manifest.json').write_text(json.dumps(manifest,indent=2,allow_nan=False),encoding='utf-8')

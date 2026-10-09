@@ -21,12 +21,16 @@ def execute_jobs(jobs,root,*,workers=3,models=None,selection=None):
     root=Path(root);root.mkdir(parents=True,exist_ok=True)
     if workers not in [1,2,3,4]: raise ValueError('workers must be 1 to 4')
     (root/'plan.json').write_text(json.dumps(jobs,indent=2),encoding='utf-8')
+    from eval.lig_runner import execution_identity
+    chosen=json.loads(Path(selection).read_text(encoding='utf-8')) if selection else None
     def execute(job):
         folder=root/job['run_id'];manifest=folder/'manifest.json'
+        identity=execution_identity(job,models,chosen)
         required=['observations.csv','truth.csv','trips.csv','lifecycle.csv','events.json','sumo.log']
         if manifest.exists() and all((folder/name).is_file() for name in required):
             saved=json.loads(manifest.read_text(encoding='utf-8'))
             if any(saved.get(k)!=v for k,v in job.items()): raise ValueError('resume job mismatch')
+            if saved.get('execution_sha256')!=identity: raise ValueError('resume execution identity mismatch; use a new run root')
             return saved
         folder.mkdir(exist_ok=False)
         (folder/'job.json').write_text(json.dumps(job,indent=2),encoding='utf-8')
