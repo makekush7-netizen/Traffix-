@@ -1,0 +1,4 @@
+# Preserve provenance hashes and upstream asset bytes across platforms.
+data/*.xml -text
+data/world.json -text
+static/vendor/* -text whitespace=-space-before-tab
