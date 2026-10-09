@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Nandipur Bazaar demand — seed 42, rain ramp scenario.
+  SORTED BY DEPARTURE TIME (flows first since begin=0, then explicit vehicles).
+
+  Role vehicles depart later so veh.role.delivery is still on edge 'in'
+  when the incident check fires at t=300 s. Delivery departs at t=240 s
+  (just before rain starts at 300 s) and takes ~270 s to traverse 'in'
+  (297 m at 13.89 m/s = ~21 s) + main1 (270 m at reduced speed).
+  Actual transit depends on congestion; delivery should reach main1 around
+  t=270-290, making it blockable at pos=150 from t=300 onwards.
+
+  Note: veh.role.delivery departs at 240 s so it is on main1 at t=300.
+        veh.role.rider  departs at  10 s — well ahead on market road.
+        veh.role.auto   departs at  20 s — ahead on market road.
+-->
+<routes>
+
+    <!-- ============================================================= -->
+    <!-- VEHICLE TYPES                                                  -->
+    <!-- ============================================================= -->
+
+    <vType id="veh.role.rider"
+           vClass="motorcycle"
+           length="2.0" width="0.8"
+           accel="3.5"  decel="5.0"
+           minGap="1.0" maxSpeed="16.7"
+           sigma="0.6"  latAlignment="arbitrary" minGapLat="0.2"
+           color="0.2,0.8,0.2"/>
+
+    <vType id="veh.role.auto"
+           vClass="passenger"
+           length="2.7" width="1.4"
+           accel="2.0"  decel="4.0"
+           minGap="1.5" maxSpeed="11.1"
+           sigma="0.6"  latAlignment="arbitrary" minGapLat="0.3"
+           color="0.9,0.6,0.1"/>
+
+    <vType id="veh.role.delivery"
+           vClass="passenger"
+           length="4.0" width="1.7"
+           accel="2.4"  decel="4.5"
+           minGap="2.0" maxSpeed="13.89"
+           sigma="0.5"
+           color="0.2,0.4,0.9"/>
+
+    <vType id="bg_car"
+           vClass="passenger"
+           length="4.5" width="1.8"
+           accel="2.6"  decel="4.5"
+           minGap="2.5" sigma="0.5"
+           color="0.7,0.7,0.7"/>
+
+    <vType id="bg_moto"
+           vClass="motorcycle"
+           length="2.0" width="0.8"
+           accel="3.5"  decel="5.0"
+           minGap="1.0" maxSpeed="16.7"
+           sigma="0.7"  latAlignment="arbitrary" minGapLat="0.2"
+           color="0.5,0.5,0.5"/>
+
+    <vType id="bg_auto"
+           vClass="passenger"
+           length="2.7" width="1.4"
+           accel="2.0"  decel="4.0"
+           minGap="1.5" maxSpeed="11.1"
+           sigma="0.7"  latAlignment="arbitrary" minGapLat="0.3"
+           color="0.6,0.5,0.3"/>
+
+    <vTypeDistribution id="mix">
+        <vType id="mix_car"  type="bg_car"  probability="0.45"/>
+        <vType id="mix_moto" type="bg_moto" probability="0.30"/>
+        <vType id="mix_auto" type="bg_auto" probability="0.25"/>
+    </vTypeDistribution>
+
+    <!-- ============================================================= -->
+    <!-- ROUTES                                                         -->
+    <!-- ============================================================= -->
+
+    <route id="main_route"   edges="in main1 main2 out"/>
+    <route id="bypass_route" edges="in byp1  byp2  out"/>
+
+    <!-- ============================================================= -->
+    <!-- BACKGROUND FLOWS (begin=0 — must come before explicit vehicles -->
+    <!-- with depart >= 0 to satisfy SUMO sort order)                  -->
+    <!-- ============================================================= -->
+
+    <!-- Warm-up: 0-300 s -->
+    <flow id="bg_warmup_main"
+          type="mix" route="main_route"
+          begin="0" end="300" vehsPerHour="900"
+          departLane="random" departSpeed="random"/>
+
+    <flow id="bg_warmup_bypass"
+          type="mix" route="bypass_route"
+          begin="0" end="300" vehsPerHour="300"
+          departLane="random" departSpeed="random"/>
+
+    <!-- Peak onset: 300-600 s — rain begins -->
+    <flow id="bg_peak_main"
+          type="mix" route="main_route"
+          begin="300" end="600" vehsPerHour="1400"
+          departLane="random" departSpeed="random"/>
+
+    <flow id="bg_peak_bypass"
+          type="mix" route="bypass_route"
+          begin="300" end="600" vehsPerHour="400"
+          departLane="random" departSpeed="random"/>
+
+    <!-- Peak: 600-900 s — incident active -->
+    <flow id="bg_congestion_main"
+          type="mix" route="main_route"
+          begin="600" end="900" vehsPerHour="1400"
+          departLane="random" departSpeed="random"/>
+
+    <flow id="bg_congestion_bypass"
+          type="mix" route="bypass_route"
+          begin="600" end="900" vehsPerHour="500"
+          departLane="random" departSpeed="random"/>
+
+    <!-- ============================================================= -->
+    <!-- THREE ROLE VEHICLES (explicit; depart >= 10)                  -->
+    <!-- ============================================================= -->
+
+    <!-- veh.role.rider — Urvashi, two-wheeler, market road, departs early -->
+    <vehicle id="veh.role.rider"
+             type="veh.role.rider"
+             route="main_route"
+             depart="10"
+             departLane="best"
+             departSpeed="max"/>
+
+    <!-- veh.role.auto — Nandani, auto-rickshaw, market road -->
+    <vehicle id="veh.role.auto"
+             type="veh.role.auto"
+             route="main_route"
+             depart="20"
+             departLane="best"
+             departSpeed="max"/>
+
+    <!-- veh.role.delivery — Prakhyat, delivery van.
+         Departs at t=240 s (just before rain at t=300).
+         Transit through 'in' edge (~21 s at max speed).
+         Expected on main1 around t=261-290, blockable by TraCI stop at t=300.
+         Diversion decision edge: 'in' only — reroute offer invalid after J1. -->
+    <vehicle id="veh.role.delivery"
+             type="veh.role.delivery"
+             route="main_route"
+             depart="240"
+             departLane="best"
+             departSpeed="max"/>
+
+</routes>

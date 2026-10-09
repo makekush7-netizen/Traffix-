@@ -1,0 +1,89 @@
+{
+  "limitation": "Conditional targets require nonempty future roads and eligible current history; report imbalance rather than imply transition skill. Constant baseline fitted from training labels only.",
+  "horizons": {
+    "120": {
+      "eligible_labeled_rows": 10608,
+      "severe_target_fraction": 0.991421568627451,
+      "training_mean_constant": 0.9708929880300499,
+      "training_mean_constant_test_mae": 0.03810518761052482,
+      "per_edge": {
+        "edge.lig.approach.0": {
+          "rows": 4441,
+          "mean_target": 0.9481278381475196,
+          "severe_fraction": 0.9840126097725738
+        },
+        "edge.lig.approach.1": {
+          "rows": 732,
+          "mean_target": 0.979885495041803,
+          "severe_fraction": 1.0
+        },
+        "edge.lig.approach.3": {
+          "rows": 1095,
+          "mean_target": 0.9808234565538392,
+          "severe_fraction": 1.0
+        },
+        "edge.lig.approach.4": {
+          "rows": 4340,
+          "mean_target": 0.9916760016538525,
+          "severe_fraction": 0.9953917050691244
+        }
+      }
+    },
+    "180": {
+      "eligible_labeled_rows": 11126,
+      "severe_target_fraction": 0.9955959014920007,
+      "training_mean_constant": 0.9758685112322142,
+      "training_mean_constant_test_mae": 0.03155258987365585,
+      "per_edge": {
+        "edge.lig.approach.0": {
+          "rows": 4315,
+          "mean_target": 0.9570752744766423,
+          "severe_fraction": 0.9935110081112398
+        },
+        "edge.lig.approach.1": {
+          "rows": 1051,
+          "mean_target": 0.9829982486875143,
+          "severe_fraction": 1.0
+        },
+        "edge.lig.approach.3": {
+          "rows": 1458,
+          "mean_target": 0.9816276495648291,
+          "severe_fraction": 1.0
+        },
+        "edge.lig.approach.4": {
+          "rows": 4302,
+          "mean_target": 0.9917701904920044,
+          "severe_fraction": 0.995118549511855
+        }
+      }
+    },
+    "300": {
+      "eligible_labeled_rows": 8376,
+      "severe_target_fraction": 0.9910458452722063,
+      "training_mean_constant": 0.9723559289867072,
+      "training_mean_constant_test_mae": 0.038207737838542435,
+      "per_edge": {
+        "edge.lig.approach.0": {
+          "rows": 3625,
+          "mean_target": 0.952636237699972,
+          "severe_fraction": 0.9856551724137931
+        },
+        "edge.lig.approach.1": {
+          "rows": 528,
+          "mean_target": 0.9767771922073613,
+          "severe_fraction": 1.0
+        },
+        "edge.lig.approach.3": {
+          "rows": 684,
+          "mean_target": 0.9836950509873826,
+          "severe_fraction": 1.0
+        },
+        "edge.lig.approach.4": {
+          "rows": 3539,
+          "mean_target": 0.9898950343779471,
+          "severe_fraction": 0.9935009889799379
+        }
+      }
+    }
+  }
+}

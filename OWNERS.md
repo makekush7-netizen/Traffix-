@@ -10,3 +10,10 @@
 | `docs/` | Everyone (append, do not rewrite others' files) |
 
 Branches: `main` is always runnable. Work on `feat/<owner>-<module>` and merge small, often.
+
+For the LIG handoff approved by Kush on 2026-10-09, Prakhyat also owns changes
+needed for simulation repair, exports and ML integration in `backend/harness/`,
+`scripts/build_lig.py`, `scripts/check_lig.py`, new LIG batch/training scripts,
+and `tests/test_harness.py`. The imported ML/evaluation tests belong to Prakhyat;
+the pre-existing phone/backend tests keep their coordinator owner. This scoped
+delegation preserves `sim/`, `web/`, shared contracts and the phone backend.

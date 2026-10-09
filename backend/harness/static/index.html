@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Traffix — LIG Square Simulation Lab</title>
+<link rel="stylesheet" href="/static/style.css">
+<script type="importmap">{"imports":{"three":"/static/vendor/three.module.js","three/addons/controls/OrbitControls.js":"/static/vendor/OrbitControls.js"}}</script>
+</head><body>
+<header><a class="brand" href="/" aria-label="Traffix home"><span class="brand-symbol">↗</span>traffix<span class="brand-dot">.</span></a><span class="header-divider"></span><span class="workspace">SIMULATION LAB <span class="version">01</span></span><div class="header-right"><span id="connection" class="connection"><i></i> CONNECTING</span><a class="export" href="/api/export" download>↗ Export run</a></div></header>
+<main>
+<aside class="sidebar">
+ <div class="eyebrow">REAL ROADS. POSSIBLE FUTURES.</div>
+ <h1>LIG Square<span>Indore, India</span></h1>
+ <p class="intro">Explore how a city moves.<br>Change the conditions. Watch the response.</p>
+ <div class="location"><span>⌖</span><div>22.73360° N · 75.89011° E<small>OpenStreetMap road network</small></div><span class="mini-tag">LHT</span></div>
+ <div class="section-label">01 / SCENARIO <span id="scenario-number">4 PRESETS</span></div>
+ <div id="scenarios" class="scenarios">
+  <button class="scenario" data-scenario="everyday"><span class="scenario-icon">↝</span><span><b>Everyday flow</b><small>A little room to breathe</small></span><i></i></button>
+  <button class="scenario active" data-scenario="rush"><span class="scenario-icon">⇉</span><span><b>Evening rush</b><small>When everyone heads home</small></span><i></i></button>
+  <button class="scenario" data-scenario="rain"><span class="scenario-icon">☂</span><span><b>Monsoon slowdown</b><small>Reduced speeds near the square</small></span><i></i></button>
+  <button class="scenario" data-scenario="roadworks"><span class="scenario-icon">△</span><span><b>Curbside obstruction</b><small>One approach, less capacity</small></span><i></i></button>
+ </div>
+ <div class="section-label">02 / MIXED FLEET <span>6 TYPES</span></div>
+ <div class="fleet"><span><i style="--dot:#5675a3"></i>Cars <b>32%</b></span><span><i style="--dot:#ef8b49"></i>Motorcycles <b>35%</b></span><span><i style="--dot:#dfb62c"></i>Autos <b>15%</b></span><span><i style="--dot:#42a794"></i>E-rickshaws <b>8%</b></span><span><i style="--dot:#ba594c"></i>Buses <b>4%</b></span><span><i style="--dot:#af9ccb"></i>Delivery <b>6%</b></span></div>
+ <div class="seed-row"><label for="seed">Scenario seed</label><input id="seed" type="number" min="0" max="999999" value="42"><button id="reset" title="Reset this scenario">↻ Reset</button></div>
+ <details class="method"><summary>What is real? What is simulated?</summary><p>Roads and building footprints: OpenStreetMap. Traffic demand, driver behaviour and fixed signal plans: simulation assumptions. Building heights may be inferred. This is a SUMO harness, not a calibrated model of Indore traffic.</p><p>Fleet shares are sampling weights. Rain and obstruction are scripted speed restrictions from 01:00 to 06:00. CO₂ uses SUMO default emission classes, including unvalidated rickshaw proxies.</p></details>
+ <div class="section-label">03 / PERMITTED OBSERVATIONS</div>
+ <p id="ml-source" class="intro">Waiting for observation pipeline.</p>
+ <p id="ml-coverage" class="intro">Sensor-poor LIG approach: unknown.</p>
+ <p id="ml-forecast" class="intro">Forecasts abstain until coverage is sufficient.</p>
+ <p id="ml-actions" class="intro">No intervention.</p>
+ <button id="autonomy" class="export" type="button">Pause autonomous actions</button>
+ <details class="method"><summary>Observation honesty</summary><p>The rendered vehicles are simulation truth. They are not automatically phone observations. Phone mode needs authenticated, validated uplinks for this run; zero uplinks means unknown on the sensor-poor approach. Emulated probe mode is labelled and is used for offline policy experiments. Boundary capacity sensors are simulated fixed detectors.</p></details>
+ <div class="sidebar-foot"><span class="source-dot"></span> SUMO 1.28 · LOCAL ENGINE <span>↗</span></div>
+</aside>
+<section class="stage">
+ <div class="stats"><div><span>ON THE ROAD</span><strong id="active">—</strong><small>active vehicles</small></div><div><span>MEAN SPEED</span><strong id="speed">—<em> km/h</em></strong><small>whole visible network</small></div><div><span>WAITING</span><strong id="queued">—</strong><small>speed below 0.1 m/s</small></div><div><span>JOURNEYS FINISHED</span><strong id="arrived">—</strong><small id="cohort">of — scheduled</small></div></div>
+ <div class="viewport" id="viewport"><canvas id="world"></canvas>
+  <div class="map-heading"><span class="live-pill"><i></i> SIMULATION VIEW</span><h2 id="scene-title">The evening commute.</h2><p id="scene-description">Real road geometry. Synthetic mixed traffic.</p></div>
+  <div class="camera-controls"><button id="camera-3d" class="selected" title="Angled 3D view">3D</button><button id="camera-top" title="Top-down view">2D</button><button id="camera-home" title="Recenter on LIG Square">⌖</button><button id="zoom-in" title="Zoom in">+</button><button id="zoom-out" title="Zoom out">−</button></div>
+  <div class="compass"><b>N</b><span>↑</span></div>
+  <div class="map-label" id="lig-label">LIG SQUARE <span>●</span></div>
+  <div class="inspector" id="inspector" hidden><button id="close-inspector" aria-label="Close vehicle details">×</button><span class="eyebrow">VEHICLE INSPECTOR</span><h3 id="vehicle-name"></h3><p id="vehicle-detail"></p><button id="follow">Follow vehicle ↗</button></div>
+  <div class="incident-banner" id="incident" hidden><span>●</span><div><b id="incident-title">Restriction active</b><small id="incident-recovery">Scheduled recovery from run manifest</small></div><button id="clear">Clear now</button></div>
+  <div class="map-help">Drag to orbit · scroll to zoom · right-drag to pan · click a vehicle</div>
+  <a class="attribution" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a>
+  <div id="loading" class="loading"><div class="loader"></div><b>Preparing LIG Square</b><span>Loading real roads and the SUMO world…</span></div>
+ </div>
+ <div class="playback"><button id="play" class="play">▶ <span>Run simulation</span></button><button id="step" class="step" title="Advance by 0.25 seconds">▸│</button><div class="clock"><strong id="clock">01:00</strong><span>SIM TIME</span></div><div class="timeline"><div class="timeline-track"><i id="progress"></i></div><div><span>00:00</span><span>DEMAND ENDS 15:00</span><span>20:00</span></div></div><div class="rates"><button data-rate="1" class="selected">1×</button><button data-rate="2">2×</button><button data-rate="4">4×</button><button data-rate="8">8×</button></div></div>
+ <div class="bottom"><div class="spark-panel"><div><span class="section-label">NETWORK PULSE</span><span>mean speed · km/h</span></div><canvas id="spark"></canvas></div><div class="run-health"><span class="section-label">RUN INTEGRITY</span><div><span id="integrity-dot"></span><b id="integrity">Awaiting engine</b></div><p id="run-note">Deterministic seed · fixed signals · no intervention policy</p></div></div>
+ <footer><span>REAL GEOMETRY <i>/</i> SIMULATED DEMAND <i>/</i> UNCALIBRATED</span><span id="run-id">TRAFFIX HARNESS</span></footer>
+</section></main><div id="toast" role="status"></div><script type="module" src="/static/main.js"></script>
+</body></html>

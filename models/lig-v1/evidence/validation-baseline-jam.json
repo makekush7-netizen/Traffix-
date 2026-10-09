@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "jam_seen": true,
+  "evidence": [
+    {
+      "run_id": "run.lig.roadworks.fixed.200.5d8f2961d8",
+      "edge_id": "edge.lig.approach.0",
+      "start_s": 1005.0,
+      "duration_s": 160.0,
+      "recovery_seen": true,
+      "recovery_s": 1790.0
+    },
+    {
+      "run_id": "run.lig.roadworks.fixed.202.476b3f988c",
+      "edge_id": "edge.lig.approach.0",
+      "start_s": 605.0,
+      "duration_s": 150.0,
+      "recovery_seen": true,
+      "recovery_s": 1770.0
+    }
+  ],
+  "thresholds_unvalidated": {
+    "slowdown": 0.7,
+    "jam_length_m": 50,
+    "duration_s": 60,
+    "recovery_s": 30,
+    "green_evidence_s": 10
+  }
+}

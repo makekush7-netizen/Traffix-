@@ -1,0 +1,7 @@
+# Combined backend + LIG + Prakhyat ML environment; use Python 3.12.
+-r ../requirements.txt
+-r ../backend/sumo-requirements.txt
+-r ../requirements-lock.txt
+pyproj==3.7.2
+# The combined backend acceptance suite uses FastAPI's HTTPX TestClient.
+httpx==0.28.1

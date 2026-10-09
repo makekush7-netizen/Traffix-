@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Nandipur Bazaar corridor nodes
+     Left-hand traffic (India). Six nodes:
+       O   = western origin (entry)
+       J1  = upstream junction (diversion decision point; traffic_light)
+       J2  = market midpoint (priority; no signal — market road)
+       J3  = bypass midpoint (priority; no signal — bypass road)
+       J4  = downstream junction (merge/egress; traffic_light)
+       D   = eastern destination (exit)
+     Geometry uses metric XY; netOffset applied by netconvert.
+-->
+<nodes>
+    <node id="O"  x="-300" y="0"    type="priority"/>
+    <node id="J1" x="0"    y="0"    type="traffic_light"/>
+    <node id="J2" x="250"  y="120"  type="priority"/>
+    <node id="J3" x="250"  y="-300" type="priority"/>
+    <node id="J4" x="500"  y="0"    type="traffic_light"/>
+    <node id="D"  x="800"  y="0"    type="priority"/>
+</nodes>

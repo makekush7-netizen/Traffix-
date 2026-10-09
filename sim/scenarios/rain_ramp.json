@@ -1,0 +1,139 @@
+{
+  "$schema": "urn:traffix:scenario:v1",
+  "scenario_id": "rain_ramp",
+  "description": "Nandipur Bazaar evening rain ramp — synthetic Indian market corridor. No calibration. All thresholds are starting values.",
+  "seed": 42,
+
+  "files": {
+    "network":      "sim/net/bazaar.net.xml",
+    "sumocfg":      "sim/net/bazaar.sumocfg",
+    "demand":       "sim/demand/rain_ramp.seed-042.rou.xml",
+    "detectors":    "sim/net/detectors.add.xml",
+    "id_registry":  "sim/net/id-registry.json",
+    "geometry":     "sim/net/geometry.json"
+  },
+
+  "simulation": {
+    "sumo_version":   "Eclipse SUMO 1.28.0",
+    "begin_s":        0,
+    "end_s":          2400,
+    "step_length_s":  1,
+    "seed":           42,
+    "lateral_resolution": 0.8,
+    "time_to_teleport": -1,
+    "launch_command": "sumo --seed 42 -c sim/net/bazaar.sumocfg --remote-port 8813 --num-clients 1",
+    "launch_command_headless": "sumo --seed 42 -c sim/net/bazaar.sumocfg --no-step-log"
+  },
+
+  "timeline": {
+    "warmup_end_s":        240,
+    "rain_start_s":        300,
+    "rain_peak_s":         600,
+    "restrictions_end_s":  900,
+    "departures_end_s":    900,
+    "eval_horizon_s":      2400
+  },
+
+  "fixed_sensors": {
+    "operational": [
+      "det.entry_count",
+      "det.upstream_queue",
+      "det.bypass_mid",
+      "det.exit_count"
+    ],
+    "truth_only": [
+      "det.market_mid_TRUTH"
+    ],
+    "_note": "Market road (main1/main2) has no operational sensor. The observation gap is deliberate — it is what the phone probes must fill."
+  },
+
+  "phone_vehicles": [
+    {
+      "vehicle_id":  "veh.role.rider",
+      "role":        "driver",
+      "phone_label": "Urvashi — two-wheeler commuter",
+      "route":       "main_route"
+    },
+    {
+      "vehicle_id":  "veh.role.auto",
+      "role":        "driver",
+      "phone_label": "Nandani — auto-rickshaw",
+      "route":       "main_route"
+    },
+    {
+      "vehicle_id":  "veh.role.delivery",
+      "role":        "driver",
+      "phone_label": "Prakhyat — delivery van",
+      "route":       "main_route",
+      "diversion_decision_edge": "in"
+    }
+  ],
+
+  "incident_schedule": [
+    {
+      "event_id":   "incident.delivery_stop",
+      "type":       "obstruction",
+      "edge":       "main1",
+      "lane":       "main1_0",
+      "pos_m":      150,
+      "start_s":    300,
+      "duration_s": 400,
+      "method":     "TraCI vehicle stop — veh.role.delivery stops on main1_0 at pos 150 for 400 s",
+      "_note":      "NOT in this demand file. Controlled by the TraCI worker from the scenario scheduler. The delivery vehicle departs at t=30 on main_route and is stopped programmatically at t=300."
+    },
+    {
+      "event_id":   "incident.rain_speed_limit",
+      "type":       "rain_restriction",
+      "edges":      ["main1", "main2"],
+      "speed_mps":  5.0,
+      "start_s":    300,
+      "restore_s":  900,
+      "method":     "TraCI traci.edge.setMaxSpeed",
+      "_note":      "Speed ramp applied in stages: 300 s → 8.0 m/s, 450 s → 6.0 m/s, 600 s → 5.0 m/s. Restored to 13.89 m/s at 900 s."
+    }
+  ],
+
+  "rain_stages": [
+    {"sim_s": 300, "speed_limit_mps": 8.0,  "label": "Light rain begins"},
+    {"sim_s": 450, "speed_limit_mps": 6.0,  "label": "Moderate rain"},
+    {"sim_s": 600, "speed_limit_mps": 5.0,  "label": "Heavy rain / peak"},
+    {"sim_s": 900, "speed_limit_mps": 13.89,"label": "Rain ends; restrictions lifted"}
+  ],
+
+  "controller_settings": {
+    "min_green_s":               10,
+    "max_green_s":               40,
+    "extension_increment_s":     5,
+    "reconsideration_interval_s":10,
+    "authorization_lifetime_s":  180,
+    "bypass_diversion_cap_pct":  30,
+    "bypass_queue_ratio_veto":   0.35,
+    "advisory_expiry_s":         45,
+    "forecast_evidence_min_probes": 2,
+    "forecast_evidence_window_s":   60,
+    "forecast_evidence_max_age_s":  15,
+    "recovery_threshold_slowdown":  0.30,
+    "recovery_window_s":            60,
+    "reactive_trigger_slowdown":    0.70,
+    "reactive_trigger_window_s":    30,
+    "predictive_current_slowdown":  0.30,
+    "predictive_forecast_slowdown": 0.70,
+    "predictive_forecast_window_s": 20,
+    "_note": "All values are untested starting values (AGENTS.md rule 8)."
+  },
+
+  "baseline_recording": null,
+  "_baseline_note": "Baseline recording path populated after first fixed-policy run. Compare against run with policy=fixed.",
+
+  "sublane": {
+    "enabled": true,
+    "lateral_resolution": 0.8,
+    "_note": "Trial as per spec. Cut if unstable or too slow during hour-4 performance test."
+  },
+
+  "emission_assumptions": {
+    "source":  "SUMO HBEFA3/PC_G_EU4 defaults via emission-output",
+    "co2_unit": "mg/s from SUMO; report in kg at evaluation time",
+    "_note":   "No real-road calibration. Relative comparison only."
+  }
+}

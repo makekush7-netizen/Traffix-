@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+    <!-- One physical square was split into junctions with 0.2m and 1.34m
+         external links. Vehicles could not clear the first signal before
+         stopping at the next. Keep this explicit import correction auditable. -->
+    <join nodes="2023505360 2023505361 2023505364 8389132295" x="591400.46" y="2514304.24"/>
+</nodes>
