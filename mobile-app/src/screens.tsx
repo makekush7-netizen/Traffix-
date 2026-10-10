@@ -149,7 +149,7 @@ export function RideScreen() {
                   ? "Route B"
                   : state.own?.route_id === "route.demo.A"
                     ? "Route A"
-                    : "—"}
+                    : state.own?.route_id ? "My route" : "—"}
               </Text>
               <Text style={s.small}>
                 {state.own?.route_id === "route.demo.B"
@@ -169,7 +169,7 @@ export function RideScreen() {
               </Text>
               <View style={{ marginTop: 16, gap: 10 }}>
                 <Button
-                  label={state.pending ? "Confirming…" : "Take Route B"}
+                  label={state.pending ? "Confirming…" : "Accept suggested route"}
                   onPress={() => api.decide("accept")}
                   disabled={!readyOffer || state.pending}
                 />
@@ -182,6 +182,14 @@ export function RideScreen() {
               </View>
             </Card>
           )}
+          {state.fresh && state.own?.events?.filter(event => event.status === "active" || event.status === "scheduled").map(event => (
+            <Card color={C.peach} key={event.event_id}>
+              <Text style={s.eyebrow}>OPERATOR ROAD ALERT</Text>
+              <Text style={s.h2}>{event.kind === "blockage" ? "Road restriction on your route" : event.kind.replace(/_/g, " ")}</Text>
+              <Text style={s.body}>{event.effect || "The operator added an event on your assigned route."}</Text>
+              <Text style={s.small}>{event.status === "scheduled" ? "Scheduled" : "Active"} · Simulated event. Your route changes only after a confirmed route decision.</Text>
+            </Card>
+          ))}
           <Card>
             <View style={s.shareRow}>
               <View style={{ flex: 1 }}>

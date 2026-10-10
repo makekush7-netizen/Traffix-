@@ -77,7 +77,7 @@ function Main() {
     [lesson, setLesson] = useState<number | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
   const scanned = useRef(false);
-  const [api] = useState(() => new TrafficClient(setState, persistSession));
+  const [api] = useState(() => new TrafficClient(next => { setState(next); setWorld(next.world); }, persistSession));
   const rideId = state.claim ? JSON.stringify([server, state.claim.run_id, state.claim.vehicle_id]) : null;
   const rideRole = state.own?.role || "Simulated vehicle";
   const arrived = state.frame?.payload.state === "arrived";
@@ -162,6 +162,7 @@ function Main() {
         url = p.server || serverAddress(draftServer);
       setWorld(await api.configure(url));
       await api.join(p.code);
+      setWorld(api.world);
       setServer(url);
       setDraftServer(url);
       await SecureStore.setItemAsync("traffix.server", url);

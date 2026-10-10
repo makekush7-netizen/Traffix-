@@ -3,7 +3,7 @@ import {
   serverAddress,
   validFrame,
   validWorld,
-  validOwn,
+  normalizeOwn,
   eligible,
   friendly,
 } from "./protocol";
@@ -22,6 +22,7 @@ export class TrafficClient {
   server = "";
   seq = 0;
   world: World | null = null;
+  apiVersion: "1" | "2.0" = "1";
   private ws: WebSocket | null = null;
   private generation = 0;
   private stopped = true;
@@ -46,6 +47,18 @@ export class TrafficClient {
   }
   async configure(server: string) {
     this.server = serverAddress(server);
+    const capabilities = await timedFetch(this.server + "/api/v2/capabilities");
+    if (capabilities.ok) {
+      const data = await capabilities.json();
+      if (data.api_version !== "2.0") throw Error("Unsupported host API version.");
+      this.apiVersion = "2.0";
+      this.world = null;
+      this.publish({ world: null });
+      if (this.state.claim) await this.loadWorld(this.state.claim);
+      return this.world;
+    }
+    if (capabilities.status !== 404) throw Error("Host discovery failed. Check the server connection.");
+    this.apiVersion = "1";
     const r = await timedFetch(this.server + "/api/world");
     if (!r.ok)
       throw Error(
@@ -55,7 +68,19 @@ export class TrafficClient {
     if (!validWorld(world))
       throw Error("This host does not provide a supported simulation map.");
     this.world = world as World;
+    this.publish({ world: this.world });
     return this.world;
+  }
+  private async loadWorld(claim: Claim) {
+    if (this.apiVersion !== "2.0") return;
+    const host = this.server;
+    const response = await timedFetch(`${host}/api/v2/phones/world?session_id=${encodeURIComponent(claim.session_id)}&run_id=${encodeURIComponent(claim.run_id)}`, { headers: { Authorization: "Bearer " + claim.token } });
+    if (!response.ok) throw Error("The driver map could not be loaded. Reconnect or request a fresh invitation.");
+    const map = await response.json();
+    if (!validWorld(map)) throw Error("The host returned an unsupported driver map.");
+    if (this.server !== host || this.state.claim?.session_id !== claim.session_id) return;
+    this.world = map;
+    this.publish({ world: map });
   }
   async join(code: string) {
     if (this.state.claim)
@@ -63,7 +88,7 @@ export class TrafficClient {
     const controller = new AbortController();
     const deadline = setTimeout(() => controller.abort(), 10000);
     try {
-      const r = await fetch(this.server + "/api/claim", {
+      const r = await fetch(this.server + (this.apiVersion === "2.0" ? "/api/v2/phones/claim" : "/api/claim"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ join_code: code }),
@@ -77,17 +102,20 @@ export class TrafficClient {
         );
       if (!c.run_id || !c.vehicle_id || !c.session_id || !c.token)
         throw Error("Unsupported server response.");
+      if (this.apiVersion === "2.0") c.api_version = "2.0";
       this.seq = 0;
       this.sent.clear();
       this.requests.clear();
-      this.publish({ ...initialState(), claim: c, connection: "connecting" });
+      this.publish({ ...initialState(), world: this.world, claim: c, connection: "connecting" });
       this.persist(c, 0);
+      try { await this.loadWorld(c); } catch (error) { this.publish({ notice: (error as Error).message }); }
       this.connect();
     } finally {
       clearTimeout(deadline);
     }
   }
   restore(claim: Claim, seq: number) {
+    if (claim.api_version === "2.0") this.apiVersion = "2.0";
     this.seq = seq;
     this.publish({ claim, connection: "connecting" });
     this.connect();
@@ -134,7 +162,7 @@ export class TrafficClient {
       offer: null,
       pending: false,
     });
-    const ws = new WebSocket(this.server.replace(/^http/, "ws") + "/ws");
+    const ws = new WebSocket(this.server.replace(/^http/, "ws") + (this.apiVersion === "2.0" ? "/api/v2/phones/ws" : "/ws"));
     this.ws = ws;
     ws.onopen = () => {
       if (generation !== this.generation) return;
@@ -163,6 +191,7 @@ export class TrafficClient {
         });
         this.startTimer();
         this.pollOwn();
+        if (this.apiVersion === "2.0" && !this.world) this.loadWorld(c).catch(error => this.publish({ notice: error.message }));
       }
       if (m.type === "vehicle.frame") {
         const f = m as Frame;
@@ -228,7 +257,7 @@ export class TrafficClient {
             pending: false,
             notice:
               status === "applied" && reason === "route_applied"
-                ? "Route B applied. The server confirmed your route."
+                ? "Route change applied. The server confirmed your route."
                 : reason === "original_route_kept"
                   ? "Your original route continues."
                   : friendly[reason] ||
@@ -298,19 +327,25 @@ export class TrafficClient {
     this.polling = true;
     try {
       const r = await timedFetch(
-        `${this.server}/api/driver/state?session_id=${encodeURIComponent(c.session_id)}&run_id=${encodeURIComponent(c.run_id)}`,
+        `${this.server}${this.apiVersion === "2.0" ? "/api/v2/phones/state" : "/api/driver/state"}?session_id=${encodeURIComponent(c.session_id)}&run_id=${encodeURIComponent(c.run_id)}`,
         { headers: { Authorization: "Bearer " + c.token } },
       );
       if (g !== this.generation) return;
       if (r.ok) {
-        const own = (await r.json()) as Own;
-        if (!validOwn(own)) return;
+        const own = normalizeOwn(await r.json(), this.world);
+        if (!own) return;
+        const scoped = own as Own & { vehicle_id?: string; run_id?: string };
+        if (this.apiVersion === "2.0" && (scoped.vehicle_id !== c.vehicle_id || scoped.run_id !== c.run_id)) return;
         if (
           own.offer &&
           ["expired", "cancelled", "rejected"].includes(own.offer.status)
         )
           this.publish({ offer: null, pending: false });
-        this.publish({ own });
+        if (own.paused && this.state.frame) this.lastFrame = Date.now();
+        this.publish({ own, ...(own.paused && this.state.frame ? { fresh: true } : {}) });
+      } else if (r.status === 401 && this.apiVersion === "2.0") {
+        this.leave();
+        this.publish({ connection: "rejoin", notice: "This journey session expired. Ask the operator for a new invitation." });
       }
     } catch {
     } finally {
@@ -407,6 +442,7 @@ export class TrafficClient {
     this.seq = 0;
     this.sent.clear();
     this.requests.clear();
+    this.world = null;
     this.publish(initialState());
     this.persist(null, 0);
   }

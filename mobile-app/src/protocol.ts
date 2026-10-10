@@ -1,4 +1,5 @@
 export type Claim = {
+  api_version?: "2.0";
   run_id: string;
   session_id: string;
   vehicle_id: string;
@@ -33,11 +34,17 @@ export type Own = {
   route_path: number[][][];
   paused: boolean;
   ended: boolean;
+  lifecycle?: string;
+  vehicle_type?: string;
+  route_label?: string;
+  events?: RouteEvent[];
   offer?: { status: string };
 };
-export type Road = { shape: number[][]; width: number; internal: boolean };
+export type RouteEvent = { event_id: string; edge_id: string; kind: string; status: string; effect?: string; start_s: number; end_s: number; severity?: number };
+export type Road = { id?: string; shape: number[][]; width: number; internal: boolean };
 export type World = { roads: Road[] };
 export type ClientState = {
+  world: World | null;
   connection: "offline" | "connecting" | "connected" | "rejoin";
   claim: Claim | null;
   frame: Frame | null;
@@ -50,6 +57,7 @@ export type ClientState = {
   fresh: boolean;
 };
 export const initialState = (): ClientState => ({
+  world: null,
   connection: "offline",
   claim: null,
   frame: null,
@@ -97,6 +105,16 @@ export function validOwn(value: Own): boolean {
     )
   );
 }
+export function normalizeOwn(value: unknown, world: World | null): Own | null {
+  if (!value || typeof value !== "object") return null;
+  const row = value as Record<string, unknown>;
+  if (row.api_version !== "2.0") return validOwn(value as Own) ? value as Own : null;
+  if (!Array.isArray(row.route_path) || !row.route_path.every(edge => typeof edge === "string")) return null;
+  const events = Array.isArray(row.route_events) ? row.route_events.filter((event): event is RouteEvent =>
+    !!event && typeof event === "object" && typeof event.event_id === "string" && typeof event.edge_id === "string" && typeof event.kind === "string" && typeof event.status === "string" && Number.isFinite(event.start_s) && Number.isFinite(event.end_s)) : [];
+  const own = { ...row, route_id: typeof row.route_id === "string" ? row.route_id : "assigned", route_path: row.route_path.map(edge => world?.roads.find(road => road.id === edge)?.shape).filter((shape): shape is number[][] => !!shape), events } as Own;
+  return validOwn(own) ? own : null;
+}
 export function serverAddress(value: string): string {
   const u = new URL(value.trim());
   const host = u.hostname;
@@ -140,7 +158,8 @@ export function invitation(value: string): { code: string; server?: string } {
   }
   if (/^https?:\/\//i.test(text)) {
     const u = new URL(text);
-    const code = new URLSearchParams(u.hash.slice(1)).get("join");
+    const fragment = new URLSearchParams(u.hash.slice(1));
+    const code = fragment.get("join") || fragment.get("code");
     if (!code) throw Error("This link has no vehicle join code.");
     return { code, server: serverAddress(u.origin) };
   }

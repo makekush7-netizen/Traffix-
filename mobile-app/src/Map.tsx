@@ -60,6 +60,10 @@ export function TripMap({
             strokeDasharray="5,3"
           />
         ))}
+        {fresh && own?.events?.filter(event => event.status === "active").map(event => {
+          const road = world?.roads.find(r => r.id === event.edge_id);
+          return road ? <Polyline key={"event" + event.event_id} points={road.shape.map(point).join(" ")} stroke="#D85857" strokeWidth={5} fill="none" /> : null;
+        })}
         {pose && fresh && (
           <>
             <Circle cx={150} cy={120} r={20} fill="#6C4DFF22" />
