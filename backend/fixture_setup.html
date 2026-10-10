@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Traffix laptop setup</title><style>body{font:18px system-ui;max-width:800px;margin:auto;padding:24px;background:#101926;color:#edf3fa}button,input{font:inherit;padding:12px;margin:8px}a{color:#9ee5cf}pre{white-space:pre-wrap}section{border-bottom:1px solid #526078;padding:12px}</style>
+<h1>Traffix · two-phone gate</h1><p>FAKE FIXTURE · open this page on the laptop only.</p>
+<label>Laptop hotspot address <input id="host" placeholder="http://actual-hotspot-IP:8000"></label>
+<p>Connect both phones to the hotspot. Enter its actual address above, then generate a code for each role. Codes expire in 120 seconds and work once.</p>
+<main id="roles"></main><h2>Connection status</h2><pre id="status"></pre>
+<script>
+for(const role of ['rider','auto','delivery']){
+ const row=document.createElement('section'),button=document.createElement('button'),link=document.createElement('a'),detail=document.createElement('p'),qr=document.createElement('img');
+ qr.width=220;qr.alt='Scan to claim '+role;qr.hidden=true;
+ button.textContent='Create '+role+' code';row.append(button,detail,link,document.createElement('br'),qr);document.getElementById('roles').append(row);
+ button.onclick=async()=>{
+  try{
+   const base=new URL(document.getElementById('host').value);
+   if(!['http:','https:'].includes(base.protocol))throw Error('Enter an http:// address');
+   const response=await fetch('/api/fixture/join/'+role,{method:'POST'}),data=await response.json();
+   if(!response.ok)throw Error(data.detail);
+   detail.textContent='Code: '+data.join_code+' · expires in 120 seconds';
+   link.href=base.origin+'/driver#join='+encodeURIComponent(data.join_code);link.textContent=link.href;
+   qr.src='/api/fixture/qr?url='+encodeURIComponent(link.href);qr.hidden=false;
+  }catch(error){detail.textContent=error.message;}
+ };
+}
+setInterval(async()=>{try{const r=await fetch('/api/fixture/status');document.getElementById('status').textContent=JSON.stringify(await r.json(),null,2);}catch{document.getElementById('status').textContent='Server unavailable';}},2000);
+</script></html>
