@@ -68,3 +68,33 @@ export function registrationPayload(username,password,confirmation){
  if(password!==confirmation)throw Error('Passwords do not match.');
  return {username:name,password,request_operator:true};
 }
+
+export async function prepareAndStart(send,payload,policy='fixed'){
+ const reset=await send(payload);if(reset?.status!=='applied')return undefined;
+ if(policy!=='fixed'){
+  const selected=await send({action:'controller',policy});
+  if(selected?.status!=='applied')return undefined;
+ }
+ const resumed=await send({action:'resume'});
+ return resumed?.status==='applied'?resumed:undefined;
+}
+export function accessReason(identity,lease,connected,replay){
+ if(!connected)return 'Disconnected. Actions stay disabled until a fresh host snapshot arrives.';
+ if(replay)return 'Recorded run: read only. Return to live to change the shared host.';
+ if(identity?.role==='viewer'&&identity.bootstrap)return 'Host-configured viewer access. You can inspect traffic and results. Join with your own account or ask the host owner for operator access.';
+ if(identity?.role==='viewer'&&identity.operator_requested)return 'Operator access requested. The owner approves it in Control → Team access. Sign out and sign in after approval.';
+ if(identity?.role!=='operator')return 'Viewer access: you can inspect the scene and results. Operator access requires owner approval; sign in again after approval.';
+ if(lease?.holder&&lease.holder!==identity.id)return 'Shared control is held by '+lease.holder+'. Ask them to release it or wait for lease expiry.';
+ return lease?.holder===identity.id?'You control this run. Changes are applied by the simulation host.':'Start automatically requests available control. Other operators keep their existing lease.';
+}
+
+export function eventRoads(world,query=''){
+ const routeEdges=new Set((world?.routes||[]).flat()),q=query.trim().toLowerCase();
+ return (world?.roads||[]).filter(r=>!r.internal&&(q?(r.name||'').toLowerCase().includes(q)||r.id.toLowerCase().includes(q):routeEdges.has(r.id)))
+  .sort((a,b)=>(a.name||a.id).localeCompare(b.name||b.id));
+}
+export function comparisonPair(current,other){
+ if(current.policy==='fixed'&&other.policy!=='fixed')return {baseline:current.run_id,response:other.run_id};
+ if(current.policy!=='fixed'&&other.policy==='fixed')return {baseline:other.run_id,response:current.run_id};
+ throw Error('Choose one fixed baseline and one response policy.');
+}

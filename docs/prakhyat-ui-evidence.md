@@ -79,3 +79,24 @@ browser-control process. No password entered source files or screenshots.
 This is local browser registration/approval evidence; it does not establish a
 physical handset, remote HTTPS deployment, email identity verification or
 password recovery service.
+
+
+## Functional flow repair evidence
+
+Actual Chrome desktop, local port8005. Screenshots: `artifacts/ui/operator-flow-repaired.png`, `operator-viewer-flow-repaired.png`, `operator-matched-results-repaired.png`.
+
+| Control | Observed result |
+|---|---|
+| Sign in / Sign out | Session entered and revoked; re-login tested |
+| Start / Pause / Resume | Worker acknowledgements; visible simulation time and vehicle movement |
+| New scenario / Prepare and start | Previous run saved; reset and initial policy precede resume; fresh revisions |
+| Viewer Traffic | Readable overview and access guidance; no disabled scenario form |
+| Locations | Local catalog and readiness; only LIG is prepared |
+| Follow / First person / Top view | Vehicle selection enables cameras; views changed; unavailable selection has guidance |
+| Preview / Apply / End event | Validated event identity, applied host event and ended status |
+| Policy / Target pace | Active bounded policy and acknowledged target pace |
+| Phone invite | One-use code assigned to a simulated vehicle; no physical handset proof |
+| Results / comparison | Cohort counts and measured values; 0% difference preserved; fixed baseline direction checked |
+| Recorded run / Return to live | Selected cohort metrics displayed; live mutations disabled during replay |
+
+Protocol regressions also reject Resume/policy failure in the guided flow and ensure fixed-baseline comparison ordering. Loading controls stay unavailable until the local scene exists. Native phone and field camera journeys were not part of these checks.

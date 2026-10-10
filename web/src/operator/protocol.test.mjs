@@ -2,7 +2,7 @@ import test from 'node:test';
 
 import assert from 'node:assert/strict';
 
-import {commandEnvelope,commandId,previewEvent,observationRows,scenarioSettings,registrationPayload} from './protocol.mjs';
+import {commandEnvelope,commandId,previewEvent,observationRows,scenarioSettings,registrationPayload,prepareAndStart,accessReason,eventRoads,comparisonPair} from './protocol.mjs';
 
 test('LAN command identities and revision use authoritative run',()=>{
 
@@ -46,4 +46,42 @@ test('finite settings reject invalid input',()=>{
 test('registration cannot select admin role and validates identity and confirmation',()=>{
  assert.deepEqual(registrationPayload(' team.user ','longpassword','longpassword'),{username:'team.user',password:'longpassword',request_operator:true});
  for(const args of [['Admin','longpassword','longpassword'],['a','longpassword','longpassword'],['team','short','short'],['team','longpassword','mismatch']])assert.throws(()=>registrationPayload(...args));
+});
+
+test('guided preparation waits for acknowledged reset before resume',async()=>{
+ const actions=[];const result=await prepareAndStart(async p=>{actions.push(p.action);return {status:'applied'};},{action:'reset'});
+ assert.deepEqual(actions,['reset','resume']);assert.equal(result.status,'applied');
+ const failed=[];assert.equal(await prepareAndStart(async p=>{failed.push(p.action);return undefined;},{action:'reset'}),undefined);assert.deepEqual(failed,['reset']);
+});
+test('viewer and conflicting lease explain why actions are unavailable',()=>{
+ assert.match(accessReason({role:'viewer'},null,true,false),/Viewer/);
+ assert.match(accessReason({role:'operator',id:'a'},{holder:'b'},true,false),/b/);
+ assert.match(accessReason({role:'operator',id:'a'},null,false,false),/Disconnected/);
+});
+
+test('guided preparation never reports running after rejected resume',async()=>{
+ const result=await prepareAndStart(async p=>({status:p.action==='reset'?'applied':'rejected'}),{action:'reset'});assert.equal(result,undefined);
+});
+
+test('event roads use demand routes, readable names and explicit search',()=>{
+ const world={routes:[['a']],roads:[{id:'a',name:'Market Road'},{id:'b',name:'Other Road'},{id:':a',internal:true}]};
+ assert.deepEqual(eventRoads(world).map(r=>r.id),['a']);
+ assert.deepEqual(eventRoads(world,'Other').map(r=>r.id),['b']);
+});
+
+test('comparison chooses fixed baseline in either navigation direction',()=>{
+ assert.deepEqual(comparisonPair({run_id:'b',policy:'fixed'},{run_id:'r',policy:'bounded'}),{baseline:'b',response:'r'});
+ assert.deepEqual(comparisonPair({run_id:'r',policy:'bounded'},{run_id:'b',policy:'fixed'}),{baseline:'b',response:'r'});
+ assert.throws(()=>comparisonPair({run_id:'r',policy:'pressure'},{run_id:'x',policy:'bounded'}));
+ assert.match(accessReason({role:'viewer',operator_requested:true},null,true,false),/requested/);
+});
+
+test('response policy is acknowledged before a prepared run starts',async()=>{
+ const actions=[];
+ await prepareAndStart(async p=>{actions.push(p);return {status:'applied'};},{action:'reset'},'bounded');
+ assert.deepEqual(actions.map(p=>p.action),['reset','controller','resume']);
+ assert.equal(actions[1].policy,'bounded');
+ const blocked=[];
+ assert.equal(await prepareAndStart(async p=>{blocked.push(p.action);return {status:p.action==='controller'?'rejected':'applied'};},{action:'reset'},'bounded'),undefined);
+ assert.deepEqual(blocked,['reset','controller']);
 });
