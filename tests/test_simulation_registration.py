@@ -70,6 +70,8 @@ def test_registration_http_permissions_and_restart(tmp_path):
             password='longpass123' if username=='driver' else 'configured'
             return {'Authorization':'Bearer '+client.post('/api/v2/auth/login',json={'username':username,'password':password}).json()['token']}
         driver=login('driver'); owner=login('owner'); operator=login('operator')
+        assert client.post('/api/v2/auth/request-operator',headers=driver,json={}).json()['status']=='requested'
+        assert client.get('/api/v2/auth/identity',headers=driver).json()['operator_requested'] is True
         assert client.get('/api/v2/auth/users',headers=driver).status_code==403
         assert client.post('/api/v2/auth/users/driver/approve',headers=operator,json={}).status_code==403
         listing=client.get('/api/v2/auth/users',headers=owner).json()
@@ -80,3 +82,17 @@ def test_registration_http_permissions_and_restart(tmp_path):
         assert client.post('/api/v2/auth/users/owner/approve',headers=owner,json={}).status_code==409
     with TestClient(create_app(Engine(),accounts,account_store=path)) as client:
         assert client.post('/api/v2/auth/login',json={'username':'driver','password':'longpass123'}).json()['role']=='operator'
+
+def test_request_operator_persistence_and_rollback(tmp_path,monkeypatch):
+    path=tmp_path/'accounts.json'; auth=Auth({},storage_path=path)
+    auth.register('driver','longpass123','local',False)
+    actor=auth.identity(auth.login('driver','longpass123','local')['token'])
+    original=auth.save
+    def fail(): raise OSError('disk denied')
+    monkeypatch.setattr(auth,'save',fail)
+    with pytest.raises(OSError): auth.request_operator(actor)
+    assert auth.accounts['driver']['operator_requested'] is False
+    monkeypatch.setattr(auth,'save',original)
+    auth.request_operator(actor)
+    assert Auth({},storage_path=path).accounts['driver']['operator_requested'] is True
+    assert auth.login('driver','longpass123','local')['operator_requested'] is True

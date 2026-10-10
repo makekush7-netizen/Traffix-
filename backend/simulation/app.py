@@ -73,6 +73,11 @@ def create_app(engine=None, accounts=None, account_store=None):
         try: return auth.approve(identity(request),username)
         except ValueError as exc: raise HTTPException(403 if str(exc)=='owner_required' else 409,str(exc)) from exc
         except OSError as exc: raise HTTPException(503,'account_store_unavailable') from exc
+    @app.post('/api/v2/auth/request-operator')
+    async def request_operator(body:Approval,request:Request):
+        try: return auth.request_operator(identity(request))
+        except ValueError as exc: raise HTTPException(409,str(exc)) from exc
+        except OSError as exc: raise HTTPException(503,'account_store_unavailable') from exc
     @app.get('/api/v2/auth/identity')
     async def who(request:Request): return {k:v for k,v in identity(request).items() if not k.startswith('_')}
     @app.post('/api/v2/auth/revoke')
@@ -120,6 +125,11 @@ def create_app(engine=None, accounts=None, account_store=None):
         identity(request)
         from .engine import comparable_runs
         return {'api_version':'2.0','runs':comparable_runs(load_saved(run_id,'manifest.json'))}
+    @app.get('/api/v2/runs/{response_run_id}/compare/{baseline_run_id}')
+    async def paired_comparison(response_run_id:str,baseline_run_id:str,request:Request):
+        identity(request)
+        from .results import compare_records
+        return compare_records(load_saved(response_run_id,'recording.json'),load_saved(baseline_run_id,'recording.json'))
     @app.get('/api/v2/observations')
     async def observations(request:Request): identity(request); return app.state.mobile.status()
     def adapter_store():

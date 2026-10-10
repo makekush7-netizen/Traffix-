@@ -1,0 +1,24 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\prakh\Documents\Codex\lig-venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\prakh\Documents\ChatGPT\trafixx
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collecting ... collected 9 items / 1 deselected / 8 selected
+
+tests/test_simulation_registration.py::test_registration_persists_hashes_and_never_grants_owner PASSED [ 12%]
+tests/test_simulation_registration.py::test_registration_duplicates_validation_and_privilege PASSED [ 25%]
+tests/test_simulation_registration.py::test_store_failure_rolls_back_registration_and_approval PASSED [ 37%]
+tests/test_simulation_registration.py::test_registration_concurrent_duplicate_and_rate_limit PASSED [ 50%]
+tests/test_simulation_registration.py::test_registration_http_permissions_and_restart PASSED [ 62%]
+tests/test_simulation_registration.py::test_request_operator_persistence_and_rollback PASSED [ 75%]
+tests/test_simulation_results.py::test_saved_comparison_keeps_negative_results_and_rejects_mismatches PASSED [ 87%]
+tests/test_simulation_results.py::test_compare_http_authentication_readonly_permissions_and_paths PASSED [100%]
+
+============================== warnings summary ===============================
+tests/test_simulation_registration.py::test_registration_http_permissions_and_restart
+  C:\Users\prakh\Documents\Codex\lig-venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========== 8 passed, 1 deselected, 1 warning in 597.90s (0:09:57) ============

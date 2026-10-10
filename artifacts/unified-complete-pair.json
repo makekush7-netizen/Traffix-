@@ -1,0 +1,43 @@
+{
+  "api_version": "2.0",
+  "available": true,
+  "reason_code": "complete_matched_cohorts",
+  "baseline": {
+    "run_id": "lig.6d2721080294",
+    "policy": "fixed",
+    "complete": true,
+    "scheduled": 2,
+    "arrived": 2,
+    "mean_journey_s": 284.24,
+    "mean_travel_s": 283.875,
+    "mean_insertion_delay_s": 0.365,
+    "co2_kg": 1.2014,
+    "sampled_peak_queued": 2,
+    "measurement_source": "worker_step_lifecycle_events_0.25s"
+  },
+  "response": {
+    "run_id": "lig.6d691198daf8",
+    "policy": "bounded",
+    "complete": true,
+    "scheduled": 2,
+    "arrived": 2,
+    "mean_journey_s": 284.24,
+    "mean_travel_s": 283.875,
+    "mean_insertion_delay_s": 0.365,
+    "co2_kg": 1.2014,
+    "sampled_peak_queued": 2,
+    "measurement_source": "worker_step_lifecycle_events_0.25s"
+  },
+  "differences": {
+    "journey_reduction_s": 0.0,
+    "journey_reduction_pct": 0.0,
+    "co2_reduction_kg": 0.0,
+    "co2_reduction_pct": 0.0
+  },
+  "assumptions": [
+    "SUMO geometry and demand are not field-calibrated.",
+    "CO2 is unreviewed SUMO fleet-model output, not measured emissions.",
+    "Lifecycle event timestamps have 0.25-second simulation resolution.",
+    "Queue maximum is sampled from saved frames."
+  ]
+}

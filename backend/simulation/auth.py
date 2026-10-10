@@ -88,6 +88,20 @@ class Auth:
         self.sessions={key:row for key,row in self.sessions.items() if row['id']!=name}
         self.audit.append({'kind':'operator_approved','actor':actor['id'],'target':name,'wall_s':self.clock()})
         return {'status':'approved','id':name,'role':'operator','reauthentication_required':True}
+
+    @locked
+    def request_operator(self,actor):
+        name=actor['id']
+        if name in self.bootstrap: raise ValueError('bootstrap_account_protected')
+        if self.accounts[name]['role']=='operator': return {'status':'already_operator','id':name}
+        old=self.accounts[name].get('operator_requested',False)
+        self.accounts[name]['operator_requested']=True
+        try: self.save()
+        except OSError:
+            self.accounts[name]['operator_requested']=old; raise
+        for session in self.sessions.values():
+            if session['id']==name: session['operator_requested']=True
+        return {'status':'requested','id':name,'operator_requested':True}
     @locked
     def login(self, username,password, remote):
         self.rate_limit(remote,'login',10); now=self.clock(); username=self.normalize(username)
@@ -97,7 +111,8 @@ class Auth:
         if not hmac.compare_digest(digest,account['hash']): raise ValueError('invalid_credentials')
         token=secrets.token_urlsafe(32)
         self.sessions[hashlib.sha256(token.encode()).hexdigest()]={'id':username,'role':account['role'],
-             'can_takeover':account['can_takeover'],'expires_wall_s':now+3600}
+             'can_takeover':account['can_takeover'],'bootstrap':username in self.bootstrap,
+             'operator_requested':account.get('operator_requested',False),'expires_wall_s':now+3600}
         return {'token':token,**self.sessions[hashlib.sha256(token.encode()).hexdigest()]}
     @locked
     def identity(self,token):

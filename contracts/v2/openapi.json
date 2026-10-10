@@ -140,6 +140,42 @@
         }
       }
     },
+    "/api/v2/auth/request-operator": {
+      "post": {
+        "summary": "Request Operator",
+        "operationId": "request_operator_api_v2_auth_request_operator_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Approval"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v2/auth/identity": {
       "get": {
         "summary": "Who",
@@ -448,6 +484,52 @@
             "schema": {
               "type": "string",
               "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/runs/{response_run_id}/compare/{baseline_run_id}": {
+      "get": {
+        "summary": "Paired Comparison",
+        "operationId": "paired_comparison_api_v2_runs__response_run_id__compare__baseline_run_id__get",
+        "parameters": [
+          {
+            "name": "response_run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Response Run Id"
+            }
+          },
+          {
+            "name": "baseline_run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Baseline Run Id"
             }
           }
         ],

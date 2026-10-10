@@ -118,3 +118,14 @@ written there. Registration/approval file writes are atomic and failed writes ro
 back. Protect this local directory with your OS user permissions; it is not a public
 asset or an export. Sessions remain ephemeral across restart. Explicit test account
 maps use in-memory storage unless an isolated `account_store` path is provided.
+
+
+## Dashboard flow repair endpoints
+
+POST `/api/v2/auth/request-operator` with `{}` lets a registered viewer request operator access. It persists the pending request; the owner still approves it. Login/identity include `operator_requested`. Protected host-configured viewers cannot change their bootstrap configuration.
+
+GET `/api/v2/runs/{response_run_id}/compare/{baseline_run_id}` is authenticated and read-only for viewers/operators. The baseline must be a distinct fixed-policy run. Both cohorts must be complete, fault-free and share network, demand, execution fingerprint, seed, settings and scenario. Edited event scenarios reject comparison. Missing lifecycle metrics reject old evidence. The response contains `available`, `reason_code`, `baseline`, `response`, nullable `differences` and explicit assumptions. Negative reductions remain negative.
+
+Measured summary fields: `mean_journey_s` (scheduled departure to arrival, including insertion delay), `mean_travel_s`, `mean_insertion_delay_s`, `co2_kg`, and `sampled_peak_queued`. Lifecycle events are observed at 0.25-second simulation steps; queue peaks are sampled from recordings. CO2 is SUMO model output with an unreviewed fleet mapping. These are not field measurements.
+
+Live state includes `run.progress` with scheduled/arrived counts, completion fraction, insertion backlog, future departures, running/draining/ended phase and integrity. A paused or running cohort is unfinished, not a final failed result. `run.action_log` exposes the latest 60 simulation actions. Saved catalogs add `saved_wall_s` for human-readable ordering.

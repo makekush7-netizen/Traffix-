@@ -27,7 +27,9 @@ def saved_runs():
     for path in sorted((ROOT/'runs').glob('lig.*')):
         try:
             safe=saved_run_path(path.name)
-            rows.append(json.loads((safe/'manifest.json').read_text(encoding='utf-8')))
+            row=json.loads((safe/'manifest.json').read_text(encoding='utf-8'))
+            row.setdefault('saved_wall_s',(safe/'manifest.json').stat().st_mtime)
+            rows.append(row)
         except (ValueError,FileNotFoundError,OSError): continue
     return rows
 
@@ -162,6 +164,9 @@ class UnifiedEngine(HarnessEngine):
             ET.SubElement(demand,'vehicle',id=row['id'],type=row['type'],route=f"route.{row['route']}",
                           depart=str(row['depart_s']),departLane='best',departSpeed='0',speedFactor=str(row['speed_factor']))
         self.scheduled=len(rows)
+        self._scheduled_departures={row['id']:row['depart_s'] for row in rows}
+        self._actual_departures={}
+        self._arrivals={}
         (self.run_dir/'demand.json').write_text(json.dumps(rows,indent=2),encoding='utf-8')
         ET.ElementTree(demand).write(self.run_dir/'demand.rou.xml',encoding='utf-8',xml_declaration=True)
         args=[str(Path(sumo.SUMO_HOME)/'bin'/('sumo.exe' if os.name=='nt' else 'sumo')),
@@ -215,6 +220,9 @@ class UnifiedEngine(HarnessEngine):
 
     def _step(self,publish=True):
         conn=self._conn; conn.simulationStep(); tc=self._tc
+        now=conn.simulation.getTime()
+        for vehicle in conn.simulation.getDepartedIDList(): self._actual_departures[vehicle]=now
+        for vehicle in conn.simulation.getArrivedIDList(): self._arrivals[vehicle]=now
         self.departed+=conn.simulation.getDepartedNumber(); self.arrived+=conn.simulation.getArrivedNumber()
         self.collisions+=conn.simulation.getCollidingVehiclesNumber(); self.teleports+=conn.simulation.getStartingTeleportNumber()
         ids=set(conn.vehicle.getIDList())
@@ -233,7 +241,9 @@ class UnifiedEngine(HarnessEngine):
             rows=generate_demand(WORLD['routes'],seed=(self.seed+int(t))%1000000,
                                  rate=self.settings['demand_per_hour'],duration=self.settings['duration_s'])
             for row in rows:
-                conn.vehicle.add(f"{row['type']}.{self.scheduled}",f"route.{row['route']}",typeID=row['type'],
+                vehicle=f"{row['type']}.{self.scheduled}"
+                self._scheduled_departures[vehicle]=t+row['depart_s']
+                conn.vehicle.add(vehicle,f"route.{row['route']}",typeID=row['type'],
                                  depart=str(t+row['depart_s']),departLane='best',departSpeed='0')
                 self.scheduled+=1
         ended=self.settings['mode']=='experiment' and (t>=self.settings['duration_s']+self.settings['drain_s'] or
@@ -255,6 +265,7 @@ class UnifiedEngine(HarnessEngine):
                 'actuated':'actuated_lane_presence_gap_extension',
                 'bounded':'bounded_existing_green_extension'}[self.policy]
             self._snapshot['events']=deepcopy(list(self.active_events.values()))
+            self._snapshot['action_log']=deepcopy(self._events[-60:])
             self._snapshot['simulated_sensors']=deepcopy(getattr(self,'sensor_view',[]))
             self._snapshot['performance']={'target_sim_s_per_wall_s':self.rate,
                 'achieved_sim_s_per_wall_s':round(t/max(.001,time.monotonic()-self._started_wall),3),
@@ -262,6 +273,17 @@ class UnifiedEngine(HarnessEngine):
             self._manifest['complete']=ended and self.arrived==self.scheduled and not self.collisions and not self.teleports
             self._manifest['integrity']='faulted' if self.collisions or self.teleports else ('complete' if self._manifest['complete'] else 'incomplete')
             self._manifest['emission_mapping_reviewed']=False
+            complete=self._manifest['complete'] and self.scheduled>0 and len(self._arrivals)==self.scheduled and len(self._actual_departures)==self.scheduled
+            self._manifest['journey_measurement_source']='worker_step_lifecycle_events_0.25s'
+            self._manifest['mean_journey_s']=(sum(self._arrivals[v]-self._scheduled_departures[v] for v in self._arrivals)/self.scheduled if complete else None)
+            self._manifest['mean_travel_s']=(sum(self._arrivals[v]-self._actual_departures[v] for v in self._arrivals)/self.scheduled if complete else None)
+            self._manifest['mean_insertion_delay_s']=(sum(self._actual_departures[v]-self._scheduled_departures[v] for v in self._arrivals)/self.scheduled if complete else None)
+            due=sum(stamp<=t for stamp in self._scheduled_departures.values())
+            self._snapshot['progress']={'scheduled':self.scheduled,'arrived':self.arrived,
+                'completion_fraction':self.arrived/self.scheduled if self.scheduled else None,
+                'insertion_backlog':max(0,due-self.departed),'future_departures':max(0,self.scheduled-due),
+                'phase':'ended' if ended else 'draining' if t>=self.settings['duration_s'] and self.settings['mode']=='experiment' else 'running',
+                'integrity':self._manifest['integrity']}
             self._snapshot['result']=deepcopy(self._manifest)
             if self._frames and self._frames[-1]['sim_time_s']==t:
                 self._frames[-1]=deepcopy(self._snapshot)
