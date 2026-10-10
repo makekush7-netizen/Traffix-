@@ -11,3 +11,4 @@ models/*.joblib
 .env
 *.log
 .DS_Store
+.vercel/
