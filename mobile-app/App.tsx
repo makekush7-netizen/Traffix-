@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
+import * as SplashScreen from "expo-splash-screen";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Slot, router, usePathname } from "expo-router";
@@ -33,6 +34,9 @@ import type { ClientState, World, Claim } from "./src/protocol";
 import { useProfile } from "./src/use-profile";
 import { recordRide } from "./src/profile";
 import { LessonDetail } from "./src/LessonDetail";
+// Keep the native logo until local UI data is ready; never wait for the host.
+SplashScreen.preventAutoHideAsync().catch(() => {});
+SplashScreen.setOptions({ duration: 200, fade: true });
 let sessionWrites: Promise<void> = Promise.resolve();
 function persistSession(claim: Claim | null, seq: number) {
   const data = claim ? JSON.stringify({ claim, seq }) : null;
@@ -45,11 +49,9 @@ function persistSession(claim: Claim | null, seq: number) {
 }
 function Main() {
   const { profile, updateProfile, loaded: profileLoaded, profileError } = useProfile();
-  const [intro, setIntro] = useState(true);
   useEffect(() => {
-    const timer = setTimeout(() => setIntro(false), 1100);
-    return () => clearTimeout(timer);
-  }, []);
+    if (profileLoaded) SplashScreen.hideAsync().catch(() => {});
+  }, [profileLoaded]);
   const pathname = usePathname();
   const tab: Tab =
     pathname === "/ride"
@@ -460,14 +462,7 @@ function Main() {
             </ScrollView>
           </SafeAreaView>
         </Modal>
-        <Modal visible={intro} animationType="fade" onRequestClose={() => setIntro(false)}>
-          <SafeAreaView style={[s.safe, { justifyContent: "center", alignItems: "center", padding: 32 }]}>
-            <Image source={require("./assets/traffix-icon.png")} style={{ width: 104, height: 104, borderRadius: 30, marginBottom: 24 }} />
-            <Text style={[s.h1, { fontSize: 44 }]}>traffix<Text style={{ color: C.purple }}>.</Text></Text>
-            <Text style={[s.body, { textAlign: "center" }]}>Small choices. Smoother roads.</Text>
-            <Text style={s.footnote}>Your journey starts with you.</Text>
-          </SafeAreaView>
-        </Modal>
+
       </SafeAreaView>
     </DriverContext.Provider>
   );

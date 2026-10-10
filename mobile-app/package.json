@@ -1,6 +1,6 @@
 {
   "name": "traffix-driver",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "index.ts",
   "dependencies": {
     "expo": "~57.0.27",
@@ -9,6 +9,7 @@
     "expo-linking": "~57.0.12",
     "expo-router": "~57.0.25",
     "expo-secure-store": "~57.0.4",
+    "expo-splash-screen": "~57.0.9",
     "expo-status-bar": "~57.0.1",
     "expo-system-ui": "~57.0.4",
     "react": "19.2.3",

@@ -319,7 +319,7 @@ export function SettingsScreen() {
         </Text>
       )}
       <Card color={C.yellow}><Text style={s.h2}>Need a hand?</Text><Text style={s.body}>Not connecting? Keep the laptop server running. For USB, ask the operator to enable ADB forwarding on port 8004. For Wi-Fi, use the same network and the laptop’s local address.</Text><Text style={s.body}>Invitation expired? Get a new code. Camera denied? Paste the invitation instead. App resumed? Sharing stays off until you choose to enable it again.</Text></Card>
-      <Card><Text style={s.h2}>About Traffix</Text><Text style={s.body}>{"Native driver preview · 1.1.0\nExpo + React Native · SUMO simulation host"}</Text><Text style={s.small}>Foreground route guidance only. Local profile is not a cloud login. No real GPS or background push. Data sharing remains an explicit choice for each connection.</Text></Card>
+      <Card><Text style={s.h2}>About Traffix</Text><Text style={s.body}>{"Native driver preview · 1.1.2\nExpo + React Native · SUMO simulation host"}</Text><Text style={s.small}>Foreground route guidance only. Local profile is not a cloud login. No real GPS or background push. Data sharing remains an explicit choice for each connection.</Text></Card>
 
       <Card color={C.lavender}>
         <Text style={s.h2}>What this version does</Text>

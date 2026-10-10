@@ -147,3 +147,45 @@ Source/client checks pass, but the manual acceptance list above remains pending.
 
 The local Gradle daemon initially failed its IPv4 lock-socket bind; this build
 succeeded without the IPv4 override, using Java21, 2 workers and a 2GB heap.
+
+
+## Native launch fix — 1.1.1
+
+Kush's launch video exposed the unconfigured native Expo template drawable:
+`Theme.App.SplashScreen` inherited AppTheme and used the splash logo as the
+window background, stretching the template before JavaScript rendered.
+
+Configured the SDK-compatible `expo-splash-screen` 57.0.9 plugin with the
+existing Traffix icon, `#FFFCF7` background, 104dp contained image and matching
+dark-mode background. Removed the timed JavaScript intro modal. Module-level
+`preventAutoHideAsync` holds the native logo until local profile readiness, then
+`hideAsync` releases it with a short fade. Network/host availability is independent
+of launch readiness. VersionName 1.1.1/versionCode 3. Generated Android resources
+now use Theme.SplashScreen, windowSplashScreenBackground, the real logo and
+SplashScreenManager activity registration; generated native files are not edited
+in the repository.
+
+Validation: lint, typecheck and all 12 mobile tests passed. The SDK module install
+reported 29 dependency findings (18 high, 11 moderate); production dependency
+remediation remains pending. No incompatible auto-fix/downgrade was applied.
+Native build and installation verification follows below.
+
+
+Physical cold-start testing of 1.1.1 on the Xiaomi Android12 device showed a dark
+blank native window despite the configured Expo logo; the React UI opened and
+restored Kush's saved profile. That intermediate build is not the final launch
+fix. Revision 1.1.2/versionCode4 adds `plugins/withLaunchTheme.js`: explicit
+framework splash background/icon attributes, a centered bitmap layer-list
+fallback, light AppTheme and disabled force-dark on the app/splash themes. The
+plugin is ordered before expo-splash-screen so its styles callback runs after
+Expo recreates the splash style group. No global device theme is changed.
+Generated resource inspection confirms both themes keep the intended values.
+
+Final native build: 1.1.2 `BUILD SUCCESSFUL in 5m35s`. APK
+`mobile-app/builds/traffix-preview-1.1.2.apk` (60,722,929 bytes); SHA256
+`33d98cdcf0c5d5987331668848419193a9014c42c1169a5f03dd874c04f4bfff`. Generic preview APK updated.
+The phone disconnected before installation (`device ae4400d3 not found`), so
+1.1.2 device installation and cold-start visual verification remain pending.
+1.1.1 was installed successfully, but its dark startup frame failed the visual
+gate; do not claim it delivers the final clean intro. Reconnect the phone and
+install 1.1.2 with `adb install -r`, then repeat the own-app launch captures.

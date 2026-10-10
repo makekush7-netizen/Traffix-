@@ -99,3 +99,22 @@ Never display invented CO₂ savings. Use an unavailable state with explanation
 and a learning link. Show local observed simulation activity separately from
 impact evidence. The preferred vehicle never changes server-bound identity.
 A local profile must never be labelled authenticated cloud account.
+
+
+## Launch correction — 1.1.1
+
+The 1.1.0 native launch window still displayed Expo's template grid before the
+JavaScript intro. This revision configures `expo-splash-screen` 57.0.9 with
+Traffix's existing logo, a cream `#FFFCF7` background and contained 104dp image.
+It removes the separate timed intro modal. The native splash remains until the
+local profile loads (including the handled error path), then fades into the UI.
+Laptop network requests do not hold the launch screen. This is a native binary
+change: install APK 1.1.1/versionCode 3; replacing source alone is insufficient.
+
+
+1.1.2 supplements the native splash with an explicit light Android theme and
+centered logo window-background fallback. This fixes the dark blank starting
+window observed during 1.1.1 testing on the Xiaomi Android12 phone. The per-app
+theme stays consistent with this preview's light interface; global phone display
+settings are unchanged. The config plugin generates native resources during
+prebuild and must precede expo-splash-screen in the plugin list.

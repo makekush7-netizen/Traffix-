@@ -2,7 +2,7 @@
   "expo": {
     "name": "Traffix",
     "slug": "traffix-driver",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/traffix-icon.png",
     "userInterfaceStyle": "light",
@@ -22,7 +22,7 @@
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.SYSTEM_ALERT_WINDOW"
       ],
-      "versionCode": 2
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,7 +37,21 @@
         }
       ],
       "./plugins/withLocalNetwork.js",
-      "expo-router"
+      "expo-router",
+      "./plugins/withLaunchTheme.js",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FFFCF7",
+          "image": "./assets/traffix-icon.png",
+          "imageWidth": 104,
+          "resizeMode": "contain",
+          "dark": {
+            "backgroundColor": "#FFFCF7",
+            "image": "./assets/traffix-icon.png"
+          }
+        }
+      ]
     ],
     "scheme": "traffix"
   }
