@@ -65,6 +65,8 @@ def test_two_authenticated_phone_observations_accept_worker_route(monkeypatch):
             engine.command=original; sessions[i].reporting=True
             result=await bridge.dispatch(sessions[i],message(i,'driver.decision',{'advisory_id':offer['advisory_id'],'choice':'accept'}))
             assert result==('applied','route_applied')
+            applied=next(v for v in engine.snapshot()['vehicles'] if v['id']==sessions[i].vehicle_id)
+            assert applied['route_path']==engine._phone_offers[offer['advisory_id']]['route']
             assert any(e['kind']=='driver_route_applied' and e['vehicle_id']==sessions[i].vehicle_id for e in engine.export()['events'])
             assert bridge.offers[offer['advisory_id']]['status']=='applied'
             assert engine.export()['manifest']['scenario_mutated']

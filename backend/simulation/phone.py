@@ -60,6 +60,9 @@ def worker_phone_command(engine,c):
     validator(now)
     conn.vehicle.setRoute(vehicle,bypass)
     if list(conn.vehicle.getRoute(vehicle))!=bypass: raise RuntimeError('route_not_confirmed')
+    # Subscription results are from the last physics step; publish the acknowledged
+    # route immediately even when the operator is inspecting a paused simulation.
+    engine._route_overrides[vehicle]={'route_id':conn.vehicle.getRouteID(vehicle),'route_path':list(bypass)}
     offer['status']='applied'; engine._manifest['scenario_mutated']=True
     engine._events.append({'kind':'driver_route_applied','vehicle_id':vehicle,'advisory_id':offer['advisory_id'],
                           'sim_time_s':now,'source_type':'phone_sample','receiving_space_source':'simulated_sensor'})
@@ -69,12 +72,18 @@ def worker_phone_command(engine,c):
 class UnifiedMobileBridge(MobileBridge):
     def __init__(self,engine):
         self.enabled=False; self.rules={}; self.offers={}
+        self.trip_metadata={}
         super().__init__(engine)
     def sync(self):
         previous=self.sessions.run_id if self.sessions else None
         state=super().sync()
         if previous!=state['run_id']:
             self.enabled=False; self.rules={}; self.offers={}
+            self.trip_metadata={}
+        for vehicle in state['vehicles']:
+            self.trip_metadata[vehicle['id']]={k:deepcopy(vehicle.get(k)) for k in ('route_id','route_path','type')}
+        retained={v['id'] for v in state['vehicles']}|{s.vehicle_id for s in self.sessions.sessions.values()}
+        self.trip_metadata={key:value for key,value in self.trip_metadata.items() if key in retained}
         self.enabled=state.get('guidance_enabled',False)
         for key,offer in list(self.offers.items()):
             if offer.get('status')=='pending' and state['sim_time_s']>=offer['expires_sim_s']:

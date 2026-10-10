@@ -138,6 +138,7 @@ class UnifiedEngine(HarnessEngine):
         self.sensor_view=[]
         self._guidance_enabled=False
         self._phone_offers={}
+        self._route_overrides={}
         if not isinstance(seed,int) or not 0<=seed<=999999: raise ValueError('Invalid seed')
         import traci
         import traci.constants as tc
@@ -228,7 +229,7 @@ class UnifiedEngine(HarnessEngine):
         ids=set(conn.vehicle.getIDList())
         for vehicle in ids-self._subscriptions:
             conn.vehicle.subscribe(vehicle,[tc.VAR_POSITION,tc.VAR_ANGLE,tc.VAR_SPEED,tc.VAR_TYPE,
-                tc.VAR_CO2EMISSION,tc.VAR_WAITING_TIME,tc.VAR_ROAD_ID])
+                tc.VAR_CO2EMISSION,tc.VAR_WAITING_TIME,tc.VAR_ROAD_ID,tc.VAR_ROUTE_ID,tc.VAR_EDGES])
         self._subscriptions=ids
         values=conn.vehicle.getAllSubscriptionResults()
         self.co2_kg+=sum(v.get(tc.VAR_CO2EMISSION,0) for v in values.values())*.25/1e6
@@ -257,6 +258,14 @@ class UnifiedEngine(HarnessEngine):
         ended=self.settings['mode']=='experiment' and (t>=self.settings['duration_s']+self.settings['drain_s'] or
                (t>=self.settings['duration_s'] and self._conn.simulation.getMinExpectedNumber()==0))
         with self._lock:
+            # The worker alone reads route truth. HTTP handlers only read this snapshot.
+            route_values=values if values is not None else self._conn.vehicle.getAllSubscriptionResults()
+            for vehicle in self._snapshot['vehicles']:
+                row=route_values[vehicle['id']]
+                vehicle['route_id']=row.get(self._tc.VAR_ROUTE_ID)
+                vehicle['route_path']=list(row.get(self._tc.VAR_EDGES,()))
+                vehicle.update(getattr(self,'_route_overrides',{}).get(vehicle['id'],{}))
+            self._snapshot['arrived_vehicle_ids']=list(self._arrivals)
             self._snapshot['ended']=ended
             self._snapshot['policy']=self.policy
             self._snapshot['guidance_enabled']=self._guidance_enabled

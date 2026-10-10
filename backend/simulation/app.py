@@ -56,6 +56,13 @@ def create_app(engine=None, accounts=None, account_store=None):
         from urllib.parse import urlsplit
         origin=request.headers.get('origin')
         if origin and urlsplit(origin).netloc!=request.headers.get('host'): raise HTTPException(403,'origin_forbidden')
+    @app.get('/api/v2/capabilities')
+    async def capabilities():
+        return {'api_version':'2.0','phone_protocol_version':1,
+                'capabilities':{'driver_world':True,'own_route':True,'route_events':True,'driver_alerts':True,
+                                'recommended_speed':False,'personal_savings':False,'event_rerouting':False},
+                'endpoints':{'claim':'/api/v2/phones/claim','world':'/api/v2/phones/world',
+                             'state':'/api/v2/phones/state','websocket':'/api/v2/phones/ws'}}
     @app.post('/api/v2/auth/register')
     async def register(body:Registration,request:Request):
         public_origin(request)
@@ -217,12 +224,28 @@ def create_app(engine=None, accounts=None, account_store=None):
         bridge=app.state.mobile; bridge.same_origin(request); bridge.sync()
         try: return bridge.sessions.claim(body.join_code)
         except ValueError as exc: raise HTTPException(409,str(exc)) from exc
-    @app.get('/api/v2/phones/state')
-    async def own_trip(request:Request,session_id:str,run_id:str):
+    def driver_context(request,session_id,run_id):
         bridge=app.state.mobile; bridge.same_origin(request); state=bridge.sync()
         token=request.headers.get('authorization','').removeprefix('Bearer ')
         try: session=bridge.sessions.authenticate({'sender_id':session_id,'run_id':run_id,'payload':{'token':token}})
         except ValueError as exc: raise HTTPException(401,str(exc)) from exc
+        # Apply the same stale-heartbeat withdrawal as operator observation polling.
+        bridge.status()
+        return bridge,state,session
+    @app.get('/api/v2/phones/world')
+    async def driver_world(request:Request,session_id:str,run_id:str):
+        driver_context(request,session_id,run_id)
+        return WORLD
+    @app.get('/api/v2/phones/state')
+    async def own_trip(request:Request,session_id:str,run_id:str):
+        bridge,state,session=driver_context(request,session_id,run_id)
+        vehicle=next((v for v in state['vehicles'] if v['id']==session.vehicle_id),None)
+        metadata=bridge.trip_metadata.get(session.vehicle_id,{})
+        route=metadata.get('route_path') or []
+        route_events=[{k:event.get(k) for k in ('event_id','edge_id','kind','effect','start_s','end_s','severity','status')}
+                      for event in state.get('events',[]) if event.get('edge_id') in route]
+        alerts=[event for event in route_events if event['status']=='active' and event['kind']!='sensor_outage']
+        vehicle_type=metadata.get('type')
         offers=[]
         for offer in bridge.offers.values():
             if offer['vehicle_id']!=session.vehicle_id: continue
@@ -231,7 +254,11 @@ def create_app(engine=None, accounts=None, account_store=None):
             offers.append(row)
         return {'api_version':'2.0','run_id':run_id,'vehicle_id':session.vehicle_id,'reporting':session.reporting,
                 'connected':session.connected,'sim_time_s':state['sim_time_s'],
-                'vehicle':next((v for v in state['vehicles'] if v['id']==session.vehicle_id),None),
+                'vehicle':vehicle,'route_id':metadata.get('route_id'),'route_path':route,'vehicle_type':vehicle_type,
+                'role':{'motorcycle':'rider','auto':'auto','erickshaw':'auto','delivery':'delivery'}.get(vehicle_type,'driver'),
+                'paused':state.get('paused',False),'ended':state.get('ended',False),
+                'lifecycle':'active' if vehicle else 'arrived' if session.vehicle_id in state.get('arrived_vehicle_ids',[]) else 'unknown',
+                'route_events':route_events,'alerts':alerts,
                 'guidance_enabled':state.get('guidance_enabled',False),'advisories':offers,
                 'source':'SUMO simulated own vehicle; sensor sharing requires phone uplinks'}
     @app.websocket('/api/v2/phones/ws')
