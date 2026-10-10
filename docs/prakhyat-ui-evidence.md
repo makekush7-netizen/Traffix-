@@ -104,3 +104,7 @@ Protocol regressions also reject Resume/policy failure in the guided flow and en
 ### Click a vehicle, then Follow
 
 `artifacts/ui/operator-click-select.png` shows car.70 highlighted in orange with synchronized dropdown selection and enabled camera buttons. Actual Chrome canvas clicks selected both a car and motorcycle; Follow moved the camera. Dragging the map preserved car.70. Tests cover click versus drag/pan/cancellation/multiple pointers and small-target ranking/clipping (15 combined frontend tests passed). Browser checks used the existing paused 102-vehicle scene, preserving the live run; movement was not resumed. No application console error appeared (only unrelated Grammarly extension errors).
+
+### Hotspot and reconnect proof
+
+`artifacts/ui/operator-hotspot-ready.png` shows active operator controls and the phone join panel. `artifacts/ui/phone-probe-connected.png` shows the browser adapter connected with acknowledged simulated probes. The host is configured for localhost plus 192.168.137.1; the hotspot URL was also opened, claimed and streamed in Chrome on this laptop. A physical handset and Windows firewall traversal from another device remain unverified. Finished-run Restart was exercised into continuous Explore, and consent withdrawal was confirmed in host status. Null-token stream reconnect now closes cleanly in a regression test.

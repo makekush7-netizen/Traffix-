@@ -91,6 +91,10 @@ def test_http_auth_phone_claim_and_worker_conflict():
     app=create_app(Engine(),{'alice':{'role':'operator','password':'test'},'bob':{'role':'viewer','password':'test'}})
     with TestClient(app) as client:
         assert client.get('/api/v2/state').status_code==401
+        from starlette.websockets import WebSocketDisconnect
+        with client.websocket_connect('/api/v2/stream') as ws:
+            ws.send_json({'token':None})
+            with pytest.raises(WebSocketDisconnect): ws.receive_json()
         op=client.post('/api/v2/auth/login',json={'username':'alice','password':'test'}).json()['token']
         view=client.post('/api/v2/auth/login',json={'username':'bob','password':'test'}).json()['token']
         headers={'Authorization':'Bearer '+op}
@@ -99,7 +103,14 @@ def test_http_auth_phone_claim_and_worker_conflict():
         assert client.post('/api/v2/lease',json={},headers=headers).status_code==200
         assert client.post('/api/v2/commands',json=envelope(),headers=headers).json()['revision']==1
         assert client.post('/api/v2/commands',json=envelope(command_id='stale'),headers=headers).status_code==409
-        invite=client.post('/api/v2/phones/invites',headers=headers).json()
+        assert client.get('/api/v2/phones/connection').status_code==401
+        connection=client.get('/api/v2/phones/connection',headers=headers).json()
+        assert connection['loopback_only'] is True
+        assert client.get('/api/v2/phones/qr',headers=headers,params={'url':'https://evil.example'}).status_code==422
+        assert client.post('/api/v2/phones/invites',headers=headers,json={'vehicle_id':'missing'}).status_code==409
+        invite=client.post('/api/v2/phones/invites',headers=headers,json={'vehicle_id':'car.0'}).json()
+        assert invite['vehicle_id']=='car.0'
+        assert client.get('/api/v2/phones/qr',headers=headers,params={'url':'http://127.0.0.1:8005/operator/phone.html#code='+invite['join_code']}).headers['content-type']=='image/png'
         claim=client.post('/api/v2/phones/claim',json={'join_code':invite['join_code']})
         assert claim.status_code==200
         assert client.post('/api/v2/phones/claim',json={'join_code':invite['join_code']}).status_code==409

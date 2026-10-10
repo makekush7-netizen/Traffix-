@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {vehicleClickGesture,nearbyVehicles} from './vehicle-picking.mjs';
+import {VehicleMotion} from './vehicle-motion.mjs';
 const theme=getComputedStyle(document.documentElement);
 const colours=Object.fromEntries(['unknown','observed','slow','alert'].map(k=>[k,theme.getPropertyValue('--'+k).trim()]));
 function geometryFrom(parts){
@@ -34,9 +35,9 @@ function vehicleGeometry(kind){
 export class OperatorScene{
  constructor(world,canvas,viewport,fps,onVehicleSelect=()=>{}){
   this.movementArrows=new Map();this.lanes=new Map(world.roads.flatMap(r=>(r.lanes||[]).map(l=>[l.id,l])));this.signalHeads=new Map();this.signalPositions=new Map();this.world=world;this.models=new Map();this.labels=new Map();this.rings=new Map();this.spans=new Map();this.colours=new Map();this.pulses=new Map();this.fps=fps;this.low=false;this.followId=null;
-  this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));this.renderer.setClearColor(0,0);this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));this.renderer.setClearColor(0,0);this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;this.renderer.shadowMap.autoUpdate=false;this.renderer.shadowMap.needsUpdate=true;
   this.scene=new THREE.Scene();this.scene.fog=new THREE.Fog('#e1e5e4',600,1700);this.camera=new THREE.PerspectiveCamera(43,1,1,3500);this.controls=new OrbitControls(this.camera,canvas);this.controls.enableDamping=true;this.controls.maxPolarAngle=Math.PI*.48;this.controls.minDistance=2;this.controls.maxDistance=1300;this.home(false);
-  this.canvas=canvas;this.onVehicleSelect=onVehicleSelect;this.selectedId=null;this.raycaster=new THREE.Raycaster();
+  this.motion=new VehicleMotion();this.canvas=canvas;this.onVehicleSelect=onVehicleSelect;this.selectedId=null;this.raycaster=new THREE.Raycaster();
   this.selectionRing=new THREE.Mesh(new THREE.RingGeometry(4.2,4.8,40),new THREE.MeshBasicMaterial({color:'#df8b37',side:THREE.DoubleSide,depthWrite:false,depthTest:false,transparent:true,opacity:.9}));
   this.selectionRing.renderOrder=10;this.selectionRing.rotation.x=-Math.PI/2;this.selectionRing.visible=false;this.selectionRing.userData.ignorePicking=true;this.scene.add(this.selectionRing);
   const gesture=vehicleClickGesture(({x,y})=>{const id=this.pickVehicle(x,y);if(id)this.onVehicleSelect(id);});
@@ -45,7 +46,7 @@ export class OperatorScene{
   const ground=new THREE.Mesh(new THREE.PlaneGeometry(5500,5500),new THREE.MeshStandardMaterial({color:'#b9c8bb',roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.y=-.15;ground.receiveShadow=true;this.scene.add(ground);
   this.build();this.vehicleGeometries=Object.fromEntries(['car','motorcycle','auto','erickshaw','bus','delivery'].map(k=>[k,vehicleGeometry(k)]));this.vehicleMaterial=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.8});this.time=performance.now();this.frames=0;
   new ResizeObserver(()=>{const w=viewport.clientWidth,h=viewport.clientHeight;this.renderer.setSize(w,h,false);this.camera.aspect=w/h;this.camera.updateProjectionMatrix();}).observe(viewport);
-  const render=()=>{requestAnimationFrame(render);const now=performance.now();for(const m of this.models.values()){if(m.visible){m.position.lerp(m.userData.target,.28);let turn=((m.userData.angle-m.rotation.y+Math.PI*3)%(Math.PI*2))-Math.PI;m.rotation.y+=turn*.28;}}
+  let lastPaint=0;const render=()=>{requestAnimationFrame(render);const now=performance.now();if(now-lastPaint<1000/30)return;lastPaint=now;for(const m of this.models.values()){if(m.visible){const pose=this.motion.sample(m.userData.vehicleId,now);if(pose){m.position.set(pose.x,.15,-pose.y);m.rotation.y=-pose.angle*Math.PI/180;}}}
    const selected=this.models.get(this.selectedId);this.selectionRing.visible=Boolean(selected?.visible);if(selected)this.selectionRing.position.set(selected.position.x,.3,selected.position.z);
    for(const [id,label] of this.labels){const model=this.models.get(id);if(model?.visible){label.position.copy(model.position).add(new THREE.Vector3(0,10,0));const ring=this.rings.get(id);ring.position.set(model.position.x,.3,model.position.z);}}
    if(this.followId&&this.models.get(this.followId)?.visible){const model=this.models.get(this.followId),p=model.position;if(this.firstPerson){const direction=new THREE.Vector3(0,0,-1).applyAxisAngle(new THREE.Vector3(0,1,0),model.rotation.y);this.camera.position.copy(p).add(new THREE.Vector3(0,2.6,0)).addScaledVector(direction,2);this.controls.target.copy(this.camera.position).addScaledVector(direction,30);}else{this.controls.target.lerp(p,.07);this.camera.position.lerp(p.clone().add(new THREE.Vector3(35,40,50)),.045);}}
@@ -57,7 +58,7 @@ export class OperatorScene{
   const positions=[],colors=[];const tri=(points,color)=>{const c=new THREE.Color(color);for(const p of points){positions.push(...p);colors.push(c.r,c.g,c.b);}};
   for(const road of this.world.roads){if(!road.shape.some(p=>Math.hypot(...p)<800))continue;const start=colors.length;
    for(const lane of road.lanes){for(let i=1;i<lane.shape.length;i++){let [ax,az]=lane.shape[i-1],[bx,bz]=lane.shape[i];az=-az;bz=-bz;const len=Math.hypot(bx-ax,bz-az);if(!len)continue;const dx=-(bz-az)/len*lane.width/2,dz=(bx-ax)/len*lane.width/2,a=[ax+dx,.05,az+dz],b=[ax-dx,.05,az-dz],c=[bx+dx,.05,bz+dz],d=[bx-dx,.05,bz-dz];tri([a,b,c],colours.unknown);tri([b,d,c],colours.unknown);}}
-   this.spans.set(road.contract_edge_id,[start,colors.length]);this.colours.set(road.contract_edge_id,'unknown');
+   this.spans.set(road.id,[start,colors.length]);this.colours.set(road.id,'unknown');
   }
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));g.computeVertexNormals();this.roadGeometry=g;this.scene.add(new THREE.Mesh(g,new THREE.MeshBasicMaterial({vertexColors:true,side:THREE.DoubleSide})));
   const markings=[];
@@ -71,6 +72,7 @@ export class OperatorScene{
  label(text,color='#e2f8e9'){const c=document.createElement('canvas');c.width=512;c.height=80;const ctx=c.getContext('2d');ctx.font='bold 25px Traffix, Arial';ctx.textAlign='center';ctx.fillStyle=color;ctx.fillText(text,256,48);return new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false}));}
  paint(edge,kind,brightness=1){const span=this.spans.get(edge);if(!span)return;const c=new THREE.Color(colours[kind]||colours.unknown).multiplyScalar(brightness),array=this.roadGeometry.attributes.color.array;for(let i=span[0];i<span[1];i+=3){array[i]=c.r;array[i+1]=c.g;array[i+2]=c.b;}this.roadGeometry.attributes.color.needsUpdate=true;}
  frame(state,sessions,observations,roles){
+  this.motion.push(state,performance.now());
   if(this.run!==state.run_id){this.run=state.run_id;this.followId=null;for(const edge of this.colours.keys()){this.colours.set(edge,'unknown');this.paint(edge,'unknown');}this.pulses.clear();}
   for(const signal of state.signals||[]){
    this.signalPositions.set(signal.id,signal.positions.filter(Boolean));
@@ -85,7 +87,7 @@ export class OperatorScene{
   }}
   const active=new Set();for(const v of state.vehicles){active.add(v.id);let m=this.models.get(v.id);if(!m){m=new THREE.Mesh(this.vehicleGeometries[v.type]||this.vehicleGeometries.car,this.vehicleMaterial);m.userData.target=new THREE.Vector3();m.userData.vehicleId=v.id;this.scene.add(m);this.models.set(v.id,m);m.position.set(v.x,.15,-v.y);}m.visible=true;m.userData.target.set(v.x,.15,-v.y);m.userData.angle=-v.angle*Math.PI/180;}
   for(const [id,m] of this.models)if(!active.has(id)){this.scene.remove(m);this.models.delete(id);const label=this.labels.get(id),ring=this.rings.get(id);if(label){this.scene.remove(label);label.material.map.dispose();label.material.dispose();this.labels.delete(id);}if(ring){this.scene.remove(ring);ring.geometry.dispose();ring.material.dispose();this.rings.delete(id);}}
-  const bound=new Set(sessions.map(s=>s.vehicle_id));for(const id of bound){if(!this.labels.has(id)){const label=this.label('YOU · '+(roles[id]||id).toUpperCase());label.scale.set(45,7,1);this.labels.set(id,label);this.scene.add(label);const ring=new THREE.Mesh(new THREE.RingGeometry(3.8,4.25,32),new THREE.MeshBasicMaterial({color:'#b2eccb',side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;this.rings.set(id,ring);this.scene.add(ring);}}
+  const bound=new Set(sessions.map(s=>s.vehicle_id));for(const id of bound){if(!this.labels.has(id)){const label=this.label('PHONE · '+(roles[id]||id).toUpperCase());label.scale.set(45,7,1);this.labels.set(id,label);this.scene.add(label);const ring=new THREE.Mesh(new THREE.RingGeometry(3.8,4.25,32),new THREE.MeshBasicMaterial({color:'#b2eccb',side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;this.rings.set(id,ring);this.scene.add(ring);}}
   for(const [id,label] of this.labels){label.visible=bound.has(id)&&active.has(id);this.rings.get(id).visible=label.visible;}
   const rows=new Map(observations.map(o=>[o.edge_id,o]));for(const edge of this.colours.keys()){const row=rows.get(edge),kind=row?.coverage==='fresh'&&row.slowdown!==null?(row.slowdown>=.7?'alert':row.slowdown>=.4?'slow':'observed'):'unknown';if(this.colours.get(edge)!==kind){if(kind!=='unknown')this.pulses.set(edge,performance.now()+1400);this.colours.set(edge,kind);this.paint(edge,kind);}}
  }

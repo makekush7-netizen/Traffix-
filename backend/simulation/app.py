@@ -162,6 +162,36 @@ def create_app(engine=None, accounts=None, account_store=None):
         return {'api_version':'2.0','run_id':state['run_id'],
                 **store.snapshot(now_sim_s=state['sim_time_s'],now_wall_s=time.time()),
                 'phone_gateway':app.state.mobile.status(),'usable_for_control':False}
+    @app.get('/api/v2/phones/connection')
+    async def phone_connection(request:Request):
+        identity(request)
+        import socket, ipaddress
+        bind=os.getenv('TRAFFIX_HOST','127.0.0.1')
+        addresses=[]
+        configured=os.getenv('TRAFFIX_LAN_ADDRESS')
+        try:
+            addresses=sorted({ip for ip in socket.gethostbyname_ex(socket.gethostname())[2]
+                              if ipaddress.ip_address(ip).is_private and not ipaddress.ip_address(ip).is_loopback
+                              and not ip.startswith('169.254.')})
+        except OSError: pass
+        if configured: addresses=[configured]
+        port=request.url.port or (443 if request.url.scheme=='https' else 80)
+        return {'api_version':'2.0','bind_host':bind,'loopback_only':not configured and bind in ('127.0.0.1','localhost','::1'),
+                'lan_urls':[f'{request.url.scheme}://{ip}:{port}/operator/phone.html' for ip in addresses],
+                'same_network_required':True,'transport':'local demo; HTTP is not public deployment'}
+    @app.get('/api/v2/phones/qr')
+    async def phone_qr(request:Request,url:str):
+        identity(request)
+        from urllib.parse import urlsplit
+        import ipaddress,io,qrcode
+        from fastapi.responses import Response
+        parsed=urlsplit(url)
+        try: private=ipaddress.ip_address(parsed.hostname).is_private
+        except ValueError: private=parsed.hostname=='localhost'
+        if not private or parsed.scheme not in ('http','https') or parsed.path!='/operator/phone.html' or len(url)>512:
+            raise HTTPException(422,'invalid_local_join_url')
+        output=io.BytesIO();qrcode.make(url).save(output,format='PNG')
+        return Response(output.getvalue(),media_type='image/png',headers={'Cache-Control':'no-store'})
     @app.post('/api/v2/phones/invites')
     async def invite(request:Request):
         actor=identity(request)
@@ -171,7 +201,10 @@ def create_app(engine=None, accounts=None, account_store=None):
         pending={v[0] for v in bridge.sessions.codes.values() if v[1]>bridge.sessions.clock()}
         available=[v['id'] for v in state['vehicles'] if v['id'] not in bound|pending]
         if not available: raise HTTPException(409,'no_available_vehicle')
-        vehicle=available[0]
+        data=await request.json() if request.headers.get('content-type','').startswith('application/json') else {}
+        requested=data.get('vehicle_id') if isinstance(data,dict) else None
+        if requested and requested not in available: raise HTTPException(409,'vehicle_unavailable')
+        vehicle=requested or available[0]
         return {'join_code':bridge.sessions.issue(vehicle),'vehicle_id':vehicle,'run_id':state['run_id'],'expires_wall_s':120}
     @app.post('/api/v2/phones/claim')
     async def claim(body:ClaimRequest,request:Request):
@@ -206,6 +239,7 @@ def create_app(engine=None, accounts=None, account_store=None):
         await ws.accept()
         try:
             hello=await asyncio.wait_for(ws.receive_json(),5)
+            if not isinstance(hello,dict) or not isinstance(hello.get('token'),str): raise ValueError('invalid_stream_hello')
             actor=auth.identity(hello.get('token',''))
             token=hello.get('token',''); sequence=0
             while True:

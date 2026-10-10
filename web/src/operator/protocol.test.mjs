@@ -85,3 +85,6 @@ test('response policy is acknowledged before a prepared run starts',async()=>{
  assert.equal(await prepareAndStart(async p=>{blocked.push(p.action);return {status:p.action==='controller'?'rejected':'applied'};},{action:'reset'},'bounded'),undefined);
  assert.deepEqual(blocked,['reset','controller']);
 });
+
+import {phoneMapRows} from './protocol.mjs';
+test('phone coverage maps bridge IDs to roads and never invents absent observations',()=>{const world={roads:[{id:'road.a'},{id:'road.b'}]};assert.deepEqual(phoneMapRows(world,{observations:[]}),[]);assert.deepEqual(phoneMapRows(world,{observations:[{edge_id:'edge.lig.1',coverage:'fresh',slowdown:.6}]}),[{edge_id:'road.b',coverage:'fresh',slowdown:.6}]);assert.deepEqual(phoneMapRows(world,{observations:[{edge_id:'unknown',coverage:'fresh'}]}),[]);});

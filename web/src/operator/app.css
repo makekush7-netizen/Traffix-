@@ -6,3 +6,4 @@ body{overflow:hidden}header{height:80px;position:absolute;left:88px;right:0;top:
 
 #request-access{position:absolute;top:12px;right:24px;z-index:2;font-size:12px}body:has(#request-access:not([hidden])) #access-banner{right:220px}#drawer-body button:disabled + p{font-size:12px}header{gap:10px}.camera-tools{max-width:calc(100% - 48px)}
 @media(min-width:701px){body:has(#drawer:not([hidden])) .camera-tools{left:384px;max-width:calc(100% - 408px)}} @media(min-width:701px) and (max-width:1050px){body:has(#drawer:not([hidden])) .camera-tools{left:336px;right:12px;max-width:calc(100% - 348px)}}
+#phone-code{overflow-wrap:anywhere}#phone-code img{display:block;max-width:100%;height:auto;margin-top:12px}#phone-health{font-size:13px}

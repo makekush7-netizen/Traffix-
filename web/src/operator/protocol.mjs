@@ -85,7 +85,7 @@ export function accessReason(identity,lease,connected,replay){
  if(identity?.role==='viewer'&&identity.operator_requested)return 'Operator access requested. The owner approves it in Control → Team access. Sign out and sign in after approval.';
  if(identity?.role!=='operator')return 'Viewer access: you can inspect the scene and results. Operator access requires owner approval; sign in again after approval.';
  if(lease?.holder&&lease.holder!==identity.id)return 'Shared control is held by '+lease.holder+'. Ask them to release it or wait for lease expiry.';
- return lease?.holder===identity.id?'You control this run. Changes are applied by the simulation host.':'Start automatically requests available control. Other operators keep their existing lease.';
+ return lease?.holder===identity.id?'You control this run. Changes are applied by the simulation host.':'Actions automatically request available control. Other operators keep their existing lease.';
 }
 
 export function eventRoads(world,query=''){
@@ -97,4 +97,9 @@ export function comparisonPair(current,other){
  if(current.policy==='fixed'&&other.policy!=='fixed')return {baseline:current.run_id,response:other.run_id};
  if(current.policy!=='fixed'&&other.policy==='fixed')return {baseline:other.run_id,response:current.run_id};
  throw Error('Choose one fixed baseline and one response policy.');
+}
+
+export function phoneMapRows(world,health){
+ const registry=new Map((world?.roads||[]).map((road,i)=>['edge.lig.'+i,road.id]));
+ return (health?.observations||[]).filter(row=>registry.has(row.edge_id)).map(row=>({...row,edge_id:registry.get(row.edge_id)}));
 }

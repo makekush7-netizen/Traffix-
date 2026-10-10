@@ -1,0 +1,5 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {VehicleMotion} from './vehicle-motion.mjs';
+test('buffered motion stays between real snapshots and handles angle wrap',()=>{const m=new VehicleMotion(200);m.push({run_id:'a',sim_time_s:0,vehicles:[{id:'v',x:0,y:0,angle:350}]},0);m.push({run_id:'a',sim_time_s:1,vehicles:[{id:'v',x:10,y:4,angle:10}]},1000);assert.deepEqual(m.sample('v',700),{x:5,y:2,angle:360});assert.equal(m.sample('v',5000).x,10);});
+test('duplicate snapshots do not restart motion; pause and reset settle immediately',()=>{const m=new VehicleMotion(200);m.push({run_id:'a',sim_time_s:0,vehicles:[{id:'v',x:0,y:0,angle:0}]},0);m.push({run_id:'a',sim_time_s:1,vehicles:[{id:'v',x:10,y:0,angle:0}]},1000);m.push({run_id:'a',sim_time_s:1,vehicles:[{id:'v',x:10,y:0,angle:0}]},1100);assert.equal(m.sample('v',700).x,5);m.push({run_id:'a',sim_time_s:1,paused:true,vehicles:[{id:'v',x:10,y:0,angle:0}]},1200);assert.equal(m.sample('v',1200).x,10);m.push({run_id:'b',sim_time_s:0,vehicles:[{id:'v',x:90,y:0,angle:0}]},1300);assert.equal(m.sample('v',1300).x,90);assert.equal(m.sample('missing',1300),null);});
