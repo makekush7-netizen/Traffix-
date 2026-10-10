@@ -108,3 +108,35 @@ Protocol regressions also reject Resume/policy failure in the guided flow and en
 ### Hotspot and reconnect proof
 
 `artifacts/ui/operator-hotspot-ready.png` shows active operator controls and the phone join panel. `artifacts/ui/phone-probe-connected.png` shows the browser adapter connected with acknowledged simulated probes. The host is configured for localhost plus 192.168.137.1; the hotspot URL was also opened, claimed and streamed in Chrome on this laptop. A physical handset and Windows firewall traversal from another device remain unverified. Finished-run Restart was exercised into continuous Explore, and consent withdrawal was confirmed in host status. Null-token stream reconnect now closes cleanly in a regression test.
+
+
+## Adaptive signal visual distinction · 10 October 2026
+
+The operator scene now distinguishes policy state without changing SUMO traffic,
+demand, signal indications or measured results:
+
+- Fixed timing: standard red/amber/green heads, neutral baseline badge.
+- Bounded, actuated and pressure: cyan junction outline and halos around signal
+  heads, with an explicit named policy badge. Cyan means policy enabled, not a
+  proven improvement or a green indication.
+- Only a newly received worker-confirmed `signal_extension` or
+  `signal_transition_completed` produces a short outline pulse. Starting a
+  transition, loading old history, duplicates and natural green changes do not.
+- Missing fresh movement observations show amber markers; paused/completed or
+  disconnected scenes show grey inactive markers. Reduced motion disables pulses.
+- The Signals camera button focuses the junction with the most mapped signal
+  heads. Detailed movement arrows remain available through Control indications.
+- Last confirmed action shows its junction number and simulated timestamp.
+
+Verification: 22 focused Node tests passed (signal presentation, motion, picking
+and operator protocol); JS syntax checks and git diff whitespace check passed.
+Actual Chrome browser check switched the existing Explore run from pressure to
+fixed and back, verified the badge and outline change, and verified paused state.
+No reset or new traffic cohort was required. This visual check is not a matched
+performance comparison. Screenshots: `artifacts/ui/operator-signals-fixed.png`
+and `artifacts/ui/operator-signals-adaptive.png`.
+
+To see it: refresh the dashboard, choose Control > Signal policy >
+Capacity-aware pressure heuristic > Apply policy, close the drawer, then click
+Signals. Use Fixed timing to see the baseline appearance. Use separate finite
+matched experiments for performance results.

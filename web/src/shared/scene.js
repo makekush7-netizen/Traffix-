@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {vehicleClickGesture,nearbyVehicles} from './vehicle-picking.mjs';
 import {VehicleMotion} from './vehicle-motion.mjs';
+import {controllerPresentation,SignalActionTracker} from './signal-presentation.mjs';
 const theme=getComputedStyle(document.documentElement);
 const colours=Object.fromEntries(['unknown','observed','slow','alert'].map(k=>[k,theme.getPropertyValue('--'+k).trim()]));
 function geometryFrom(parts){
@@ -34,6 +35,7 @@ function vehicleGeometry(kind){
 
 export class OperatorScene{
  constructor(world,canvas,viewport,fps,onVehicleSelect=()=>{}){
+  this.controllerMarkers=new Map();this.signalActions=new SignalActionTracker();this.liveConnected=true;
   this.movementArrows=new Map();this.lanes=new Map(world.roads.flatMap(r=>(r.lanes||[]).map(l=>[l.id,l])));this.signalHeads=new Map();this.signalPositions=new Map();this.world=world;this.models=new Map();this.labels=new Map();this.rings=new Map();this.spans=new Map();this.colours=new Map();this.pulses=new Map();this.fps=fps;this.low=false;this.followId=null;
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));this.renderer.setClearColor(0,0);this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;this.renderer.shadowMap.autoUpdate=false;this.renderer.shadowMap.needsUpdate=true;
   this.scene=new THREE.Scene();this.scene.fog=new THREE.Fog('#e1e5e4',600,1700);this.camera=new THREE.PerspectiveCamera(43,1,1,3500);this.controls=new OrbitControls(this.camera,canvas);this.controls.enableDamping=true;this.controls.maxPolarAngle=Math.PI*.48;this.controls.minDistance=2;this.controls.maxDistance=1300;this.home(false);
@@ -51,6 +53,7 @@ export class OperatorScene{
    for(const [id,label] of this.labels){const model=this.models.get(id);if(model?.visible){label.position.copy(model.position).add(new THREE.Vector3(0,10,0));const ring=this.rings.get(id);ring.position.set(model.position.x,.3,model.position.z);}}
    if(this.followId&&this.models.get(this.followId)?.visible){const model=this.models.get(this.followId),p=model.position;if(this.firstPerson){const direction=new THREE.Vector3(0,0,-1).applyAxisAngle(new THREE.Vector3(0,1,0),model.rotation.y);this.camera.position.copy(p).add(new THREE.Vector3(0,2.6,0)).addScaledVector(direction,2);this.controls.target.copy(this.camera.position).addScaledVector(direction,30);}else{this.controls.target.lerp(p,.07);this.camera.position.lerp(p.clone().add(new THREE.Vector3(35,40,50)),.045);}}
    if(!this.low&&this.pulses.size){for(const [edge,until] of this.pulses){this.paint(edge,this.colours.get(edge)||'unknown',1+.12*Math.sin(now/140));if(now>=until){this.pulses.delete(edge);this.paint(edge,this.colours.get(edge)||'unknown');}}}
+   for(const marker of this.controllerMarkers.values()){const pulse=!this.low&&this.liveConnected&&!this.controllerRun?.paused&&!this.controllerRun?.ended&&now<marker.until;marker.ring.scale.setScalar(pulse?1+.09*Math.sin(now/130):1);marker.ring.material.opacity=pulse?.9:.48;}
    this.controls.update();this.renderer.render(this.scene,this.camera);this.frames++;if(now-this.time>=2000){this.fps(this.frames*1000/(now-this.time));this.frames=0;this.time=now;}
   };render();
  }
@@ -72,12 +75,14 @@ export class OperatorScene{
  label(text,color='#e2f8e9'){const c=document.createElement('canvas');c.width=512;c.height=80;const ctx=c.getContext('2d');ctx.font='bold 25px Traffix, Arial';ctx.textAlign='center';ctx.fillStyle=color;ctx.fillText(text,256,48);return new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false}));}
  paint(edge,kind,brightness=1){const span=this.spans.get(edge);if(!span)return;const c=new THREE.Color(colours[kind]||colours.unknown).multiplyScalar(brightness),array=this.roadGeometry.attributes.color.array;for(let i=span[0];i<span[1];i+=3){array[i]=c.r;array[i+1]=c.g;array[i+2]=c.b;}this.roadGeometry.attributes.color.needsUpdate=true;}
  frame(state,sessions,observations,roles){
+  this.controllerRun=state;
   this.motion.push(state,performance.now());
   if(this.run!==state.run_id){this.run=state.run_id;this.followId=null;for(const edge of this.colours.keys()){this.colours.set(edge,'unknown');this.paint(edge,'unknown');}this.pulses.clear();}
   for(const signal of state.signals||[]){
    this.signalPositions.set(signal.id,signal.positions.filter(Boolean));
-   signal.positions.forEach((pos,i)=>{if(!pos)return;const key=signal.id+':'+i;let head=this.signalHeads.get(key);if(!head){head=new THREE.Mesh(new THREE.SphereGeometry(1.7,10,8),new THREE.MeshBasicMaterial());head.position.set(pos[0],5,-pos[1]);const pole=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,4,6),new THREE.MeshStandardMaterial({color:'#344653'}));pole.position.set(pos[0],2,-pos[1]);this.scene.add(pole);this.scene.add(head);this.signalHeads.set(key,head);}const value=signal.state[i];head.material.color.set(value==='G'||value==='g'?'#3cfa8b':value==='y'||value==='Y'?'#ffcb4d':'#ff4e55');});
+   signal.positions.forEach((pos,i)=>{if(!pos)return;const key=signal.id+':'+i;let head=this.signalHeads.get(key);if(!head){head=new THREE.Mesh(new THREE.SphereGeometry(1.7,10,8),new THREE.MeshBasicMaterial());head.position.set(pos[0],5,-pos[1]);const pole=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,4,6),new THREE.MeshStandardMaterial({color:'#344653'}));pole.position.set(pos[0],2,-pos[1]);const halo=new THREE.Mesh(new THREE.RingGeometry(2.2,2.8,24),new THREE.MeshBasicMaterial({color:'#087e8b',side:THREE.DoubleSide,transparent:true,opacity:.85,depthTest:false,depthWrite:false}));halo.rotation.x=-Math.PI/2;halo.userData.ignorePicking=true;head.add(halo);head.userData.controllerHalo=halo;this.scene.add(pole);this.scene.add(head);this.signalHeads.set(key,head);}const value=signal.state[i];head.material.color.set(value==='G'||value==='g'?'#3cfa8b':value==='y'||value==='Y'?'#ffcb4d':'#ff4e55');});
   }
+  this.decorateSignals(state);
   for(const source of state.simulated_sensors||[]){for(const movement of source.movements||[]){
    const key=source.source_id+':'+movement.id,incoming=this.lanes.get(movement.incoming_lane),outgoing=this.lanes.get(movement.outgoing_lane);
    if(!incoming?.shape?.length||!outgoing?.shape?.length)continue;
@@ -91,6 +96,29 @@ export class OperatorScene{
   for(const [id,label] of this.labels){label.visible=bound.has(id)&&active.has(id);this.rings.get(id).visible=label.visible;}
   const rows=new Map(observations.map(o=>[o.edge_id,o]));for(const edge of this.colours.keys()){const row=rows.get(edge),kind=row?.coverage==='fresh'&&row.slowdown!==null?(row.slowdown>=.7?'alert':row.slowdown>=.4?'slow':'observed'):'unknown';if(this.colours.get(edge)!==kind){if(kind!=='unknown')this.pulses.set(edge,performance.now()+1400);this.colours.set(edge,kind);this.paint(edge,kind);}}
  }
+ decorateSignals(state){
+  const presentation=controllerPresentation(state,{connected:this.liveConnected}),actions=this.signalActions.update(state,{connected:this.liveConnected}),active=new Set();
+  for(const signal of state.signals||[]){
+   const positions=(signal.positions||[]).filter(Boolean);if(!positions.length)continue;active.add(signal.id);
+   let marker=this.controllerMarkers.get(signal.id);
+   if(!marker){const x=positions.reduce((s,p)=>s+p[0],0)/positions.length,y=positions.reduce((s,p)=>s+p[1],0)/positions.length,radius=Math.min(55,Math.max(12,...positions.map(p=>Math.hypot(p[0]-x,p[1]-y)+5)));
+    const ring=new THREE.Mesh(new THREE.RingGeometry(radius,radius+1.2,64),new THREE.MeshBasicMaterial({color:'#087e8b',side:THREE.DoubleSide,transparent:true,opacity:.48,depthWrite:false,depthTest:false}));ring.rotation.x=-Math.PI/2;ring.position.set(x,.35,-y);ring.renderOrder=8;ring.userData.ignorePicking=true;
+    const label=this.label('ADAPTIVE','#075d68');label.position.set(x,17,-y);label.scale.set(48,7.5,1);this.scene.add(ring,label);marker={ring,label,until:0};this.controllerMarkers.set(signal.id,marker);
+   }
+   const mode=presentation.signals[signal.id];marker.ring.visible=marker.label.visible=presentation.adaptive;
+   (signal.positions||[]).forEach((pos,i)=>{const halo=this.signalHeads.get(signal.id+':'+i)?.userData.controllerHalo;if(halo){halo.visible=presentation.adaptive;halo.material.color.set(mode==='adaptive'?'#087e8b':mode==='unavailable'?'#b47819':'#78838b');}});
+   marker.ring.material.color.set(mode==='adaptive'?'#087e8b':mode==='unavailable'?'#b47819':'#78838b');
+   // Labels describe enabled policy, never an invented queue improvement.
+   const text=`J${(state.signals||[]).indexOf(signal)+1} · `+(mode==='unavailable'?'NO SENSOR':mode==='inactive'?'INACTIVE':'ADAPTIVE');
+   if(marker.text!==text){const next=this.label(text,mode==='adaptive'?'#075d68':mode==='unavailable'?'#805511':'#53616b');marker.label.material.map.dispose();marker.label.material.dispose();marker.label.material=next.material;marker.text=text;}
+   if(actions.reset)marker.until=0;
+   if(actions.flash.has(signal.id)&&mode==='adaptive')marker.until=performance.now()+1800;
+   if(mode!=='adaptive')marker.until=0;
+  }
+  for(const [id,marker] of this.controllerMarkers)if(!active.has(id)){this.scene.remove(marker.ring,marker.label);marker.ring.geometry.dispose();marker.ring.material.dispose();marker.label.material.map.dispose();marker.label.material.dispose();this.controllerMarkers.delete(id);}
+ }
+ showSignals(){const entries=[...this.signalPositions].filter(([,positions])=>positions.length).sort((a,b)=>b[1].length-a[1].length);if(entries.length){this.focusSignal(entries[0][0]);this.activeSignal=null;for(const arrow of this.movementArrows.values())arrow.visible=false;}}
+ setConnection(connected){if(this.liveConnected===connected)return;this.liveConnected=connected;if(this.controllerRun)this.decorateSignals(this.controllerRun);}
  select(id){
   const next=this.models.has(id)?id:null;
   if(next!==this.selectedId&&this.followId!==next){this.followId=null;this.firstPerson=false;this.controls.enabled=true;}
