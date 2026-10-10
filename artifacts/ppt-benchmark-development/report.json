@@ -1,0 +1,165 @@
+{
+  "runs": [
+    {
+      "seed": 42,
+      "policy": "fixed",
+      "run_id": "lig.df7331fb8ec7",
+      "valid": true,
+      "demand_per_hour": 1400.0,
+      "duration_s": 180.0,
+      "scheduled": 63,
+      "arrived": 63,
+      "journey_s": 327.84587301587305,
+      "co2_kg": 49.2681,
+      "collisions": 0,
+      "teleports": 0,
+      "reason": "complete",
+      "mean_waiting_s": 106.61111111111111,
+      "p95_waiting_s": 171.95,
+      "p95_journey_s": 470.639,
+      "sampled_peak_queued": 38,
+      "confirmed_extensions": 0,
+      "confirmed_phase_changes": 0
+    },
+    {
+      "seed": 42,
+      "policy": "actuated",
+      "run_id": "lig.36355429ecba",
+      "valid": true,
+      "demand_per_hour": 1400.0,
+      "duration_s": 180.0,
+      "scheduled": 63,
+      "arrived": 63,
+      "journey_s": 320.8696825396826,
+      "co2_kg": 48.2422,
+      "collisions": 0,
+      "teleports": 0,
+      "reason": "complete",
+      "mean_waiting_s": 99.38095238095238,
+      "p95_waiting_s": 171.425,
+      "p95_journey_s": 429.45300000000003,
+      "sampled_peak_queued": 36,
+      "confirmed_extensions": 4,
+      "confirmed_phase_changes": 0
+    },
+    {
+      "seed": 42,
+      "policy": "pressure",
+      "run_id": "lig.63d3d8fd4075",
+      "valid": true,
+      "demand_per_hour": 1400.0,
+      "duration_s": 180.0,
+      "scheduled": 63,
+      "arrived": 63,
+      "journey_s": 287.7784126984127,
+      "co2_kg": 45.2237,
+      "collisions": 0,
+      "teleports": 0,
+      "reason": "complete",
+      "mean_waiting_s": 66.04761904761905,
+      "p95_waiting_s": 186.075,
+      "p95_journey_s": 445.69100000000003,
+      "sampled_peak_queued": 29,
+      "confirmed_extensions": 0,
+      "confirmed_phase_changes": 82
+    }
+  ],
+  "comparisons": [
+    {
+      "seed": 42,
+      "policy": "actuated",
+      "api_version": "2.0",
+      "available": true,
+      "reason_code": "complete_matched_cohorts",
+      "baseline": {
+        "run_id": "lig.df7331fb8ec7",
+        "policy": "fixed",
+        "complete": true,
+        "scheduled": 63,
+        "arrived": 63,
+        "mean_journey_s": 327.84587301587305,
+        "mean_travel_s": 327.4563492063492,
+        "mean_insertion_delay_s": 0.38952380952380855,
+        "co2_kg": 49.2681,
+        "sampled_peak_queued": null,
+        "measurement_source": "worker_step_lifecycle_events_0.25s"
+      },
+      "response": {
+        "run_id": "lig.36355429ecba",
+        "policy": "actuated",
+        "complete": true,
+        "scheduled": 63,
+        "arrived": 63,
+        "mean_journey_s": 320.8696825396826,
+        "mean_travel_s": 320.48015873015873,
+        "mean_insertion_delay_s": 0.38952380952380855,
+        "co2_kg": 48.2422,
+        "sampled_peak_queued": null,
+        "measurement_source": "worker_step_lifecycle_events_0.25s"
+      },
+      "differences": {
+        "journey_reduction_s": 6.976190476190482,
+        "journey_reduction_pct": 2.1278872331123475,
+        "co2_reduction_kg": 1.0259,
+        "co2_reduction_pct": 2.0822804207996657
+      },
+      "assumptions": [
+        "SUMO geometry and demand are not field-calibrated.",
+        "CO2 is unreviewed SUMO fleet-model output, not measured emissions.",
+        "Lifecycle event timestamps have 0.25-second simulation resolution.",
+        "Queue maximum is sampled from saved frames."
+      ]
+    },
+    {
+      "seed": 42,
+      "policy": "pressure",
+      "api_version": "2.0",
+      "available": true,
+      "reason_code": "complete_matched_cohorts",
+      "baseline": {
+        "run_id": "lig.df7331fb8ec7",
+        "policy": "fixed",
+        "complete": true,
+        "scheduled": 63,
+        "arrived": 63,
+        "mean_journey_s": 327.84587301587305,
+        "mean_travel_s": 327.4563492063492,
+        "mean_insertion_delay_s": 0.38952380952380855,
+        "co2_kg": 49.2681,
+        "sampled_peak_queued": null,
+        "measurement_source": "worker_step_lifecycle_events_0.25s"
+      },
+      "response": {
+        "run_id": "lig.63d3d8fd4075",
+        "policy": "pressure",
+        "complete": true,
+        "scheduled": 63,
+        "arrived": 63,
+        "mean_journey_s": 287.7784126984127,
+        "mean_travel_s": 287.3888888888889,
+        "mean_insertion_delay_s": 0.38952380952380855,
+        "co2_kg": 45.2237,
+        "sampled_peak_queued": null,
+        "measurement_source": "worker_step_lifecycle_events_0.25s"
+      },
+      "differences": {
+        "journey_reduction_s": 40.06746031746036,
+        "journey_reduction_pct": 12.221431964013298,
+        "co2_reduction_kg": 4.044399999999996,
+        "co2_reduction_pct": 8.208962797428754
+      },
+      "assumptions": [
+        "SUMO geometry and demand are not field-calibrated.",
+        "CO2 is unreviewed SUMO fleet-model output, not measured emissions.",
+        "Lifecycle event timestamps have 0.25-second simulation resolution.",
+        "Queue maximum is sampled from saved frames."
+      ]
+    }
+  ],
+  "assumptions": [
+    "OSM geometry; assumed mixed demand; not field-calibrated",
+    "All cohorts must arrive; zero collisions and teleports",
+    "SUMO modelled emissions, unreviewed fleet mapping",
+    "Synthetic simulation results, not Indian field effectiveness"
+  ]
+}

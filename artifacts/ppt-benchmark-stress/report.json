@@ -1,0 +1,149 @@
+{
+  "runs": [
+    {
+      "seed": 53,
+      "policy": "fixed",
+      "run_id": "lig.8537e507c586",
+      "valid": false,
+      "demand_per_hour": 2400.0,
+      "duration_s": 180.0,
+      "scheduled": 135,
+      "arrived": 133,
+      "journey_s": null,
+      "co2_kg": 123.1019,
+      "collisions": 0,
+      "teleports": 0,
+      "reason": "incomplete"
+    },
+    {
+      "seed": 53,
+      "policy": "actuated",
+      "run_id": "lig.48203e2e728f",
+      "valid": true,
+      "demand_per_hour": 2400.0,
+      "duration_s": 180.0,
+      "scheduled": 135,
+      "arrived": 135,
+      "journey_s": 436.46474074074075,
+      "co2_kg": 119.7109,
+      "collisions": 0,
+      "teleports": 0,
+      "reason": "complete",
+      "mean_waiting_s": 188.2888888888889,
+      "p95_waiting_s": 505.1,
+      "p95_journey_s": 815.388,
+      "sampled_peak_queued": 90,
+      "confirmed_extensions": 6,
+      "confirmed_phase_changes": 0
+    },
+    {
+      "seed": 53,
+      "policy": "pressure",
+      "run_id": "lig.6b422dbcf58f",
+      "valid": true,
+      "demand_per_hour": 2400.0,
+      "duration_s": 180.0,
+      "scheduled": 135,
+      "arrived": 135,
+      "journey_s": 429.4036296296296,
+      "co2_kg": 117.7666,
+      "collisions": 0,
+      "teleports": 0,
+      "reason": "complete",
+      "mean_waiting_s": 164.3537037037037,
+      "p95_waiting_s": 481.525,
+      "p95_journey_s": 809.52,
+      "sampled_peak_queued": 74,
+      "confirmed_extensions": 0,
+      "confirmed_phase_changes": 169
+    }
+  ],
+  "comparisons": [
+    {
+      "seed": 53,
+      "policy": "actuated",
+      "api_version": "2.0",
+      "available": false,
+      "reason_code": "incomplete_or_faulted_cohort",
+      "baseline": {
+        "run_id": "lig.8537e507c586",
+        "policy": "fixed",
+        "complete": false,
+        "scheduled": 135,
+        "arrived": 133,
+        "mean_journey_s": null,
+        "mean_travel_s": null,
+        "mean_insertion_delay_s": null,
+        "co2_kg": 123.1019,
+        "sampled_peak_queued": null,
+        "measurement_source": "worker_step_lifecycle_events_0.25s"
+      },
+      "response": {
+        "run_id": "lig.48203e2e728f",
+        "policy": "actuated",
+        "complete": true,
+        "scheduled": 135,
+        "arrived": 135,
+        "mean_journey_s": 436.46474074074075,
+        "mean_travel_s": 436.0814814814815,
+        "mean_insertion_delay_s": 0.38325925925925897,
+        "co2_kg": 119.7109,
+        "sampled_peak_queued": null,
+        "measurement_source": "worker_step_lifecycle_events_0.25s"
+      },
+      "differences": null,
+      "assumptions": [
+        "SUMO geometry and demand are not field-calibrated.",
+        "CO2 is unreviewed SUMO fleet-model output, not measured emissions.",
+        "Lifecycle event timestamps have 0.25-second simulation resolution.",
+        "Queue maximum is sampled from saved frames."
+      ]
+    },
+    {
+      "seed": 53,
+      "policy": "pressure",
+      "api_version": "2.0",
+      "available": false,
+      "reason_code": "incomplete_or_faulted_cohort",
+      "baseline": {
+        "run_id": "lig.8537e507c586",
+        "policy": "fixed",
+        "complete": false,
+        "scheduled": 135,
+        "arrived": 133,
+        "mean_journey_s": null,
+        "mean_travel_s": null,
+        "mean_insertion_delay_s": null,
+        "co2_kg": 123.1019,
+        "sampled_peak_queued": null,
+        "measurement_source": "worker_step_lifecycle_events_0.25s"
+      },
+      "response": {
+        "run_id": "lig.6b422dbcf58f",
+        "policy": "pressure",
+        "complete": true,
+        "scheduled": 135,
+        "arrived": 135,
+        "mean_journey_s": 429.4036296296296,
+        "mean_travel_s": 429.02037037037036,
+        "mean_insertion_delay_s": 0.38325925925925897,
+        "co2_kg": 117.7666,
+        "sampled_peak_queued": null,
+        "measurement_source": "worker_step_lifecycle_events_0.25s"
+      },
+      "differences": null,
+      "assumptions": [
+        "SUMO geometry and demand are not field-calibrated.",
+        "CO2 is unreviewed SUMO fleet-model output, not measured emissions.",
+        "Lifecycle event timestamps have 0.25-second simulation resolution.",
+        "Queue maximum is sampled from saved frames."
+      ]
+    }
+  ],
+  "assumptions": [
+    "OSM geometry; assumed mixed demand; not field-calibrated",
+    "All cohorts must arrive; zero collisions and teleports",
+    "SUMO modelled emissions, unreviewed fleet mapping",
+    "Synthetic simulation results, not Indian field effectiveness"
+  ]
+}

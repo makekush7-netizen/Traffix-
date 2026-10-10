@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "2.0",
+      "default": "2.0",
+      "title": "Api Version",
+      "type": "string"
+    },
+    "command_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Command Id",
+      "type": "string"
+    },
+    "run_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "expected_revision": {
+      "minimum": 0,
+      "title": "Expected Revision",
+      "type": "integer"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object"
+    }
+  },
+  "required": [
+    "command_id",
+    "run_id",
+    "expected_revision",
+    "payload"
+  ],
+  "title": "Command",
+  "type": "object"
+}

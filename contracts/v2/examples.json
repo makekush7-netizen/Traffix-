@@ -1,0 +1,27 @@
+{
+  "pause": {
+    "api_version": "2.0",
+    "command_id": "example.pause.1",
+    "run_id": "run.fixture",
+    "expected_revision": 0,
+    "payload": {
+      "action": "pause"
+    }
+  },
+  "unavailable_forecast": {
+    "available": false,
+    "reason": "no_fresh_observations"
+  },
+  "missing_baseline": {
+    "savings_kg": null,
+    "reason": "no_matched_complete_baseline"
+  },
+  "expired_advice": {
+    "status": "expired",
+    "reason": "simulation_expiry"
+  },
+  "reconnect": {
+    "action": "fetch_fresh_state",
+    "replay_commands": false
+  }
+}

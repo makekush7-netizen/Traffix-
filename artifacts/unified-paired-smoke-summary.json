@@ -1,0 +1,174 @@
+{
+  "label": "synthetic short-cohort smoke; not calibrated improvement evidence",
+  "controller_revision": "before phase-selection upgrade; smoke only",
+  "runs": [
+    {
+      "seed": 42,
+      "policy": "fixed",
+      "wall_s": 96.23544089999996,
+      "manifest": {
+        "run_id": "lig.882187fbb75f",
+        "scenario": "everyday",
+        "seed": 42,
+        "calibrated": false,
+        "source": "OSM geometry + synthetic demand",
+        "warmup_s": 0,
+        "sumo_version": "SUMO 1.28.0",
+        "scheduled": 5,
+        "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+        "demand_sha256": "0aa6a9a6a971ffbb75d8ddf9560bf62a68bcff1ad0b512125b9908347318ca13",
+        "provenance": {
+          "source": "OpenStreetMap",
+          "attribution": "\u00a9 OpenStreetMap contributors",
+          "source_url": "https://www.openstreetmap.org/#map=16/22.73360/75.89011",
+          "downloaded_at": "2026-10-09",
+          "osm_sha256": "78c8f15096b15d1f9e7b534299133a45246b39d5060028b03da654d79cdbb6a3",
+          "sumo_version": "1.28.0",
+          "left_hand": true,
+          "calibrated": false,
+          "note": "OSM road geometry; inferred lane/signal defaults and building heights; synthetic traffic demand."
+        },
+        "complete": true,
+        "settings": {
+          "mode": "experiment",
+          "demand_per_hour": 500,
+          "duration_s": 30,
+          "drain_s": 600,
+          "location": "lig"
+        },
+        "policy": "fixed",
+        "scenario_mutated": false,
+        "scenario_requested": "everyday",
+        "scenario_effect": "Events are applied explicitly through preview/apply; legacy scenario names do not inject hidden restrictions",
+        "final_counts": {
+          "active": 0,
+          "queued": 0,
+          "mean_speed_kph": null,
+          "scheduled": 5,
+          "departed": 5,
+          "arrived": 5,
+          "not_departed": 0,
+          "collisions": 0,
+          "teleports": 0,
+          "co2_kg": 3.1585
+        },
+        "integrity": "complete",
+        "emission_mapping_reviewed": false
+      },
+      "final_counts": null,
+      "events": 1
+    },
+    {
+      "seed": 42,
+      "policy": "bounded",
+      "wall_s": 102.12645950000024,
+      "manifest": {
+        "run_id": "lig.8e92722db470",
+        "scenario": "everyday",
+        "seed": 42,
+        "calibrated": false,
+        "source": "OSM geometry + synthetic demand",
+        "warmup_s": 0,
+        "sumo_version": "SUMO 1.28.0",
+        "scheduled": 5,
+        "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+        "demand_sha256": "0aa6a9a6a971ffbb75d8ddf9560bf62a68bcff1ad0b512125b9908347318ca13",
+        "provenance": {
+          "source": "OpenStreetMap",
+          "attribution": "\u00a9 OpenStreetMap contributors",
+          "source_url": "https://www.openstreetmap.org/#map=16/22.73360/75.89011",
+          "downloaded_at": "2026-10-09",
+          "osm_sha256": "78c8f15096b15d1f9e7b534299133a45246b39d5060028b03da654d79cdbb6a3",
+          "sumo_version": "1.28.0",
+          "left_hand": true,
+          "calibrated": false,
+          "note": "OSM road geometry; inferred lane/signal defaults and building heights; synthetic traffic demand."
+        },
+        "complete": true,
+        "settings": {
+          "mode": "experiment",
+          "demand_per_hour": 500,
+          "duration_s": 30,
+          "drain_s": 600,
+          "location": "lig"
+        },
+        "policy": "bounded",
+        "scenario_mutated": false,
+        "scenario_requested": "everyday",
+        "scenario_effect": "Events are applied explicitly through preview/apply; legacy scenario names do not inject hidden restrictions",
+        "final_counts": {
+          "active": 0,
+          "queued": 0,
+          "mean_speed_kph": null,
+          "scheduled": 5,
+          "departed": 5,
+          "arrived": 5,
+          "not_departed": 0,
+          "collisions": 0,
+          "teleports": 0,
+          "co2_kg": 3.1585
+        },
+        "integrity": "complete",
+        "emission_mapping_reviewed": false
+      },
+      "final_counts": null,
+      "events": 1
+    },
+    {
+      "seed": 42,
+      "policy": "pressure",
+      "wall_s": 101.05008839999982,
+      "manifest": {
+        "run_id": "lig.46effc86d64b",
+        "scenario": "everyday",
+        "seed": 42,
+        "calibrated": false,
+        "source": "OSM geometry + synthetic demand",
+        "warmup_s": 0,
+        "sumo_version": "SUMO 1.28.0",
+        "scheduled": 5,
+        "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+        "demand_sha256": "0aa6a9a6a971ffbb75d8ddf9560bf62a68bcff1ad0b512125b9908347318ca13",
+        "provenance": {
+          "source": "OpenStreetMap",
+          "attribution": "\u00a9 OpenStreetMap contributors",
+          "source_url": "https://www.openstreetmap.org/#map=16/22.73360/75.89011",
+          "downloaded_at": "2026-10-09",
+          "osm_sha256": "78c8f15096b15d1f9e7b534299133a45246b39d5060028b03da654d79cdbb6a3",
+          "sumo_version": "1.28.0",
+          "left_hand": true,
+          "calibrated": false,
+          "note": "OSM road geometry; inferred lane/signal defaults and building heights; synthetic traffic demand."
+        },
+        "complete": true,
+        "settings": {
+          "mode": "experiment",
+          "demand_per_hour": 500,
+          "duration_s": 30,
+          "drain_s": 600,
+          "location": "lig"
+        },
+        "policy": "pressure",
+        "scenario_mutated": false,
+        "scenario_requested": "everyday",
+        "scenario_effect": "Events are applied explicitly through preview/apply; legacy scenario names do not inject hidden restrictions",
+        "final_counts": {
+          "active": 0,
+          "queued": 0,
+          "mean_speed_kph": null,
+          "scheduled": 5,
+          "departed": 5,
+          "arrived": 5,
+          "not_departed": 0,
+          "collisions": 0,
+          "teleports": 0,
+          "co2_kg": 3.1585
+        },
+        "integrity": "complete",
+        "emission_mapping_reviewed": false
+      },
+      "final_counts": null,
+      "events": 1
+    }
+  ]
+}

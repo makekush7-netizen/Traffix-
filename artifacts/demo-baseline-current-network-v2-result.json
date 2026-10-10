@@ -1,0 +1,17 @@
+[
+  {
+    "repeat": 1,
+    "run_id": "lig.demo.4116404c6a7c",
+    "seed": 42,
+    "scheduled": 12,
+    "arrived": 12,
+    "collisions": 0,
+    "teleports": 0,
+    "unfinished": 0,
+    "complete": true,
+    "sim_time_s": 409.75,
+    "mean_journey_s": 239.77083333333334,
+    "scenario_sha256": "acbb900b5679769c3e06c40eb59f91432e8036930643c2ca2ec21f6aa2560bc2",
+    "run_directory": "C:\\Users\\prakh\\Documents\\ChatGPT\\trafixx\\runs\\lig.demo.4116404c6a7c"
+  }
+]

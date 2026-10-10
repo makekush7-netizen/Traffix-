@@ -1,0 +1,1329 @@
+{
+  "run_id": "lig.aaebac01e426",
+  "wall_s": 49.16260489999968,
+  "steps": 1679,
+  "manifest": {
+    "run_id": "lig.aaebac01e426",
+    "scenario": "rush",
+    "seed": 42,
+    "calibrated": false,
+    "source": "OSM geometry + synthetic demand",
+    "warmup_s": 0,
+    "sumo_version": "SUMO 1.28.0",
+    "scheduled": 18,
+    "network_sha256": "317fbe07101be02014d96e7222e4ce5e21c2818bd734af3b03cb535982e382b1",
+    "demand_sha256": "71be51cfc04c846228abdb87f6292248f045aa46feb32e07771f5f32db97c6e9",
+    "provenance": {
+      "source": "OpenStreetMap",
+      "attribution": "\u00a9 OpenStreetMap contributors",
+      "source_url": "https://www.openstreetmap.org/#map=16/22.73360/75.89011",
+      "downloaded_at": "2026-10-09",
+      "osm_sha256": "78c8f15096b15d1f9e7b534299133a45246b39d5060028b03da654d79cdbb6a3",
+      "sumo_version": "1.28.0",
+      "left_hand": true,
+      "calibrated": false,
+      "note": "OSM road geometry; inferred lane/signal defaults and building heights; synthetic traffic demand."
+    },
+    "complete": false,
+    "settings": {
+      "mode": "experiment",
+      "demand_per_hour": 600,
+      "duration_s": 120,
+      "drain_s": 300,
+      "location": "lig"
+    },
+    "policy": "pressure",
+    "scenario_mutated": false,
+    "scenario_requested": "rush",
+    "scenario_effect": "Events are applied explicitly through preview/apply; legacy scenario names do not inject hidden restrictions",
+    "final_counts": {
+      "active": 1,
+      "queued": 0,
+      "mean_speed_kph": 29.9,
+      "scheduled": 18,
+      "departed": 18,
+      "arrived": 17,
+      "not_departed": 0,
+      "collisions": 0,
+      "teleports": 0,
+      "co2_kg": 12.7538
+    },
+    "integrity": "incomplete",
+    "emission_mapping_reviewed": false
+  },
+  "events": [
+    {
+      "kind": "policy_selected",
+      "policy": "pressure",
+      "sim_time_s": 0.25
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 92.0,
+      "target_phase": 0,
+      "reason": "pressure",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 2.172653534183082,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 103.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 113.0,
+      "target_phase": 3,
+      "reason": "pressure",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": -0.2985668789808917,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": -0.2985668789808917
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 124.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 133.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 133.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 133.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 133.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 134.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 4.345307068366164,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.22536057692307693
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 144.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 144.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 144.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 144.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 145.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 154.0,
+      "target_phase": 0,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 154.0,
+      "target_phase": 0,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 154.0,
+      "target_phase": 0,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 154.0,
+      "target_phase": 0,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 155.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 4.345307068366164,
+        "3": 0.0,
+        "6": 0.3123698458975427,
+        "9": 0.2260624937204863,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 165.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 165.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 165.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 165.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 166.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 176.0,
+      "target_phase": 0,
+      "reason": "pressure",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 4.345307068366164,
+        "3": 0.0,
+        "6": 0.3123698458975427,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 187.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 191.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 191.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 191.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 191.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 197.0,
+      "target_phase": 6,
+      "reason": "pressure",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": -0.2985668789808917,
+        "3": 0.0,
+        "6": 0.6247396917950854,
+        "9": 0.07535416457349543,
+        "12": -0.2985668789808917
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 202.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 202.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 202.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 202.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 208.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 219.0,
+      "target_phase": 9,
+      "reason": "pressure",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.18838541143373858,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 230.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 232.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 232.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 232.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 232.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 240.0,
+      "target_phase": 0,
+      "reason": "pressure",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 2.172653534183082
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 243.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 243.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 243.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 243.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 251.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 253.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 253.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 253.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 253.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 261.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.22536057692307693
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 264.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 264.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 264.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 264.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 272.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 274.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 274.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 274.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 274.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 282.0,
+      "target_phase": 12,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.22536057692307693
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 285.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 285.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 285.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 285.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 293.0,
+      "target_phase": 12,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 311.0,
+      "target_phase": 0,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 311.0,
+      "target_phase": 0,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 311.0,
+      "target_phase": 0,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 311.0,
+      "target_phase": 0,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 322.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 322.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 322.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 322.0,
+      "target_phase": 0,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 344.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 352.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 352.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 352.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 352.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 355.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 363.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 363.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 363.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 363.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 365.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 373.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 373.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 373.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 373.0,
+      "target_phase": 6,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 376.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 384.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 384.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 384.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 384.0,
+      "target_phase": 6,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "2028577117",
+      "sim_time_s": 394.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 394.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 394.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 394.0,
+      "target_phase": 9,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_started",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 402.0,
+      "target_phase": 3,
+      "reason": "maximum_red",
+      "source_type": "simulated_sensor",
+      "yellow_s": 3.0,
+      "allred_s": 8.0,
+      "scores": {
+        "0": 0.0,
+        "3": 0.0,
+        "6": 0.0,
+        "9": 0.0,
+        "12": 0.0
+      }
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "2028577117",
+      "sim_time_s": 405.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575751_2028575788",
+      "sim_time_s": 405.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028575814_2028575819_2028575832",
+      "sim_time_s": 405.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2028577183_2028577194_8389132293",
+      "sim_time_s": 405.0,
+      "target_phase": 9,
+      "reason": "pressure_clearance_complete"
+    },
+    {
+      "kind": "signal_transition_completed",
+      "tls_id": "cluster_2023505360_2023505361_2023505364_8389132295",
+      "sim_time_s": 413.0,
+      "target_phase": 3,
+      "reason": "pressure_clearance_complete"
+    }
+  ]
+}
