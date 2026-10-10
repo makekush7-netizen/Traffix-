@@ -6,7 +6,7 @@
 
 **An intelligent traffic congestion response prototype for Indian mixed traffic.**
 
-[Submission frontend](landing/) · [System review](docs/prakhyat-integration-review.md) · [Product requirements](docs/traffix-harness-prd-v1.md) · [Mobile app](mobile-app/)
+[Live demo](https://traffix-demo.vercel.app) · [Frontend source](landing/) · [System review](docs/prakhyat-integration-review.md) · [Product requirements](docs/traffix-harness-prd-v1.md) · [Mobile app](mobile-app/)
 
 Built for the Agnitia hackathon · TERRA track · LIG Square, Indore
 
@@ -117,3 +117,4 @@ We do not claim calibrated demand, deployed public signal control, proven foreca
 **Kush** — coordinator, bridge and native app · **Nandani** — simulation topology · **Prakhyat** — unified simulation, dashboard and ML · **Urvashi** — interface work.
 
 Read [AGENTS.md](AGENTS.md) and [OWNERS.md](OWNERS.md) before contributing. Main is kept separate from ongoing module branches; no draft simulation merge is implied by this submission.
+
