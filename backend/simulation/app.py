@@ -229,13 +229,15 @@ def create_app(engine=None, accounts=None, account_store=None):
         token=request.headers.get('authorization','').removeprefix('Bearer ')
         try: session=bridge.sessions.authenticate({'sender_id':session_id,'run_id':run_id,'payload':{'token':token}})
         except ValueError as exc: raise HTTPException(401,str(exc)) from exc
-        # Apply the same stale-heartbeat withdrawal as operator observation polling.
-        bridge.status()
+        # Own-trip polling must not keep a disconnected phone's consent alive.
+        import time
+        if session.connected and time.monotonic()-session.last_seen>6:
+            session.connected=False; bridge.withdraw(session)
         return bridge,state,session
     @app.get('/api/v2/phones/world')
     async def driver_world(request:Request,session_id:str,run_id:str):
-        driver_context(request,session_id,run_id)
-        return WORLD
+        bridge,_,_=driver_context(request,session_id,run_id)
+        return {**WORLD,'phone_edge_registry':{wire:edge for edge,wire in bridge.edge_ids.items()}}
     @app.get('/api/v2/phones/state')
     async def own_trip(request:Request,session_id:str,run_id:str):
         bridge,state,session=driver_context(request,session_id,run_id)
@@ -258,7 +260,7 @@ def create_app(engine=None, accounts=None, account_store=None):
                 'role':{'motorcycle':'rider','auto':'auto','erickshaw':'auto','delivery':'delivery'}.get(vehicle_type,'driver'),
                 'paused':state.get('paused',False),'ended':state.get('ended',False),
                 'lifecycle':'active' if vehicle else 'arrived' if session.vehicle_id in state.get('arrived_vehicle_ids',[]) else 'unknown',
-                'route_events':route_events,'alerts':alerts,
+                'events':route_events,'route_events':route_events,'alerts':alerts,
                 'guidance_enabled':state.get('guidance_enabled',False),'advisories':offers,
                 'source':'SUMO simulated own vehicle; sensor sharing requires phone uplinks'}
     @app.websocket('/api/v2/phones/ws')

@@ -308,6 +308,7 @@ class UnifiedEngine(HarnessEngine):
             if eid not in self.active_events: raise ValueError('unknown_event')
             self.active_events[eid]['end_s']=now
             self.active_events[eid]['status']='ended'
+            self._events.append({'kind':'event_ended','event_id':eid,'sim_time_s':now})
             self._update_events(); self._publish(); return self.snapshot()
         event=deepcopy(p.get('event',{}))
         if event.get('kind') not in ('rain','blockage','roadworks','rally','sensor_outage'):
@@ -320,7 +321,8 @@ class UnifiedEngine(HarnessEngine):
             raise ValueError('invalid_event_number')
         if start<now or not 0<duration<=1800 or not 0<=severity<=1: raise ValueError('invalid_event_schedule')
         event.update(event_id=event.get('event_id') or 'event.'+uuid.uuid4().hex[:12],start_s=start,end_s=start+duration,
-                     severity=severity,status='preview',effect='simulated edge speed restriction; no physical obstacle')
+                     severity=severity,status='preview',effect=('simulated sensor unavailable; no road restriction' if event['kind']=='sensor_outage'
+                         else 'simulated edge speed restriction; no physical obstacle'))
         lanes=[f'{edge}_{i}' for i in range(self._conn.edge.getLaneNumber(edge))]
         if not lanes: raise ValueError('edge_has_no_lanes')
         if kind=='event_preview':

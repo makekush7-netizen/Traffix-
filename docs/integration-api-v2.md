@@ -1,5 +1,34 @@
 # Integration API v2.0
 
+## Final native-driver additions (10 October 2026)
+
+Public GET `/api/v2/capabilities` advertises the additive driver map/route/events
+surface and frozen `phone_protocol_version:1`. Discovery issues no credentials.
+Claim remains unchanged. GET `/api/v2/phones/world?session_id=...&run_id=...`
+requires the claimed driver's bearer token and matching session/run; it returns
+WORLD geometry directly, never fleet/admin state. `phone_edge_registry` maps
+frozen frame `edge.lig.N` identifiers to raw SUMO road IDs. Centered positions
+already share the WORLD coordinate space. Admin `/world` remains admin-only.
+
+GET `/api/v2/phones/state` has the same driver authentication and adds `route_id`,
+`route_path` (ordered raw SUMO edge ID strings), `vehicle_type`, `role`, run `paused`
+and `ended`, and `lifecycle:active|arrived|unknown`. Route truth is subscribed and
+published by the sole worker. An accepted worker-confirmed bypass is published
+immediately while paused. Metadata survives arrival for a bound session and resets
+with its run. Missing vehicle truth is `unknown` unless the worker recorded arrival.
+
+`events` aliases `route_events`: only events on this driver's route, with
+`event_id`, `edge_id`, `kind`, `effect`, `start_s`, `end_s`, `severity`, `status`.
+`alerts` contains active speed restrictions; sensor outage is not a road alert.
+The route/event raw edge IDs match WORLD road IDs. Resolve each route edge to its
+road shape for native rendering; do not treat edge strings as coordinate arrays.
+Restriction alerts do not offer lane closure or automatic rerouting. Driver polling
+does not renew a stale socket heartbeat or restore withdrawn consent.
+
+Wrong session/run/token returns 401, missing query fields 422, invalid origin 403,
+and unavailable host 503. Reset rejects prior credentials. Frozen v1 vehicle frames,
+consent, exact-frame validation, decisions and worker ACK semantics are preserved.
+
 Host: `python -m scripts.run_unified`, default port 8005, one worker. Configure
 `TRAFFIX_ACCOUNTS` as a JSON object of username → password/role/can_takeover.
 No default accounts and no public bootstrap. Roles are operator and viewer; drivers

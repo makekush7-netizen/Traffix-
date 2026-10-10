@@ -39,12 +39,14 @@ def test_public_discovery_and_driver_scoped_map_state():
         assert client.get('/api/v2/world',headers=headers).status_code==401
         world=client.get('/api/v2/phones/world',params=params,headers=headers).json()
         assert world['roads']==WORLD['roads'] and 'vehicles' not in world
+        assert world['phone_edge_registry']['edge.lig.0']==WORLD['roads'][0]['id']
         reply=client.get('/api/v2/phones/state',params=params,headers=headers).json()
         assert reply['route_id']=='route.0' and reply['route_path']==WORLD['routes'][0]
         assert reply['vehicle_type']=='car' and reply['role']=='driver'
         assert reply['paused'] and not reply['ended'] and reply['lifecycle']=='active'
         assert [e['event_id'] for e in reply['alerts']]==['event.1']
         assert [e['event_id'] for e in reply['route_events']]==['event.1']
+        assert reply['events']==reply['route_events']
         engine.row['events'][0]['status']='ended'
         engine.row['vehicles']=[];engine.row['arrived_vehicle_ids']=['car.0'];engine.row['ended']=True
         final=client.get('/api/v2/phones/state',params=params,headers=headers).json()
@@ -104,5 +106,6 @@ def test_real_sumo_admin_restriction_reaches_only_bound_driver_and_ends():
         command({'action':'event_end','event_id':preview['event_id']})
         reply=client.get('/api/v2/phones/state',params=params,headers=driver).json()
         assert reply['alerts']==[] and reply['route_events'][0]['status']=='ended'
+        assert any(row['kind']=='event_ended' for row in engine.export()['events'])
         command({'action':'reset','settings':{'demand_per_hour':0}})
         assert client.get('/api/v2/phones/world',params=params,headers=driver).status_code==401
