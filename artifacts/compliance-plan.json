@@ -1,0 +1,302 @@
+[
+  {
+    "run_id": "run.scn.rain_ramp.reactive.300.96a9203626",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 300,
+    "policy": "reactive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.300.4fd50f51b1",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 300,
+    "policy": "reactive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.300.72c87be754",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 300,
+    "policy": "reactive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.300.8067ebfa9d",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 300,
+    "policy": "predictive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.300.65b5f27e2c",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 300,
+    "policy": "predictive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.300.527f72f6dc",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 300,
+    "policy": "predictive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.301.e742afe332",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 301,
+    "policy": "reactive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.301.e3aa0a7818",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 301,
+    "policy": "reactive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.301.b7998bb137",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 301,
+    "policy": "reactive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.301.04ec7d859b",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 301,
+    "policy": "predictive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.301.65e3b2a802",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 301,
+    "policy": "predictive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.301.a137147b1d",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 301,
+    "policy": "predictive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.302.8aae6887fa",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 302,
+    "policy": "reactive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.302.c88a1b9f48",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 302,
+    "policy": "reactive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.302.3b444c45bb",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 302,
+    "policy": "reactive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.302.75782677ea",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 302,
+    "policy": "predictive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.302.d5f91f60e3",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 302,
+    "policy": "predictive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.302.453583b879",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 302,
+    "policy": "predictive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.303.f5ec12c9ec",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 303,
+    "policy": "reactive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.303.54da3d1c68",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 303,
+    "policy": "reactive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.303.b84b783186",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 303,
+    "policy": "reactive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.303.0d1fe1ed5b",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 303,
+    "policy": "predictive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.303.843ca9f68a",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 303,
+    "policy": "predictive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.303.c9c65b7879",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 303,
+    "policy": "predictive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.304.221a513953",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 304,
+    "policy": "reactive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.304.520833b96f",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 304,
+    "policy": "reactive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.reactive.304.c678ea7d0f",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 304,
+    "policy": "reactive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.304.2098f0f318",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 304,
+    "policy": "predictive",
+    "compliance": 0.0,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.304.7d750ce3ca",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 304,
+    "policy": "predictive",
+    "compliance": 0.2,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.predictive.304.bfc0caad14",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 304,
+    "policy": "predictive",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  }
+]

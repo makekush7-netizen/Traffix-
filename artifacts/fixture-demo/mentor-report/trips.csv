@@ -1,0 +1,3 @@
+vehicle_id,scheduled_depart_s,actual_depart_s,arrival_s,status,waiting_s,co2_mg,vtype_id,route_length_m
+veh.fixture.a,0,15,100.0,arrived,10,1000000.0,unknown,
+veh.fixture.b,5,20,,active,0,,unknown,

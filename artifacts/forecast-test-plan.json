@@ -1,0 +1,152 @@
+[
+  {
+    "run_id": "run.scn.rain_ramp.fixed.300.20c6944cb5",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 300,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.fixed.301.984037c92e",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 301,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.fixed.302.36eb9c1831",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 302,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.fixed.303.753c851dff",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 303,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.rain_ramp.fixed.304.63d738e05e",
+    "scenario_id": "scn.rain_ramp",
+    "seed": 304,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.market_block.fixed.300.b7af01e2f7",
+    "scenario_id": "scn.market_block",
+    "seed": 300,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.market_block.fixed.301.1f227bd5d4",
+    "scenario_id": "scn.market_block",
+    "seed": 301,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.market_block.fixed.302.499c80efd6",
+    "scenario_id": "scn.market_block",
+    "seed": 302,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.market_block.fixed.303.13af677414",
+    "scenario_id": "scn.market_block",
+    "seed": 303,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.market_block.fixed.304.9f6818b737",
+    "scenario_id": "scn.market_block",
+    "seed": 304,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.procession.fixed.300.47126adfe5",
+    "scenario_id": "scn.procession",
+    "seed": 300,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.procession.fixed.301.8ba3ffe774",
+    "scenario_id": "scn.procession",
+    "seed": 301,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.procession.fixed.302.982d74f83e",
+    "scenario_id": "scn.procession",
+    "seed": 302,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.procession.fixed.303.735c39cedb",
+    "scenario_id": "scn.procession",
+    "seed": 303,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  },
+  {
+    "run_id": "run.scn.procession.fixed.304.84b245e576",
+    "scenario_id": "scn.procession",
+    "seed": 304,
+    "policy": "fixed",
+    "compliance": 0.6,
+    "sensor_mask_id": "mask.market_gap",
+    "data_source": "sumo",
+    "demand_id": "demand.reference"
+  }
+]

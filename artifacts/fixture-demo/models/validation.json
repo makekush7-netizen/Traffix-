@@ -1,0 +1,27 @@
+{
+  "selection_split": "validation_only",
+  "data_source": "fixture",
+  "horizons": {
+    "120": {
+      "train_rows": 1088,
+      "validation_rows": 399,
+      "boosting_mae": 0.06484349640956194,
+      "persistence_mae": 0.20981170289552747,
+      "trend_mae": 0.1371045114980697
+    },
+    "180": {
+      "train_rows": 992,
+      "validation_rows": 363,
+      "boosting_mae": 0.09563935728032617,
+      "persistence_mae": 0.2969043645066526,
+      "trend_mae": 0.24808058625479698
+    },
+    "300": {
+      "train_rows": 800,
+      "validation_rows": 291,
+      "boosting_mae": 0.04337441740732579,
+      "persistence_mae": 0.4191274818851067,
+      "trend_mae": 0.5162432186132401
+    }
+  }
+}

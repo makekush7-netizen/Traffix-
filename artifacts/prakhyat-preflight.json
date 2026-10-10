@@ -1,0 +1,22 @@
+{
+  "python": "3.12.14",
+  "dependencies": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "jsonschema": "4.26.0",
+    "pytest": "9.1.1"
+  },
+  "sumo_binary": null,
+  "traci_importable": false,
+  "scenario_assets": {
+    "sumocfg": false,
+    "network_file": false,
+    "demand_file": false,
+    "additional_file": false,
+    "id_registry_file": false
+  },
+  "ml_environment_ready": true,
+  "real_sumo_runs_ready": false
+}

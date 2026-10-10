@@ -1,0 +1,1778 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agnitia:contracts:v1",
+  "title": "Agnitia application messages v1",
+  "description": "Proposed application contracts, not SUMO APIs. See agent-build-plan.md for authorization, timing, and semantic invariants.",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "session.hello"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string",
+              "minLength": 1
+            },
+            "last_server_seq": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "token",
+            "last_server_seq"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "session.ready"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "session_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "role": {
+              "enum": [
+                "driver",
+                "operator",
+                "viewer"
+              ]
+            },
+            "vehicle_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_.:-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "mode": {
+              "enum": [
+                "fixed",
+                "manual",
+                "auto"
+              ]
+            }
+          },
+          "required": [
+            "session_id",
+            "role",
+            "vehicle_id",
+            "mode"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "heartbeat"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "visible": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "visible"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "vehicle.frame"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "$ref": "#/$defs/frame"
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "probe.sample"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "frame_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "vehicle_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "pose": {
+              "$ref": "#/$defs/pose"
+            }
+          },
+          "required": [
+            "frame_id",
+            "vehicle_id",
+            "pose"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "probe.toggle"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "driver.report"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "frame_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "vehicle_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "category": {
+              "enum": [
+                "waterlogging",
+                "obstruction",
+                "slow_traffic"
+              ]
+            }
+          },
+          "required": [
+            "frame_id",
+            "vehicle_id",
+            "category"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "driver.decision"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "advisory_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "choice": {
+              "enum": [
+                "accept",
+                "ignore"
+              ]
+            }
+          },
+          "required": [
+            "advisory_id",
+            "choice"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "guidance"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "$ref": "#/$defs/guidance"
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "proposal"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "$ref": "#/$defs/proposal"
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "operator.command"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "command": {
+              "enum": [
+                "arm_auto",
+                "set_manual",
+                "restore_fixed",
+                "pause",
+                "resume",
+                "set_rate",
+                "approve"
+              ]
+            },
+            "proposal_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_.:-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "rate": {
+              "anyOf": [
+                {
+                  "enum": [
+                    1,
+                    4,
+                    8
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "command",
+            "proposal_id",
+            "rate"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "control.event"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "$ref": "#/$defs/action"
+            },
+            "status": {
+              "enum": [
+                "applied",
+                "rejected"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "trigger": {
+              "enum": [
+                "reactive",
+                "predictive",
+                "operator",
+                "safety"
+              ]
+            }
+          },
+          "required": [
+            "action",
+            "status",
+            "reason",
+            "trigger"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "ack"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "in_reply_to": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            "status": {
+              "enum": [
+                "received",
+                "applied",
+                "rejected",
+                "duplicate"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "in_reply_to",
+            "status",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "type": {
+          "const": "world.snapshot"
+        },
+        "msg_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "sender_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payload": {
+          "$ref": "#/$defs/snapshot"
+        }
+      },
+      "required": [
+        "v",
+        "type",
+        "msg_id",
+        "run_id",
+        "sender_id",
+        "seq",
+        "sim_time_s",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "#/$defs/claim_request"
+    },
+    {
+      "$ref": "#/$defs/claim_response"
+    },
+    {
+      "$ref": "#/$defs/bootstrap"
+    }
+  ],
+  "$defs": {
+    "pose": {
+      "type": "object",
+      "properties": {
+        "edge_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "x_m": {
+          "type": "number"
+        },
+        "y_m": {
+          "type": "number"
+        },
+        "speed_mps": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "edge_id",
+        "x_m",
+        "y_m",
+        "speed_mps"
+      ],
+      "additionalProperties": false
+    },
+    "frame": {
+      "type": "object",
+      "properties": {
+        "frame_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "vehicle_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "state": {
+          "enum": [
+            "pending",
+            "active",
+            "arrived"
+          ]
+        },
+        "pose": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pose"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "frame_id",
+        "vehicle_id",
+        "state",
+        "pose"
+      ],
+      "additionalProperties": false
+    },
+    "observation": {
+      "type": "object",
+      "properties": {
+        "edge_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "coverage": {
+          "enum": [
+            "fresh",
+            "stale",
+            "unknown"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "fixed",
+              "phone",
+              "emulated_probe"
+            ]
+          }
+        },
+        "mean_speed_mps": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "slowdown": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "distinct_probes_60s": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sample_age_sim_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fixed_queue_ratio": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "edge_id",
+        "coverage",
+        "sources",
+        "mean_speed_mps",
+        "slowdown",
+        "distinct_probes_60s",
+        "sample_age_sim_s",
+        "fixed_queue_ratio"
+      ],
+      "additionalProperties": false
+    },
+    "forecast": {
+      "type": "object",
+      "properties": {
+        "edge_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "model": {
+          "enum": [
+            "persistence",
+            "trend",
+            "boosting"
+          ]
+        },
+        "horizon_s": {
+          "enum": [
+            120,
+            180,
+            300
+          ]
+        },
+        "predicted_slowdown": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "usable_for_control": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "edge_id",
+        "model",
+        "horizon_s",
+        "predicted_slowdown",
+        "usable_for_control",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "guidance": {
+      "type": "object",
+      "properties": {
+        "advisory_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "vehicle_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "kind": {
+          "enum": [
+            "reroute",
+            "incident",
+            "signal_update"
+          ]
+        },
+        "route_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expires_sim_s": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "advisory_id",
+        "vehicle_id",
+        "kind",
+        "route_id",
+        "message",
+        "expires_sim_s"
+      ],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "kind": {
+          "enum": [
+            "extend_green",
+            "end_green",
+            "reroute",
+            "mode_change",
+            "advisory"
+          ]
+        },
+        "signal_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "phase_index": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "remaining_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "vehicle_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.:-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "route_edges": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]+$"
+          }
+        },
+        "mode": {
+          "anyOf": [
+            {
+              "enum": [
+                "fixed",
+                "manual",
+                "auto"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "action_id",
+        "kind",
+        "signal_id",
+        "phase_index",
+        "remaining_s",
+        "vehicle_id",
+        "route_edges",
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "counts": {
+      "type": "object",
+      "properties": {
+        "scheduled": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "departed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "arrived": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "active": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pending": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "teleported": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "removed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "scheduled",
+        "departed",
+        "arrived",
+        "active",
+        "pending",
+        "teleported",
+        "removed"
+      ],
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "complete": {
+          "type": "boolean"
+        },
+        "mean_journey_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "p95_journey_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total_wait_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "co2_kg_so_far": {
+          "type": "number",
+          "minimum": 0
+        },
+        "co2_kg_final": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "complete",
+        "mean_journey_s",
+        "p95_journey_s",
+        "total_wait_s",
+        "co2_kg_so_far",
+        "co2_kg_final"
+      ],
+      "additionalProperties": false
+    },
+    "driver": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "vehicle_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "connected": {
+          "type": "boolean"
+        },
+        "reporting": {
+          "type": "boolean"
+        },
+        "last_seen_wall_ms": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "session_id",
+        "vehicle_id",
+        "connected",
+        "reporting",
+        "last_seen_wall_ms"
+      ],
+      "additionalProperties": false
+    },
+    "render_road": {
+      "type": "object",
+      "properties": {
+        "edge_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "vehicle_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "jam_length_m": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "edge_id",
+        "vehicle_count",
+        "jam_length_m"
+      ],
+      "additionalProperties": false
+    },
+    "signal": {
+      "type": "object",
+      "properties": {
+        "signal_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "phase_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "remaining_s": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "signal_id",
+        "phase_index",
+        "state",
+        "remaining_s"
+      ],
+      "additionalProperties": false
+    },
+    "proposal": {
+      "type": "object",
+      "properties": {
+        "proposal_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "trigger": {
+          "enum": [
+            "reactive",
+            "predictive"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expires_sim_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        }
+      },
+      "required": [
+        "proposal_id",
+        "trigger",
+        "reason",
+        "expires_sim_s",
+        "actions"
+      ],
+      "additionalProperties": false
+    },
+    "snapshot": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "fixed",
+            "manual",
+            "auto"
+          ]
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "rate": {
+          "enum": [
+            1,
+            4,
+            8
+          ]
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "forecasts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/forecast"
+          }
+        },
+        "signals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/signal"
+          }
+        },
+        "drivers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/driver"
+          }
+        },
+        "counts": {
+          "$ref": "#/$defs/counts"
+        },
+        "metrics": {
+          "$ref": "#/$defs/metrics"
+        },
+        "active_guidance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/guidance"
+          }
+        },
+        "proposals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/proposal"
+          }
+        },
+        "simulation_view": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "SIMULATION GROUND TRUTH - DISPLAY ONLY"
+            },
+            "roads": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/render_road"
+              }
+            }
+          },
+          "required": [
+            "label",
+            "roads"
+          ],
+          "additionalProperties": false
+        },
+        "baseline": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "matched",
+                "unavailable",
+                "mismatch"
+              ]
+            },
+            "recording_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_.:-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sim_time_s": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "roads": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/render_road"
+              }
+            },
+            "counts": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/counts"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "metrics": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/metrics"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "recording_id",
+            "sim_time_s",
+            "roads",
+            "counts",
+            "metrics"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "mode",
+        "paused",
+        "rate",
+        "observations",
+        "forecasts",
+        "signals",
+        "drivers",
+        "counts",
+        "metrics",
+        "active_guidance",
+        "proposals",
+        "simulation_view",
+        "baseline"
+      ],
+      "additionalProperties": false
+    },
+    "claim_request": {
+      "type": "object",
+      "properties": {
+        "join_code": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "join_code"
+      ],
+      "additionalProperties": false
+    },
+    "claim_response": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "session_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "vehicle_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "token": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "run_id",
+        "session_id",
+        "vehicle_id",
+        "token"
+      ],
+      "additionalProperties": false
+    },
+    "bootstrap": {
+      "type": "object",
+      "properties": {
+        "v": {
+          "const": 1
+        },
+        "run_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "scenario_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.:-]+$"
+        },
+        "scenario_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ws_path": {
+          "const": "/ws"
+        }
+      },
+      "required": [
+        "v",
+        "run_id",
+        "scenario_id",
+        "scenario_label",
+        "ws_path"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
