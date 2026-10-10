@@ -33,7 +33,7 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/protocol.test.ts tests/profile.test.ts tests/client.test.cjs",
+    "test": "node --experimental-strip-types --test tests/protocol.test.ts tests/profile.test.ts tests/client.test.cjs tests/host-compat.test.cjs",
     "lint": "eslint App.tsx src plugins --max-warnings 0"
   },
   "private": true

@@ -12,7 +12,13 @@ async function timedFetch(url: string, options: RequestInit = {}) {
   const controller = new AbortController(),
     deadline = setTimeout(() => controller.abort(), 10000);
   try {
-    return await fetch(url, { ...options, signal: controller.signal });
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    console.info("Traffix HTTP", options.method || "GET", url.split(/[?#]/)[0], response.status);
+    return response;
+  } catch {
+    const address = url.split(/[?#]/)[0];
+    console.warn("Traffix HTTP", options.method || "GET", address, "transport failure");
+    throw Error(`Cannot reach ${address}. Check hotspot, server listener and firewall. No HTTP response received.`);
   } finally {
     clearTimeout(deadline);
   }
@@ -58,11 +64,27 @@ export class TrafficClient {
       return this.world;
     }
     if (capabilities.status !== 404) throw Error("Host discovery failed. Check the server connection.");
+    // Older unified hosts predate capabilities, but publish their actual routes.
+    // Discovery never consumes an invitation or requires operator credentials.
+    const description = await timedFetch(this.server + "/openapi.json");
+    if (description.ok) {
+      let schema;
+      try { schema = await description.json(); }
+      catch { throw Error("Host /openapi.json returned invalid JSON. Check the server/proxy address."); }
+      if (schema.paths?.["/api/v2/phones/claim"]?.post && schema.paths?.["/api/v2/phones/state"]?.get) {
+        this.apiVersion = "2.0";
+        this.world = null;
+        this.publish({ world: null });
+        return null;
+      }
+    } else if (description.status !== 404) {
+      throw Error(`Host discovery /openapi.json returned HTTP ${description.status}. Check host access settings.`);
+    }
     this.apiVersion = "1";
     const r = await timedFetch(this.server + "/api/world");
     if (!r.ok)
       throw Error(
-        "The simulation map is unavailable. Check the laptop server.",
+        `Legacy map /api/world returned HTTP ${r.status}. This host may need the v2 phone integration patch.`,
       );
     const world = await r.json();
     if (!validWorld(world))
@@ -75,8 +97,12 @@ export class TrafficClient {
     if (this.apiVersion !== "2.0") return;
     const host = this.server;
     const response = await timedFetch(`${host}/api/v2/phones/world?session_id=${encodeURIComponent(claim.session_id)}&run_id=${encodeURIComponent(claim.run_id)}`, { headers: { Authorization: "Bearer " + claim.token } });
-    if (!response.ok) throw Error("The driver map could not be loaded. Reconnect or request a fresh invitation.");
-    const map = await response.json();
+    if (!response.ok) throw Error(response.status === 404
+      ? "Connected host lacks /api/v2/phones/world. Ask the operator to install the driver geometry patch and restart."
+      : `Driver map returned HTTP ${response.status}. Rejoin after a reset, or ask the operator to check phone access.`);
+    let map;
+    try { map = await response.json(); }
+    catch { throw Error("Driver map returned invalid JSON. Check the host/proxy configuration."); }
     if (!validWorld(map)) throw Error("The host returned an unsupported driver map.");
     if (this.server !== host || this.state.claim?.session_id !== claim.session_id) return;
     this.world = map;
