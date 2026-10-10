@@ -129,3 +129,16 @@ GET `/api/v2/runs/{response_run_id}/compare/{baseline_run_id}` is authenticated 
 Measured summary fields: `mean_journey_s` (scheduled departure to arrival, including insertion delay), `mean_travel_s`, `mean_insertion_delay_s`, `co2_kg`, and `sampled_peak_queued`. Lifecycle events are observed at 0.25-second simulation steps; queue peaks are sampled from recordings. CO2 is SUMO model output with an unreviewed fleet mapping. These are not field measurements.
 
 Live state includes `run.progress` with scheduled/arrived counts, completion fraction, insertion backlog, future departures, running/draining/ended phase and integrity. A paused or running cohort is unfinished, not a final failed result. `run.action_log` exposes the latest 60 simulation actions. Saved catalogs add `saved_wall_s` for human-readable ordering.
+
+
+### Results summary addition · 10 October 2026
+
+`GET /api/v2/results?summary=true` returns the current snapshot manifest, the
+last 60 host actions, an empty `frames` array, `summary_only: true` and
+`event_window: "last 60 host actions"`. Authentication is unchanged. This avoids
+copying a long live replay merely to inspect cohort status. The existing default
+full export stays compatible. The operator Results overview uses its already
+received authenticated state snapshot; saved comparisons still use the saved-run
+endpoints. Exporting the live overview exports a labelled summary, not full replay.
+Restart the host to load the new optional server query; refreshing the operator
+page is sufficient for its snapshot-based Results overview.

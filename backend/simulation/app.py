@@ -101,7 +101,13 @@ def create_app(engine=None, accounts=None, account_store=None):
     async def lease(body:Lease,request:Request):
         return await submit({'action':'lease','actor':identity(request),**body.model_dump(exclude={'action'}),'lease_action':body.action})
     @app.get('/api/v2/results')
-    async def results(request:Request): identity(request); return engine.export()
+    async def results(request:Request, summary:bool=False):
+        identity(request)
+        if summary:
+            snapshot=engine.snapshot()
+            return {'manifest':snapshot.get('result',{}),'events':snapshot.get('action_log',[]),
+                    'frames':[],'summary_only':True,'event_window':'last 60 host actions'}
+        return await asyncio.to_thread(engine.export)
     @app.get('/api/v2/runs')
     async def run_catalog(request:Request):
         identity(request)

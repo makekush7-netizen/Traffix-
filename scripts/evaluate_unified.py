@@ -7,7 +7,7 @@ from pathlib import Path
 from scripts.run_unified import prepare_environment
 
 
-def run(seed, policy, rate, duration, drain):
+def run(seed, policy, rate, duration, drain, *, pace=20, wall_limit=900):
     from backend.simulation.engine import UnifiedEngine
     engine = UnifiedEngine()
     actor = {'id': 'batch-evaluator', 'role': 'operator'}
@@ -25,9 +25,9 @@ def run(seed, policy, rate, duration, drain):
             'mode': 'experiment', 'demand_per_hour': rate,
             'duration_s': duration, 'drain_s': drain}})
         command({'action': 'controller', 'policy': policy})
-        command({'action': 'rate', 'value': 8})
+        command({'action': 'rate', 'value': pace})
         command({'action': 'resume'})
-        deadline = time.monotonic() + 180
+        deadline = time.monotonic() + wall_limit
         while not engine.snapshot().get('ended'):
             if engine.failure:
                 raise RuntimeError(str(engine.failure))
@@ -49,6 +49,8 @@ def main():
     p.add_argument('--rate', type=float, default=500)
     p.add_argument('--duration', type=float, default=30)
     p.add_argument('--drain', type=float, default=600)
+    p.add_argument('--pace', type=float, default=20)
+    p.add_argument('--wall-limit', type=float, default=900)
     p.add_argument('--output', default='runs/unified-paired-smoke.json')
     a = p.parse_args()
     prepare_environment()
@@ -58,12 +60,12 @@ def main():
     for seed in a.seeds:
         for policy in a.policies:
             try:
-                record = run(seed, policy, a.rate, a.duration, a.drain)
+                record = run(seed, policy, a.rate, a.duration, a.drain, pace=a.pace, wall_limit=a.wall_limit)
             except Exception as exc:
                 record = {'seed': seed, 'policy': policy, 'error': str(exc)}
             records.append(record)
-            output.write_text(json.dumps({'label': 'synthetic short-cohort smoke; not calibrated improvement evidence',
-                                         'runs': records}, indent=2), encoding='utf-8')
+            output.write_text(json.dumps({'label': 'synthetic finite-cohort paired benchmark; not field-calibrated',
+                                         'protocol': {'seeds':a.seeds,'policies':a.policies,'demand_per_hour':a.rate,'duration_s':a.duration,'drain_s':a.drain,'target_pace':a.pace,'wall_limit_s':a.wall_limit}, 'runs': records}, indent=2), encoding='utf-8')
             print(seed, policy, record.get('manifest', {}).get('integrity', record.get('error')), flush=True)
     return 1 if any(r.get('error') for r in records) else 0
 

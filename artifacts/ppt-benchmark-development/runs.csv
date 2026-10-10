@@ -1,0 +1,4 @@
+arrived,co2_kg,collisions,confirmed_extensions,confirmed_phase_changes,demand_per_hour,duration_s,journey_s,mean_waiting_s,p95_journey_s,p95_waiting_s,policy,reason,run_id,sampled_peak_queued,scheduled,seed,teleports,valid
+63,49.2681,0,0,0,1400.0,180.0,327.84587301587305,106.61111111111111,470.639,171.95,fixed,complete,lig.df7331fb8ec7,38,63,42,0,True
+63,48.2422,0,4,0,1400.0,180.0,320.8696825396826,99.38095238095238,429.45300000000003,171.425,actuated,complete,lig.36355429ecba,36,63,42,0,True
+63,45.2237,0,0,82,1400.0,180.0,287.7784126984127,66.04761904761905,445.69100000000003,186.075,pressure,complete,lig.63d3d8fd4075,29,63,42,0,True

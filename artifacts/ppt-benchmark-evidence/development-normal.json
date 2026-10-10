@@ -1,0 +1,10 @@
+{
+  "label": "synthetic short-cohort smoke; not calibrated improvement evidence",
+  "runs": [
+    {
+      "seed": 42,
+      "policy": "fixed",
+      "error": "host experiment wall deadline"
+    }
+  ]
+}

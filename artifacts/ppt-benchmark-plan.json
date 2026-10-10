@@ -1,0 +1,43 @@
+{
+  "development": {
+    "seeds": [
+      42
+    ],
+    "rate_per_hour": 1400,
+    "duration_s": 180,
+    "drain_s": 900,
+    "policies": [
+      "fixed",
+      "actuated",
+      "pressure"
+    ]
+  },
+  "held_out_normal": {
+    "seeds": [
+      51,
+      52
+    ],
+    "rate_per_hour": 1400,
+    "duration_s": 180,
+    "drain_s": 900,
+    "policies": [
+      "fixed",
+      "actuated",
+      "pressure"
+    ]
+  },
+  "held_out_stress": {
+    "seeds": [
+      53
+    ],
+    "rate_per_hour": 2400,
+    "duration_s": 180,
+    "drain_s": 900,
+    "policies": [
+      "fixed",
+      "actuated",
+      "pressure"
+    ]
+  },
+  "rule": "Report all planned cases and attempts. Hold-out seeds are not used to tune controller. Fault/incomplete cohorts cannot support savings."
+}

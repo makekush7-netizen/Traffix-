@@ -139,3 +139,33 @@ To see it: refresh the dashboard, choose Control > Signal policy >
 Capacity-aware pressure heuristic > Apply policy, close the drawer, then click
 Signals. Use Fixed timing to see the baseline appearance. Use separate finite
 matched experiments for performance results.
+
+## PPT benchmark evidence — 10 October 2026
+
+See `docs/ppt-improvement-report.md` for the copy-ready results, limitations and
+reproduction commands; `docs/ppt-algorithm-and-sensor-evidence.md` explains the
+actual controller, prediction gap and primary phone-probe sources.
+
+Frozen pressure control reduced mean journey time by 11.31% and modelled CO2 by
+7.48%, averaging paired reductions over held-out seeds 51 and 52. Each policy
+completed all 128 scheduled vehicles across those seeds, with no collisions or
+teleports. Simple actuated extensions averaged 0.54% journey improvement.
+Stress seed 53 fixed timing completed 133/135, so percentage savings are withheld.
+Development seed 42 is reported separately and includes worse P95 stopped waiting.
+The long-running live Explore session remains prone to overload and collision
+involvements; these finite-cohort results do not validate sustained overload.
+
+Saved batch manifests, trip XML and recording checksums are under
+`artifacts/ppt-benchmark-evidence/`; slide PNG/SVG and run tables are under
+`artifacts/ppt-benchmark-heldout/`. All attempted batch outcomes remain available,
+including the initial wall-clock timeout. No new predictive accuracy is claimed.
+
+Results now renders the existing snapshot instead of requesting the full live
+recording. The authenticated API also supports `GET /api/v2/results?summary=true`;
+full export remains available. The new backend endpoint requires host restart;
+the client snapshot improvement takes effect on browser refresh.
+
+Fresh verification: 30 Python tests passed (benchmark report, simulation API,
+detection, forecast and probes), 22 Node tests passed, operator JS syntax and
+`git diff --check` passed. One existing FastAPI/Starlette deprecation warning.
+This is focused verification, not a claim that the entire repository suite passes.
