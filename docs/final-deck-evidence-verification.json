@@ -1,0 +1,50 @@
+{
+  "source_commit": "7733a08b1defe6bf6c90c2e797829fc2fedb2f1e",
+  "verification": "Trip XML checksum and arrival count independently checked. Lifecycle mean journey is 0.25 seconds later than trip XML duration plus insertion delay, consistent with worker step timestamps. CO2, faults and pair fingerprints inspected in saved manifests/report, not rerun. Full recording files are not locally available.",
+  "journey_mean_paired_reduction_pct": 11.310319901948919,
+  "co2_mean_paired_reduction_pct": 7.482536341290169,
+  "trip_xml_checks": [
+    {
+      "seed": 51,
+      "policy": "fixed",
+      "xml_trips": 49,
+      "xml_mean_journey_s": 291.58408163265307,
+      "xml_sha256": "5E72A367BF4A1F285C9DCC35301187AEF71EACA36133F8038EBC40821D0BDDA8"
+    },
+    {
+      "seed": 51,
+      "policy": "actuated",
+      "xml_trips": 49,
+      "xml_mean_journey_s": 288.4259183673469,
+      "xml_sha256": "484C127687AB82CD5F720A7FE90E2B7F508D1861B514D40D3613DF78E43854CF"
+    },
+    {
+      "seed": 51,
+      "policy": "pressure",
+      "xml_trips": 49,
+      "xml_mean_journey_s": 259.4208163265306,
+      "xml_sha256": "A01BD153A3E0C286AF49C8E8D0DDBAFA6637E4085F1F73D1932C57A5E8040F97"
+    },
+    {
+      "seed": 52,
+      "policy": "fixed",
+      "xml_trips": 79,
+      "xml_mean_journey_s": 329.4220253164557,
+      "xml_sha256": "F5264FE7954E612194A5F38B41133C2AF1BC5193981DAB05A8A88112281CADA0"
+    },
+    {
+      "seed": 52,
+      "policy": "actuated",
+      "xml_trips": 79,
+      "xml_mean_journey_s": 329.4505063291139,
+      "xml_sha256": "9A8F022DF58FB6E501D054D2CD0DC3F75072D4502CA419D74F8B07DD439BF223"
+    },
+    {
+      "seed": 52,
+      "policy": "pressure",
+      "xml_trips": 79,
+      "xml_mean_journey_s": 291.18151898734175,
+      "xml_sha256": "221FAE32FB38396032FEBC8ABDAB11917C6F13C25C53149CD70B087CFB16FE9A"
+    }
+  ]
+}
